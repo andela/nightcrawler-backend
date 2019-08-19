@@ -1,4 +1,4 @@
-[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-green.svg)](https://houndci.com)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-green.svg)](https://houndci.com) [![Build Status](https://travis-ci.com/andela/nightcrawler-backend.svg?branch=develop)](https://travis-ci.com/andela/nightcrawler-backend) [![Coverage Status](https://coveralls.io/repos/github/andela/nightcrawler-backend/badge.svg?branch=develop)](https://coveralls.io/github/andela/nightcrawler-backend?branch=develop)
 
 # Barefoot Nomad - Making company travel and accomodation easy and convinient.
 
@@ -7,7 +7,6 @@
 Make company global travel and accommodation easy and convenient for the strong workforce of savvy members of staff, by leveraging the modern web.
 
 ---
-
 # Setup Dotenv
 
 #### A .env file is used to store configuration files especialy about development and testing.
