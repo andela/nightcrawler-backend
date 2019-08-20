@@ -1,0 +1,11 @@
+{
+  "name": "nightcrawler-backend",
+  "scripts": {},
+  "env": {},
+  "formation": {},
+  "addons": [
+    "heroku-postgresql"
+  ],
+  "buildpacks": [],
+  "stack": "heroku-18"
+}
