@@ -1,18 +1,40 @@
-import { Pool } from 'pg';
-import constants from '../config/constants';
+import dotenv from 'dotenv';
+import constant from '../config/constants';
+
+dotenv.config();
+
 
 const {
-  DB_USER, DB_HOST, DB_DATABASE, DB_PASSWORD,
-  DB_PORT, DB_MAX, DB_IDLE_TIMEOUT_MILLISECONDS
-} = constants;
-const pool = new Pool({
-  user: DB_USER,
-  host: DB_HOST,
-  database: DB_DATABASE,
-  password: DB_PASSWORD,
-  port: DB_PORT,
-  max: DB_MAX,
-  idleTimeoutMillis: DB_IDLE_TIMEOUT_MILLISECONDS
-});
+  DB_NAME,
+  DB_USER,
+  DB_PASSWORD,
+  DB_HOST,
+} = constant;
 
-export default config;
+
+module.exports = {
+
+  development: {
+
+    database: DB_NAME,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    host: DB_HOST,
+    dialect: 'postgres',
+  },
+  test: {
+    database: DB_NAME,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    host: DB_HOST,
+    dialect: 'postgres',
+
+  },
+  production: {
+    database: DB_NAME,
+    username: DB_USER,
+    password: DB_PASSWORD,
+    host: DB_HOST,
+    dialect: 'postgres',
+  }
+};
