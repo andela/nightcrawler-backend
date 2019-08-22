@@ -3,11 +3,11 @@ import bodyParser from 'body-parser';
 import logger from 'morgan';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
-import swaggerDocument from '../public/api-docs/swagger.json';
-import constants from './config/constants';
+import swaggerDocument from './docs/swagger/swagger';
+import { PORT } from './config/constants';
 
 const app = express();
-const port = constants.PORT || 3000;
+const port = PORT || 3000;
 
 app.use(bodyParser.json());
 
