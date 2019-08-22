@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "babel-node ./src/index.js",
     "start:dev": "nodemon --exec babel-node ./src/index.js",
     "sequelize": "sequelize db:migrate all",
     "lint": "./node_modules/.bin/eslint src",

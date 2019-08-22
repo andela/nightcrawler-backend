@@ -1,11 +1,25 @@
 {
   "name": "nightcrawler-backend",
   "scripts": {},
-  "env": {},
+  "env": {
+    "PROD_DATABASE_URL": {
+      "required": true
+    },
+    "API_URL": {
+      "required": true
+    },
+    "ADMIN_EMAIL": {
+      "required": true
+    }
+  },
   "formation": {},
   "addons": [
     "heroku-postgresql"
   ],
-  "buildpacks": [],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
   "stack": "heroku-18"
 }
