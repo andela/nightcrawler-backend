@@ -3,7 +3,6 @@ import constant from '../config/constants';
 
 dotenv.config();
 
-
 const {
   DB_NAME,
   DB_USER,
@@ -13,9 +12,7 @@ const {
 
 
 module.exports = {
-
   development: {
-
     database: DB_NAME,
     username: DB_USER,
     password: DB_PASSWORD,
@@ -28,7 +25,6 @@ module.exports = {
     password: DB_PASSWORD,
     host: DB_HOST,
     dialect: 'postgres',
-
   },
   production: {
     database: DB_NAME,
