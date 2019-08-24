@@ -16,18 +16,15 @@ class ValidateAuth {
   static validateSigninFormData(req, res, next) {
     const password = Joi.string().required();
     const email = Joi.string().email().required();
-
     const createSignUpSchema = Joi.object().keys({
       password,
-      email,
+      email
     });
-
     const errors = joiValidator(req.body, createSignUpSchema);
     if (!errors) {
       return next();
     }
-    return respondWithWarning(res, 400, 'Bad requst', errors);
+    return respondWithWarning(res, 400, errors);
   }
 }
-
 export default ValidateAuth;

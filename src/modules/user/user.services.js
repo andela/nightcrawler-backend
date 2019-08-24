@@ -2,7 +2,6 @@ import Model from '../../models';
 import { respondWithSuccess, respondWithWarning } from '../../helpers/responseHandler';
 
 const { Permission, RolePermission, User } = Model;
-
 /**
  * @param {Object} data
  * @param {Object} res

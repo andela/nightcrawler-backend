@@ -10,7 +10,6 @@ const {
   SECRET_KEY,
   API_URL,
   SALT_ROUNDS
-
 } = process.env;
 
 const EXPIRATION_DURATION = 172800;
@@ -26,3 +25,4 @@ export {
   SALT_ROUNDS,
   EXPIRATION_DURATION
 };
+

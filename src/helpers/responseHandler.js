@@ -1,9 +1,4 @@
 /**
- * Handles all http responses
- * @exports responseHandler
- */
-
-/**
   * @param  {Object} res
   * @param  {Number} statusCode
   * @param  {String} message

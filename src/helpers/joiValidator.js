@@ -13,7 +13,7 @@ const joiValidator = (data, schema) => {
     stripUnknown: true, // remove unknown keys from the validated data
     abortEarly: false // validate all inputs befor flagging error
   };
-  Joi.validate(data, schema, validationOptions, (err) => {
+  Joi.validate(data, schema, validationOptions, err => {
     if (err) {
       message = err.details.map(i => i.message.replace(/['"]/g, ''));
     }

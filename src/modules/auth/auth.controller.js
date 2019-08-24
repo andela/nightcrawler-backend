@@ -1,8 +1,8 @@
 import { generateToken } from '../../helpers/JWT';
 import { respondWithWarning, respondWithSuccess } from '../../helpers/responseHandler';
 import * as userServices from '../user/user.services';
-
 import { comparePasswords } from '../../helpers/hash';
+
 
 /**
  * class handles user authentication
@@ -16,7 +16,6 @@ class AuthController {
 */
   static async signin(req, res) {
     const { email, password } = req.body;
-
     const findUser = await userServices.findSingleUser({ email });
     if (!findUser) {
       return respondWithWarning(res, 401, 'email or password incorrect');
@@ -33,3 +32,4 @@ class AuthController {
 }
 
 export default AuthController;
+

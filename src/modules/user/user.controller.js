@@ -10,6 +10,5 @@ export default {
   createUser: (req, res) => {
     const data = req.body;
     return userServices.createUser(data, res);
-  },
-
+  }
 };

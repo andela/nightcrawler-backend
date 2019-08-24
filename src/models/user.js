@@ -34,6 +34,8 @@ export default (sequelize, DataTypes) => {
     },
     roleId: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+
     },
   });
 
@@ -67,6 +69,8 @@ export default (sequelize, DataTypes) => {
       user.password = password;
     });
   });
-
-  return User;
+ User.associate = models => {
+    User.hasMany(models.TripRequest, { foreignKey: 'userId', onDelete: 'CASCADE' });
+  };
+ return User;
 };

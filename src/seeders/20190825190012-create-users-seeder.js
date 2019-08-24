@@ -12,7 +12,7 @@ export default {
       isBetaMember: false
     }], {});
     */
-  up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [
+  up: async queryInterface => queryInterface.bulkInsert('Users', [
     {
       firstName: 'Jeffery',
       lastName: 'Way',
