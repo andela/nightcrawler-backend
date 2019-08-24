@@ -16,6 +16,8 @@ import { signInPath } from './paths/auth';
 import {
   userRolePath, createUser, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath
 } from './paths/users';
+import { requestTrip } from './paths/trips';
+import { createTrip } from './definitions/trip'
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 
@@ -58,6 +60,10 @@ const swaggerDocument = {
     {
       name: 'roles',
       description: 'Everything about roles'
+    },
+    {
+      name: 'trips',
+      description: 'Trip related actions'
     }
   ],
   paths: {
@@ -69,7 +75,8 @@ const swaggerDocument = {
     '/roles/{roleId}/permissions': rolePermissionsPath,
     '/users/forgot-password': forgotPasswordPath,
     '/users/reset-forgot-password': resetPasswordPath,
-    '/users/reset-user-password': resetUserPasswordPath
+    '/users/reset-user-password': resetUserPasswordPath,
+    '/trip/request': requestTrip,
   },
   definitions: {
     SigninCreate, // signin request
@@ -84,6 +91,7 @@ const swaggerDocument = {
     updateRolePermissionsReq,
     updateRolePermissionsRes,
     rolesRes,
+    createTrip,
     resetPassword, // reset password request
     resetPasswordResponse,
     badRequest, // 400

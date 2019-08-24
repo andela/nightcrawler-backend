@@ -10,12 +10,10 @@ import { respondWithSuccess, respondWithWarning } from './helpers/responseHandle
 
 const app = express();
 const port = PORT || 3000;
-
 app.use(bodyParser.json());
-
 app.use(
   bodyParser.urlencoded({
-    extended: true,
+    extended: true
   })
 );
 app.use(cors());
@@ -25,7 +23,6 @@ app.use(logger('dev'));
 app.get('/', (req, res) => respondWithSuccess(res, 200, 'Welcome to barefoot Normad'));
 
 app.use(apiRouter);
-
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // handles non-existing routes
