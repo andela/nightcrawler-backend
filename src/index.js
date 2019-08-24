@@ -4,7 +4,12 @@ import logger from 'morgan';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './docs/swagger/swagger';
+<<<<<<< HEAD
 import { PORT } from './config/constants';
+=======
+import constants from './config/constants';
+import router from './modules/auth/routes';
+>>>>>>> feat(user-login-endpoint):user should be able to login with a valid email and password
 
 const app = express();
 const port = PORT || 3000;
@@ -20,8 +25,9 @@ app.use(cors());
 app.use(logger('dev'));
 
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-
-
+app.use(router);
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+export default app;

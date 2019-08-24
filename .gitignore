@@ -1,4 +1,13 @@
 node_modules/
 .env
 dist
+<<<<<<< HEAD
 package-lock.json
+=======
+package-lock.json
+.nyc_output
+coverage
+dist
+
+
+>>>>>>> feat(user-login-endpoint):user should be able to login with a valid email and password

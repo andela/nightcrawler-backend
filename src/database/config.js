@@ -1,6 +1,6 @@
-import dotenv from 'dotenv';
 import constant from '../config/constants';
 
+<<<<<<< HEAD
 dotenv.config();
 
 const {
@@ -34,3 +34,7 @@ module.exports = {
     dialect: 'postgres',
   }
 };
+=======
+const configs = constant.dataBase;
+export default configs;
+>>>>>>> feat(user-login-endpoint):user should be able to login with a valid email and password
