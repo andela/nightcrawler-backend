@@ -1,33 +1,34 @@
-/* eslint-disable require-jsdoc */
-import Joi from 'joi';
-import validation from '../../helpers/validation';
-import Auth from '../../helpers/Auths';
-import response from '../../helpers/response';
-import users from '../../services/userServices';
+import JWT from '../../helpers/JWT';
+import responseHandler from '../../helpers/responseHandler';
+import UserServices from '../../services/users';
+import { comparePasswords } from '../../helpers/Hash';
 
-class authController {
+/**
+ * class handles user authentication
+ */
+class AuthController {
+/**
+* Login a user
+* @param {object} req
+* @param {object} res
+* @returns {object} json response
+*/
   static async signin(req, res) {
-    const schema = validation.validateSignin();
-    const clean = Joi.validate(req.body, schema);
-    if (clean.error) {
-      return response.invalidCredential(res);
-    }
-    const { email, password } = clean.value;
+    const { email, password } = req.body;
 
-    const findUser = await users.getByKey({ email });
+    const findUser = await UserServices.findOne({ email });
     if (!findUser) {
-      return response.invalidCredential(res);
+      return responseHandler.invalidCredential(res);
     }
-    const { password: hashPassword, id } = findUser.dataValues;
-    const pass = await validation.passwordCheck(password, hashPassword);
-
-    if (!pass) {
-      return response.invalidCredential(res);
+    const comparePassword = await comparePasswords(password, findUser.dataValues.password);
+    if (!comparePassword) {
+      return responseHandler.invalidCredential(res);
     }
-    const payload = { id };
-    findUser.dataValues.token = await Auth.generateToken(payload);
-    return response.success(res, findUser.dataValues);
+    const { id, roleId } = findUser.dataValues;
+    const payload = { id, roleId };
+    findUser.dataValues.token = await JWT.generateToken(payload);
+    return responseHandler.success(res, findUser.dataValues);
   }
 }
 
-export default authController;
+export default AuthController;

@@ -24,9 +24,6 @@ export default (sequelize, DataTypes) => {
     emailVerifiedAt: {
       type: DataTypes.DATE,
     },
-    token: {
-      type: DataTypes.STRING,
-    },
     password: {
       type: DataTypes.STRING,
       allowNull: false,

@@ -22,33 +22,48 @@ const Signin = {
     data: {
       type: 'object',
       properties: {
-        userId: {
+        id: {
           type: 'integer',
-          format: 'int64'
+          format: 'int32',
+          example: 1
+        },
+        username: {
+          type: 'string',
+          example: 'johndoe'
         },
         firstName: {
           type: 'string',
-          example: 'Korede'
+          example: 'John'
         },
         lastName: {
           type: 'string',
-          example: 'Shonubi'
+          example: 'Doe'
         },
         email: {
           type: 'string',
-          format: 'email'
+          format: 'email',
+          example: 'johndoe@mail.com'
         },
-        password: {
+        emailVerifiedAt: {
           type: 'string',
-          format: 'password'
+          format: 'date-time'
         },
-        isAdmin: {
-          type: 'boolean'
+        profileImage: {
+          type: 'string'
+        },
+        roleId: {
+          type: 'integer',
+          format: 'int32',
+          example: 2
         },
         token: {
           type: 'string'
         },
-        registeredOn: {
+        createdAt: {
+          type: 'string',
+          format: 'date-time'
+        },
+        updatedAt: {
           type: 'string',
           format: 'date-time'
         }

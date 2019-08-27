@@ -1,26 +1,28 @@
-/* eslint-disable require-jsdoc */
 import dotenv from 'dotenv';
-import dbConfig from './dbConfig';
 
 dotenv.config();
 const {
+  NODE_ENV,
+  PORT,
   DEV_DATABASE_URL,
   TEST_DATABASE_URL,
   PROD_DATABASE_URL,
-  PORT,
- SECRET_KEY,
+  SECRET_KEY,
   API_URL,
-  NODE_ENV,
   SALT_ROUNDS
 
 } = process.env;
 
-export default {
-  port: PORT,
-  dataBase: dbConfig(DEV_DATABASE_URL, TEST_DATABASE_URL, PROD_DATABASE_URL),
-  SECRET_KEY,
-  API_URL,
+const EXPIRATION_DURATION = 172800;
+
+export {
   NODE_ENV,
   PORT,
-  SALT_ROUNDS
+  DEV_DATABASE_URL,
+  TEST_DATABASE_URL,
+  PROD_DATABASE_URL,
+  SECRET_KEY,
+  API_URL,
+  SALT_ROUNDS,
+  EXPIRATION_DURATION
 };

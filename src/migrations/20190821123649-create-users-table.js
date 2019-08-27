@@ -31,9 +31,6 @@ export default {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    token: {
-      type: Sequelize.STRING,
-    },
     profileImage: {
       type: Sequelize.STRING,
     },
@@ -52,6 +49,5 @@ export default {
       defaultValue: new Date()
     }
   }),
-  // eslint-disable-next-line no-unused-vars
   down: queryInterface => queryInterface.dropTable('Users')
 };

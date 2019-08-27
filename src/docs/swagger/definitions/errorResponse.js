@@ -3,18 +3,14 @@ const badRequest = {
   required: ['status', 'message'],
   properties: {
     status: {
-      type: 'integer',
-      format: 'int32',
-      example: '400'
+      type: 'string',
+      example: 'error'
     },
     message: {
-      type: 'string',
-      example: 'Bad Bequest'
-    },
-    errors: {
       type: 'array',
       items: {
-        type: 'object'
+        type: 'string',
+        example: 'Bad Bequest'
       }
     }
   }
@@ -24,19 +20,12 @@ const notAuthorized = {
   required: ['status', 'message'],
   properties: {
     status: {
-      type: 'integer',
-      format: 'int32',
-      example: '401'
+      type: 'string',
+      example: 'error'
     },
     message: {
       type: 'string',
       example: 'Not Authorized'
-    },
-    errors: {
-      type: 'array',
-      items: {
-        type: 'object'
-      }
     }
   }
 };
@@ -45,20 +34,13 @@ const accessForbidden = {
   required: ['status', 'message'],
   properties: {
     status: {
-      type: 'integer',
-      format: 'int32',
-      example: '403'
+      type: 'string',
+      example: 'error'
     },
     message: {
       type: 'string',
       example: 'Access Forbidden'
     },
-    errors: {
-      type: 'array',
-      items: {
-        type: 'object'
-      }
-    }
   }
 };
 const conflict = {
@@ -66,20 +48,13 @@ const conflict = {
   required: ['status', 'message'],
   properties: {
     status: {
-      type: 'integer',
-      format: 'int32',
-      example: '409'
+      type: 'string',
+      example: 'error'
     },
     message: {
       type: 'string',
       example: 'Conflict'
     },
-    errors: {
-      type: 'array',
-      items: {
-        type: 'object'
-      }
-    }
   }
 };
 const serverError = {
@@ -87,9 +62,8 @@ const serverError = {
   required: ['status', 'message'],
   properties: {
     status: {
-      type: 'integer',
-      format: 'int32',
-      example: '500'
+      type: 'string',
+      example: 'error'
     },
     message: {
       type: 'string',
