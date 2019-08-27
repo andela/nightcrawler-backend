@@ -1,34 +1,33 @@
-/* eslint-disable require-jsdoc */
-import Joi from 'joi';
-import validation from '../../helpers/validation';
-import Auth from '../../helpers/auth';
-import response from '../../helpers/response';
-import model from '../user';
+import Auth from '../../helpers/Auth';
+import responseHandler from '../../helpers/responseHandler';
+import users from '../../services/userServices';
+import { comparePasswords } from '../../helpers/password';
 
+/**
+ * class handles user authentication
+ */
 class authController {
+/**
+* Login a user
+* @param {object} req
+* @param {object} res
+* @returns {object} json response
+*/
   static async signin(req, res) {
-    const schema = validation.validateSignin();
+    const { email, password } = req.body;
 
-    const clean = Joi.validate(req.body, schema);
-    if (clean.error) {
-      return response.invalidCredential(res);
-    }
-    const { email, password } = clean.value;
-
-    const findUser = await model.User.getByKey({ email });
+    const findUser = await users.getByKey({ email });
     if (!findUser) {
-      return response.invalidCredential(res);
+      return responseHandler.invalidCredential(res);
     }
-    const { password: hashPassword, id } = findUser.dataValues;
-    const pass = await validation.passwordCheck(password, hashPassword);
-
-    if (!pass) {
-      return response.invalidCredential(res);
+    const comparePassword = comparePasswords(password, findUser.dataValues.password);
+    if (!comparePassword) {
+      return responseHandler.invalidCredential(res);
     }
-    const payload = { id };
-
-    findUser.dataValues.token = await Auth.generateToken(payload, res);
-    return response.success(res, findUser.dataValues);
+    const { id, roleId } = findUser.dataValues;
+    const payload = { id, roleId };
+    findUser.dataValues.token = await Auth.generateToken(payload);
+    return responseHandler.success(res, findUser.dataValues);
   }
 }
 
