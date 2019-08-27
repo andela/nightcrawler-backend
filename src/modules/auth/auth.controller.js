@@ -1,21 +1,20 @@
 /* eslint-disable require-jsdoc */
 import Joi from 'joi';
 import validation from '../../helpers/validation';
-import Auth from '../../helpers/auth';
+import Auth from '../../helpers/Auths';
 import response from '../../helpers/response';
-import model from '../user';
+import users from '../../services/userServices';
 
 class authController {
   static async signin(req, res) {
     const schema = validation.validateSignin();
-
     const clean = Joi.validate(req.body, schema);
     if (clean.error) {
       return response.invalidCredential(res);
     }
     const { email, password } = clean.value;
 
-    const findUser = await model.User.getByKey({ email });
+    const findUser = await users.getByKey({ email });
     if (!findUser) {
       return response.invalidCredential(res);
     }
@@ -26,8 +25,7 @@ class authController {
       return response.invalidCredential(res);
     }
     const payload = { id };
-
-    findUser.dataValues.token = await Auth.generateToken(payload, res);
+    findUser.dataValues.token = await Auth.generateToken(payload);
     return response.success(res, findUser.dataValues);
   }
 }
