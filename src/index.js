@@ -4,11 +4,11 @@ import logger from 'morgan';
 import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './docs/swagger/swagger';
-import constants from './config/constants';
+import { PORT } from './config/constants';
 import router from './modules/auth/routes';
 
 const app = express();
-const port = constants.PORT || 3000;
+const port = PORT || 3000;
 
 app.use(bodyParser.json());
 
@@ -23,7 +23,7 @@ const baseURL = '/api/v1/';
 
 app.use(baseURL, router);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
-app.use(router);
+
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });

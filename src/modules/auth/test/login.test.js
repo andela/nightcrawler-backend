@@ -36,6 +36,60 @@ describe('USER CONTROLLER', () => {
         });
     });
 
+    it('it should not login a user with invalid email', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send({
+          email: 'adminnomad.com', // invalid login email
+          password: '123456',
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.be.an('array');
+          expect(res.body.message[0]).to.equal('email must be a valid email');
+          done();
+        });
+    });
+
+    it('it should not login a user with empty password', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send({
+          email: 'admin@nomad.com',
+          password: '', // empty login password
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.be.an('array');
+          expect(res.body.message[0]).to.equal('password is not allowed to be empty');
+          done();
+        });
+    });
+
+    it('it should not login a user with empty email', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send({
+          email: '', // empty login email
+          password: '123456',
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.be.an('array');
+          expect(res.body.message[0]).to.equal('email is not allowed to be empty');
+          done();
+        });
+    });
+
     it('it should not login a non-existent user', (done) => {
       chai.request(app)
         .post(signinUrl)
@@ -47,9 +101,8 @@ describe('USER CONTROLLER', () => {
           expect(res).to.have.status(401);
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status');
-          expect(res.body).to.have.property('errors');
-          expect(res.body.errors).to.have.property('credentials');
-          expect(res.body.errors.credentials).to.equal('email or password incorrect');
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.equal('email or password incorrect');
           done();
         });
     });
@@ -65,9 +118,8 @@ describe('USER CONTROLLER', () => {
           expect(res).to.have.status(401);
           expect(res.body).to.be.an('object');
           expect(res.body).to.have.property('status');
-          expect(res.body).to.have.property('errors');
-          expect(res.body.errors).to.have.property('credentials');
-          expect(res.body.errors.credentials).to.equal('email or password incorrect');
+          expect(res.body).to.have.property('message');
+          expect(res.body.message).to.equal('email or password incorrect');
           done();
         });
     });

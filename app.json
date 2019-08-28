@@ -10,6 +10,18 @@
     },
     "ADMIN_EMAIL": {
       "required": true
+    },
+    "NODE_ENV": {
+      "required": true
+    },
+    "SALT_ROUNDS": {
+      "required": true
+    },
+    "SECRET_KEY": {
+      "required": true
+    },
+    "NODE_MODULES_CACHE": {
+      "required": true
     }
   },
   "formation": {},

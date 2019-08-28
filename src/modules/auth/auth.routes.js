@@ -1,7 +1,8 @@
 import express from 'express';
-import authController from './auth.controller';
+import AuthController from './auth.controller';
+import ValidateAuth from '../../middlewares/ValidateAuth';
 
 const router = express.Router();
-router.post('/signin', authController.signin);
+router.post('/signin', ValidateAuth.validateSigninFormData, AuthController.signin);
 
 export default router;

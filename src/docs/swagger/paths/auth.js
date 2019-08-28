@@ -30,10 +30,10 @@ const signInPath = {
           $ref: '#/definitions/badRequest'
         }
       },
-      403: {
+      401: {
         description: 'Incorrect login details',
         schema: {
-          $ref: '#/definitions/accessForbidden'
+          $ref: '#/definitions/notAuthorized'
         }
       },
       500: {

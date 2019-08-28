@@ -17,6 +17,7 @@
     "no-param-reassign": 0,
     "comma-dangle": 0,
     "import/named": 0,
+    "arrow-parens": 0,
     "import/no-unresolved": [
       2,
       {
