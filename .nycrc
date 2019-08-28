@@ -1,0 +1,17 @@
+{
+  "require": [
+    "@babel/register",
+    "regenerator-runtime/runtime"
+    ],
+  "reporter": [
+      "html",
+      "lcov",
+      "text"
+    ],
+  "exclude": [
+    "src/models/index.js",
+    "src/database/config.js",
+    "src/modules/**/tests/*.test.js",
+    "src/doc/*"
+  ]
+}
