@@ -27,15 +27,26 @@ const responseHandler = {
   /**
   * @param  {object} res
   * @param  {object} data
+  * @param  {Number} code
   * @returns {Object} null
   */
-  success: (res, data) => {
-    if (typeof data.password !== 'undefined') {
-      delete data.password;
-    }
-    res.status(200).json({
+  success: (res, data, code = 200) => {
+    res.status(code).json({
       status: 'success',
       data,
+    });
+  },
+
+  /**
+  * @param  {object} res
+  * @param  {object} data
+  * @param  {Number} code
+  * @returns {Object} null
+  */
+  error: (res, data, code = 500) => {
+    res.status(code).json({
+      status: 'error',
+      error: data,
     });
   }
 

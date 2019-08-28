@@ -26,7 +26,7 @@ describe('USER CONTROLLER', () => {
           expect(res.body.data).to.have.property('firstName');
           expect(res.body.data).to.have.property('lastName');
           expect(res.body.data).to.have.property('email');
-          expect(res.body.data).to.have.property('emailVerifiedAt');
+          expect(res.body.data).to.have.property('isVerified');
           expect(res.body.data).to.have.property('token');
           expect(res.body.data).to.have.property('profileImage');
           expect(res.body.data).to.have.property('roleId');

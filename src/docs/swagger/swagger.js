@@ -1,11 +1,14 @@
 // eslint-disable-next-line import/named
 import { API_URL } from '../../config/constants';
+import { createSuccess } from './definitions/successResponse';
 import {
   badRequest, notAuthorized, accessForbidden, conflict,
   serverError
 } from './definitions/errorResponse';
 import { SigninCreate, Signin } from './definitions/auth';
+import userCreate from './definitions/user';
 import signInPath from './paths/auth';
+import createUser from './paths/user';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -34,14 +37,21 @@ const swaggerDocument = {
     {
       name: 'auth',
       description: 'Everything about authentication'
+    },
+    {
+      name: 'user',
+      description: 'User related actions'
     }
   ],
   paths: {
     '/auth/signin': signInPath,
+    '/user': createUser,
   },
   definitions: {
     SigninCreate, // signin request
     Signin, // signin response
+    userCreate, // create user
+    createSuccess, // 201
     badRequest, // 400
     notAuthorized, // 401
     accessForbidden, // 403
