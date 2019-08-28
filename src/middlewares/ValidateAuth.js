@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import joiValidator from '../helpers/joiValidator';
-import responseHandler from '../helpers/responseHandler';
+import { respondWithWarning } from '../helpers/responseHandler';
 
 /**
  *   Class to validate user login and signup forms submission
@@ -26,7 +26,7 @@ class ValidateAuth {
     if (!errors) {
       return next();
     }
-    return responseHandler.validationError(res, errors);
+    return respondWithWarning(res, 400, 'Bad requst', errors);
   }
 }
 

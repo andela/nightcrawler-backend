@@ -1,4 +1,4 @@
-import { passwordHash } from '../helpers/Hash';
+import { passwordHash } from '../helpers/hash';
 
 /* eslint-disable no-unused-vars */
 export default {
@@ -27,7 +27,7 @@ export default {
       username: 'johndoe',
       email: 'johndoe@nomad.com',
       password: await passwordHash('123456'),
-      roleId: 2
+      roleId: 6
     },
   ], {}),
 

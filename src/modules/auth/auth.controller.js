@@ -1,7 +1,8 @@
-import JWT from '../../helpers/JWT';
-import responseHandler from '../../helpers/responseHandler';
-import UserServices from '../../services/users';
-import { comparePasswords } from '../../helpers/Hash';
+import { generateToken } from '../../helpers/JWT';
+import { respondWithWarning, respondWithSuccess } from '../../helpers/responseHandler';
+import * as userServices from '../user/user.services';
+
+import { comparePasswords } from '../../helpers/hash';
 
 /**
  * class handles user authentication
@@ -16,18 +17,18 @@ class AuthController {
   static async signin(req, res) {
     const { email, password } = req.body;
 
-    const findUser = await UserServices.findOne({ email });
+    const findUser = await userServices.findSingleUser({ email });
     if (!findUser) {
-      return responseHandler.invalidCredential(res);
+      return respondWithWarning(res, 401, 'email or password incorrect');
     }
     const comparePassword = await comparePasswords(password, findUser.dataValues.password);
     if (!comparePassword) {
-      return responseHandler.invalidCredential(res);
+      return respondWithWarning(res, 401, 'email or password incorrect');
     }
     const { id, roleId } = findUser.dataValues;
     const payload = { id, roleId };
-    findUser.dataValues.token = await JWT.generateToken(payload);
-    return responseHandler.success(res, findUser.dataValues);
+    findUser.dataValues.token = await generateToken(payload);
+    return respondWithSuccess(res, 200, 'Login successful', findUser.dataValues);
   }
 }
 
