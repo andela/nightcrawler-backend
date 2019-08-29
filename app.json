@@ -1,58 +1,74 @@
 {
-  "name": "nightcrawler-backend",
-  "scripts": {},
-  "env": {
-    "PROD_DATABASE_URL": {
-      "required": true
-    },
-    "API_URL": {
-      "required": true
-    },
-    "ADMIN_EMAIL": {
-      "required": true
-    },
-    "NODE_ENV": {
-      "required": true
-    },
-    "SALT_ROUNDS": {
-      "required": true
-    },
-    "SECRET_KEY": {
-      "required": true
-    },
-    "SENDGRID_API_KEY": {
-      "required": true
-    },
-    "VERIFY_URL": {
-      "required": true
-    },
-    "NODE_MODULES_CACHE": {
-      "required": true
-    },
-    "SENDER_EMAIL": {
-      "required": true
-    },
-    "URL": {
-      "required": true
-    },
-    "CLOUDINARY_CLOUD_NAME": {
-      "required": true
-    },
-    "CLOUDINARY_API_KEY": {
-      "required": true
-    },
-    "CLOUDINARY_API_SECRET": {
-      "required": true
-    }
-  },
-  "formation": {},
-  "addons": [
-    "heroku-postgresql"
-  ],
-  "buildpacks": [
-    {
-      "url": "heroku/nodejs"
-    }
-  ],
-  "stack": "heroku-18"
+	"name": "nightcrawler-backend",
+	"scripts": {},
+	"env": {
+		"PROD_DATABASE_URL": {
+			"required": true
+		},
+		"API_URL": {
+			"required": true
+		},
+		"ADMIN_EMAIL": {
+			"required": true
+		},
+		"NODE_ENV": {
+			"required": true
+		},
+		"SALT_ROUNDS": {
+			"required": true
+		},
+		"SECRET_KEY": {
+			"required": true
+		},
+		"SENDGRID_API_KEY": {
+			"required": true
+		},
+		"VERIFY_URL": {
+			"required": true
+		},
+		"NODE_MODULES_CACHE": {
+			"required": true
+		},
+		"SENDER_EMAIL": {
+			"required": true
+		},
+		"URL": {
+			"required": true
+		},
+		"CLOUDINARY_CLOUD_NAME": {
+			"required": true
+		},
+		"CLOUDINARY_API_KEY": {
+			"required": true
+		},
+		"CLOUDINARY_API_SECRET": {
+			"required": true
+		},
+		"GOOGLE_CLIENT_SECRET": {
+			"required": true
+		},
+		"GOOGLE_CALLBACK": {
+			"required": true
+		},
+		"FACEBOOK_APP_SECRET": {
+			"required": true
+		},
+		"FACEBOOK_APP_ID": {
+			"required": true
+		},
+		"FACEBOOK_CALLBACK": {
+			"required": true
+		},
+		"CLIENT_URL": {
+			"required": true
+		}
+	},
+	"formation": {},
+	"addons": ["heroku-postgresql"],
+	"buildpacks": [
+		{
+			"url": "heroku/nodejs"
+		}
+	],
+	"stack": "heroku-18"
 }

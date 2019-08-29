@@ -16,10 +16,30 @@ const {
   VERIFY_URL,
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET
+  CLOUDINARY_API_SECRET,
+  GOOGLE_CLIENT_ID,
+  GOOGLE_CLIENT_SECRET,
+  GOOGLE_CALLBACK,
+  FACEBOOK_APP_SECRET,
+  FACEBOOK_APP_ID,
+  FACEBOOK_CALLBACK,
+  CLIENT_URL
+
 } = process.env;
 
 const EXPIRATION_DURATION = 172800;
+
+const googleConfig = {
+  callbackURL: GOOGLE_CALLBACK,
+  clientID: GOOGLE_CLIENT_ID,
+  clientSecret: GOOGLE_CLIENT_SECRET
+};
+const fbConfig = {
+  callbackURL: FACEBOOK_CALLBACK,
+  clientID: FACEBOOK_APP_ID,
+  clientSecret: FACEBOOK_APP_SECRET,
+  profileFields: ['id', 'displayName', 'photos', 'email']
+};
 
 export {
   NODE_ENV,
@@ -37,5 +57,8 @@ export {
   VERIFY_URL,
   CLOUDINARY_CLOUD_NAME,
   CLOUDINARY_API_KEY,
-  CLOUDINARY_API_SECRET
+  CLOUDINARY_API_SECRET,
+  googleConfig,
+  fbConfig,
+  CLIENT_URL
 };

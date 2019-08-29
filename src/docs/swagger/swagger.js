@@ -30,6 +30,8 @@ import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
   createAccommodationPath, createRoomPath, getAccommodationPath,
 } from './paths/accommodations';
+import socialMediaAuthentication from './definitions/socialMedia';
+import { googlePath, facebookPath } from './paths/socialAuth';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -95,6 +97,9 @@ const swaggerDocument = {
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
+    '/auth/google': googlePath,
+    '/auth/facebook': facebookPath,
+    '/user': createUser,
   },
   definitions: {
     getAccommodationRes,
@@ -125,7 +130,8 @@ const swaggerDocument = {
     accessForbidden, // 403
     notFound, // 404
     conflict, // 409
-    serverError // 503
+    serverError, // 503
+    socialMediaAuthentication // social media login response
   }
 };
 
