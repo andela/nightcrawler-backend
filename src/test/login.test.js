@@ -43,8 +43,29 @@ describe('AUTH CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('success');
+          expect(res.body).to.have.property('message');
           expect(res.body.success).to.equal(false);
           expect(res.body.payload[0]).to.equal('email must be a valid email');
+          done();
+        });
+    });
+
+    it('it should not login a user with invalid email', (done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send({
+          email: '', // empty email
+          password: '', // empty password
+        })
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('success');
+          expect(res.body).to.have.property('message');
+          expect(res.body.success).to.equal(false);
+          expect(res.body.payload[0]).to.equal('email is not allowed to be empty');
           done();
         });
     });
@@ -58,6 +79,9 @@ describe('AUTH CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('success');
+          expect(res.body).to.have.property('message');
           expect(res.body.success).to.equal(false);
           expect(res.body.payload[0]).to.equal('password is not allowed to be empty');
           done();
@@ -73,6 +97,9 @@ describe('AUTH CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('success');
+          expect(res.body).to.have.property('message');
           expect(res.body.success).to.equal(false);
           expect(res.body.payload[0]).to.equal('email is not allowed to be empty');
           done();
@@ -88,8 +115,11 @@ describe('AUTH CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(401);
-          expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('email or password incorrect');
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('payload');
+          expect(res.body.success).to.equal(false);//
+          expect(res.body.message).to.equal('Incorrect email');//
           done();
         });
     });
@@ -103,8 +133,11 @@ describe('AUTH CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(401);
+          expect(res.body).to.be.an('object');
+          expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('payload');
           expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('email or password incorrect');
+          expect(res.body.message).to.equal('Incorrect password');
           done();
         });
     });

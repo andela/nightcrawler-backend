@@ -9,7 +9,7 @@ const { Permission, Role } = Model;
  * @returns {object} forbidden response object if action not allowed
  * @callback next
  */
-export default (permission) => async (req, res, next) => {
+export const checkPermission = (permission) => async (req, res, next) => {
   const { roleId } = req.auth;
 
   const rolePermissions = await Role.findOne({

@@ -91,3 +91,60 @@ export const updateRoleRes = {
     }
   }
 };
+
+
+export const resetPassword = {
+  type: 'object',
+  properties: {
+    password: {
+      type: 'string',
+      format: 'password',
+      minLength: 8
+    },
+    confirmPassword: {
+      type: 'string',
+      format: 'password',
+      minLength: 8
+    }
+  }
+};
+
+export const forgotPassword = {
+  type: 'object',
+  properties: {
+    email: {
+      type: 'string',
+      required: true,
+      format: 'email',
+      example: 'user@example.com'
+    }
+  }
+};
+
+export const resetUserPassword = {
+  type: 'object',
+  properties: {
+    oldPassword: {
+      type: 'string',
+      format: 'password',
+      minLength: 8
+    },
+    newPassword: {
+      type: 'string',
+      format: 'password',
+      minLength: 8
+    }
+  }
+};
+
+export const resetPasswordResponse = {
+  type: 'object',
+  properties: {
+    status: {
+      type: 'string'
+    },
+    payload: {
+      type: 'string',
+    }
+  }
+};

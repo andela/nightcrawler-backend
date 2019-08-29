@@ -16,7 +16,7 @@ describe('USER CONTROLLER', () => {
         .post(signinUrl)
         .send({
           email: 'johndoe@nomad.com', // valid login details
-          password: '123456',
+          password: 'johndoe',
         })
         .end((error, res) => {
           currentToken = res.body.payload.token;
@@ -27,8 +27,8 @@ describe('USER CONTROLLER', () => {
     it('it should not assign role if user is not Super Administrator', (done) => {
       chai.request(app)
         .patch(`${userUrl}/roles/4`)
-        .send({ email: 'johndoe@nomad.com' }) // valid email
         .set('Authorization', currentToken)
+        .send({ email: 'johndoe@nomad.com' }) // valid email
         .end((error, res) => {
           expect(res).to.have.status(403);
           expect(res.body.success).to.equal(false);

@@ -2,23 +2,22 @@ import jwt from 'jsonwebtoken';
 import { SECRET_KEY, EXPIRATION_DURATION } from '../config/constants';
 
 /**
-   * Method to generate token
-   * @param {object} data
-   * @returns {string} generated token
-   */
-
-const generateToken = async (data) => {
+ * Function to generate token from userId and role
+ * @param {object} data
+ * @returns {string} generated token
+ */
+export const generateToken = async (data) => {
   const token = await jwt.sign({ key: data }, SECRET_KEY, { expiresIn: EXPIRATION_DURATION });
   return token;
 };
 
 /**
-   * Verify a token
-   * @param {object} token
-   * @returns {Object} decoded data
-   */
+ * Verify a token
+ * @param {object} token
+ * @returns {Object} decoded data
+ */
 
-const verifyToken = (token) => jwt.verify(token, SECRET_KEY);
+export const verifyToken = (token) => jwt.verify(token, SECRET_KEY);
 
 /**
    * Verify a token
@@ -26,7 +25,7 @@ const verifyToken = (token) => jwt.verify(token, SECRET_KEY);
    * @returns {Object} decoded data
    */
 
-const formatJWTErrorMessage = (message) => {
+export const formatJWTErrorMessage = (message) => {
   let formattedMessage;
   if (message.includes('invalid') || message.includes('malformed')) {
     formattedMessage = 'Session is invalid. Signin to continue';
@@ -36,5 +35,3 @@ const formatJWTErrorMessage = (message) => {
   }
   return formattedMessage;
 };
-
-export { generateToken, verifyToken, formatJWTErrorMessage };

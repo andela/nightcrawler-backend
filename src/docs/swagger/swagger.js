@@ -6,11 +6,16 @@ import {
   serverError
 } from './definitions/errorResponse';
 import { SigninCreate, Signin } from './definitions/auth';
-import { userCreate, updateRoleReq, updateRoleRes } from './definitions/user';
+import {
+  userCreate, updateRoleReq, updateRoleRes,
+  resetPassword, resetPasswordResponse, forgotPassword, resetUserPassword
+} from './definitions/users';
 import { permissionsRes } from './definitions/permissions';
 import { updateRolePermissionsReq, rolesRes, updateRolePermissionsRes } from './definitions/roles';
 import { signInPath } from './paths/auth';
-import { userRolePath, createUser } from './paths/users';
+import {
+  userRolePath, createUser, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath
+} from './paths/users';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 
@@ -44,7 +49,7 @@ const swaggerDocument = {
     },
     {
       name: 'users',
-      description: 'User related actions'
+      description: 'Everything about the user interaction'
     },
     {
       name: 'permissions',
@@ -57,23 +62,30 @@ const swaggerDocument = {
   ],
   paths: {
     '/auth/signin': signInPath,
-    '/users': createUser,
+    '/users': userCreate,
     '/users/roles/{roleId}': userRolePath,
     '/permissions': permissionsPath,
     '/roles': rolesPath,
-    '/roles/{roleId}/permissions': rolePermissionsPath, // includes all CRUD verbs (get, patch)
+    '/roles/{roleId}/permissions': rolePermissionsPath,
+    '/users/forgot-password': forgotPasswordPath,
+    '/users/reset-forgot-password': resetPasswordPath,
+    '/users/reset-user-password': resetUserPasswordPath
   },
   definitions: {
     SigninCreate, // signin request
     Signin, // signin response
-    userCreate, // create user
-    createSuccess, // 201
+    createUser, // create user
+    createSuccess,
     updateRoleReq,
     updateRoleRes,
     permissionsRes,
+    forgotPassword,
+    resetUserPassword,
     updateRolePermissionsReq,
     updateRolePermissionsRes,
     rolesRes,
+    resetPassword, // reset password request
+    resetPasswordResponse,
     badRequest, // 400
     notAuthorized, // 401
     accessForbidden, // 403

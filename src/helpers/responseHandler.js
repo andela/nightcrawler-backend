@@ -1,6 +1,7 @@
 /**
  * Handles all http responses
- * @exports responseHandler
+ * @exports respondWithSuccess
+ * @exports respondWithWarning
  */
 
 /**
@@ -10,9 +11,8 @@
   * @param {Object} additionalFields
   * @returns {Object} null
   */
-export function respondWithSuccess(res, statusCode = 200, message, additionalFields = {}) {
-  return res.status(statusCode).send({ success: true, message, payload: { ...additionalFields } });
-}
+export const respondWithSuccess = (res, statusCode = 200, message, additionalFields = {}) => res
+  .status(statusCode).send({ success: true, message, payload: { ...additionalFields } });
 
 /**
   * @param  {Object} res
@@ -21,6 +21,5 @@ export function respondWithSuccess(res, statusCode = 200, message, additionalFie
   * @param {Object} additionalFields
   * @returns {Object} null
   */
-export function respondWithWarning(res, statusCode = 500, message, additionalFields = {}) {
-  return res.status(statusCode).send({ success: false, message, payload: { ...additionalFields } });
-}
+export const respondWithWarning = (res, statusCode = 500, message, additionalFields = {}) => res
+  .status(statusCode).send({ success: false, message, payload: { ...additionalFields } });

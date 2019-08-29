@@ -25,6 +25,7 @@ app.use(logger('dev'));
 app.get('/', (req, res) => respondWithSuccess(res, 200, 'Welcome to barefoot Normad'));
 
 app.use(apiRouter);
+
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // handles non-existing routes

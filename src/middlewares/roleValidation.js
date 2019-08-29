@@ -1,5 +1,5 @@
 import Joi from '@hapi/joi';
-import joiValidator from '../helpers/joiValidator';
+import { joiValidator } from '../helpers/joiValidator';
 import { respondWithWarning } from '../helpers/responseHandler';
 
 /**
@@ -58,12 +58,12 @@ export const getRolePermissionValidation = (req, res, next) => {
 
 
 /**
-   * validate user email and roleId
-   * @param {Object} req
-   * @param {Object} res
-   * @param {Function} next
-   * @returns {Object} error
-   */
+ * validate user email and roleId
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns {Object} error
+ */
 export const editUserRoleValidation = (req, res, next) => {
   const data = {
     email: req.body.email,

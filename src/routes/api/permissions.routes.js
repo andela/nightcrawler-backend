@@ -1,10 +1,10 @@
-import express from 'express';
-import authentication from '../../middlewares/authentication';
-import checkPermissions from '../../middlewares/checkPermission';
-import * as permissionsController from '../../controllers/permissionController';
+import { Router } from 'express';
+import { authenticateUserToken } from '../../middlewares/authentication';
+import { checkPermission } from '../../middlewares/checkPermission';
+import { getPermissions } from '../../controllers/permissionController';
 
-const router = express.Router();
+const router = Router();
 
-router.get('/', authentication, checkPermissions('VIEW_PERMISSIONS'), permissionsController.getPermissions);
+router.get('/', authenticateUserToken, checkPermission('VIEW_PERMISSIONS'), getPermissions);
 
 export default router;

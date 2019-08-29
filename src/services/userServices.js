@@ -45,6 +45,30 @@ export const createUser = (data, res) => {
 };
 
 /**
+ * Function to update a user password
+ * @param {String} userEmail user email
+ * @param {String} hashedPassword stored password
+ * @returns {Object} users
+ */
+export const updatePassword = async (userEmail, hashedPassword) => {
+  try {
+    const user = User.update({
+      password: hashedPassword
+    }, {
+      where: { email: userEmail },
+      returning: true,
+      logging: false,
+      plain: true
+    });
+    return user;
+  } catch (error) {
+    return {
+      errors: error
+    };
+  }
+};
+
+/**
  * @param {object} condition
  * @returns {object} an object containing the information of the user or null
  */

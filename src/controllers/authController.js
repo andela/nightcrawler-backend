@@ -1,7 +1,8 @@
-import { generateToken } from '../helpers/JWT';
+import { generateToken } from '../helpers/jwt';
 import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
-import * as userServices from '../services/userServices';
 import { comparePasswords } from '../helpers/hash';
+import statusCode from '../helpers/statusCode';
+import resMessage from '../helpers/responseMessages';
 
 /**
 * Login a user
@@ -9,25 +10,14 @@ import { comparePasswords } from '../helpers/hash';
 * @param {object} res
 * @returns {object} json response
 */
-const signin = async (req, res) => {
-  try {
-    const { email, password } = req.body;
-
-    const findUser = await userServices.findSingleUser({ email });
-    if (!findUser) {
-      return respondWithWarning(res, 401, 'email or password incorrect');
-    }
-    const comparePassword = await comparePasswords(password, findUser.dataValues.password);
-    if (!comparePassword) {
-      return respondWithWarning(res, 401, 'email or password incorrect');
-    }
-    const { id, roleId } = findUser.dataValues;
-    const payload = { id, roleId };
-    findUser.dataValues.token = await generateToken(payload);
-    return respondWithSuccess(res, 200, 'Login successful', findUser.dataValues);
-  } catch (error) {
-    return respondWithWarning(res, 500, 'Server Error');
+export const signin = async (req, res) => {
+  const { password } = req.body;
+  const comparePassword = await comparePasswords(password, req.user.password);
+  if (!comparePassword) {
+    return respondWithWarning(res, statusCode.unauthorizedAccess, resMessage.incorrectPassword);
   }
+  const { id, roleId } = req.user;
+  const payload = { id, roleId };
+  req.user.token = await generateToken(payload);
+  return respondWithSuccess(res, statusCode.success, resMessage.successfulLogin, req.user);
 };
-
-export default { signin };
