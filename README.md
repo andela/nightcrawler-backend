@@ -32,12 +32,13 @@ src
     ├── helpers                   # reusable functions across the project
     ├── middlewares                 # route validation functions
     ├── migrations                  # migration dump and script
-    ├── seeders                    # seed dump and script
+    ├── models                      # tables models
     ├── modules                     # modules for each feature
     │   ├── users                      # users module
     │   │   ├── login.controller.js       
-    │   │   ├── login.model.js
+    │   │   ├── login.routes.js
+    │   │   ├── login.services.js
     │   │   ├── login.test.js         
-    ├── routes                       # API route files
-    └── services                     # contains all external services
+    │   ├── routes.js               # general routes for all modules
+    └── seeders                       # API route files
   ```

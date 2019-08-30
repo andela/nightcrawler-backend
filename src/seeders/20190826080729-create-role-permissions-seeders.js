@@ -384,6 +384,26 @@ export default {
     {
       roleId: 6,
       permissionId: 33
+    },
+    {
+      roleId: 1,
+      permissionId: 34
+    },
+    {
+      roleId: 1,
+      permissionId: 35
+    },
+    {
+      roleId: 1,
+      permissionId: 36
+    },
+    {
+      roleId: 1,
+      permissionId: 37
+    },
+    {
+      roleId: 1,
+      permissionId: 38
     }
   ], {}),
 

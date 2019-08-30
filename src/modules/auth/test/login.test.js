@@ -7,7 +7,7 @@ chai.use(chaiHttp);
 
 const signinUrl = '/api/v1/auth/signin';
 
-describe('USER CONTROLLER', () => {
+describe('AUTH CONTROLLER', () => {
   describe('POST SIGN IN', () => {
     it('it should login a user with valid email and password', (done) => {
       chai.request(app)
@@ -18,9 +18,7 @@ describe('USER CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(200);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('payload');
-          expect(res.body.payload).to.be.a('object');
+          expect(res.body.success).to.equal(true);
           expect(res.body.payload).to.have.property('id');
           expect(res.body.payload).to.have.property('username');
           expect(res.body.payload).to.have.property('firstName');
@@ -45,10 +43,7 @@ describe('USER CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('success');
-          expect(res.body).to.have.property('payload');
-          expect(res.body.payload).to.be.an('object');
+          expect(res.body.success).to.equal(false);
           expect(res.body.payload[0]).to.equal('email must be a valid email');
           done();
         });
@@ -63,10 +58,7 @@ describe('USER CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('success');
-          expect(res.body).to.have.property('payload');
-          expect(res.body.payload).to.be.an('object');
+          expect(res.body.success).to.equal(false);
           expect(res.body.payload[0]).to.equal('password is not allowed to be empty');
           done();
         });
@@ -81,10 +73,7 @@ describe('USER CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(400);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('success');
-          expect(res.body).to.have.property('payload');
-          expect(res.body.payload).to.be.an('object');
+          expect(res.body.success).to.equal(false);
           expect(res.body.payload[0]).to.equal('email is not allowed to be empty');
           done();
         });
@@ -99,9 +88,7 @@ describe('USER CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(401);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('success');
-          expect(res.body).to.have.property('message');
+          expect(res.body.success).to.equal(false);
           expect(res.body.message).to.equal('email or password incorrect');
           done();
         });
@@ -116,9 +103,7 @@ describe('USER CONTROLLER', () => {
         })
         .end((error, res) => {
           expect(res).to.have.status(401);
-          expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('success');
-          expect(res.body).to.have.property('message');
+          expect(res.body.success).to.equal(false);
           expect(res.body.message).to.equal('email or password incorrect');
           done();
         });

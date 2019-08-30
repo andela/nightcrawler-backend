@@ -3,12 +3,14 @@ const SigninCreate = {
   properties: {
     email: {
       type: 'string',
-      format: 'email'
+      format: 'email',
+      example: 'admin@nomad.com'
     },
     password: {
       type: 'string',
       format: 'password',
-      minLength: 8
+      minLength: 8,
+      example: '123456'
     }
   }
 };
@@ -16,10 +18,15 @@ const SigninCreate = {
 const Signin = {
   type: 'object',
   properties: {
-    status: {
-      type: 'string'
+    success: {
+      type: 'boolean',
+      example: true
     },
-    data: {
+    message: {
+      type: 'string',
+      example: 'login successful'
+    },
+    payload: {
       type: 'object',
       properties: {
         id: {
@@ -44,9 +51,9 @@ const Signin = {
           format: 'email',
           example: 'johndoe@mail.com'
         },
-        emailVerifiedAt: {
-          type: 'string',
-          format: 'date-time'
+        isVerified: {
+          type: 'boolean',
+          example: false
         },
         profileImage: {
           type: 'string'
@@ -56,9 +63,6 @@ const Signin = {
           format: 'int32',
           example: 2
         },
-        token: {
-          type: 'string'
-        },
         createdAt: {
           type: 'string',
           format: 'date-time'
@@ -66,6 +70,10 @@ const Signin = {
         updatedAt: {
           type: 'string',
           format: 'date-time'
+        },
+        token: {
+          type: 'string',
+          example: 'very_long_encoded_string'
         }
       }
     }

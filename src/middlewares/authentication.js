@@ -9,7 +9,10 @@ import { respondWithWarning } from '../helpers/responseHandler';
    * @returns {Function} next middleware
    */
 export default function (req, res, next) {
-  const token = req.headers.authorization;
+  let token = req.headers.authorization;
+  if (token && token.startsWith('Bearer ')) {
+    token = token.slice(7, token.length);
+  }
   if (!token) {
     return respondWithWarning(res, 401, 'Please signin to continue');
   }

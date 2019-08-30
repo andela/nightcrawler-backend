@@ -141,7 +141,6 @@ describe('Create user(s) test', () => {
         .end((err, res) => {
           expect(res.status).to.equal(422);
           expect(res.body).to.have.property('success', false);
-          expect(res.body).to.have.property('payload');
           done();
         });
     });

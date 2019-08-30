@@ -29,6 +29,22 @@ export default {
       password: await passwordHash('123456'),
       roleId: 6
     },
+    {
+      firstName: 'Lionel',
+      lastName: 'Messi',
+      username: 'lionel',
+      email: 'lionelmessi@nomad.com',
+      password: await passwordHash('123456'),
+      roleId: 3
+    },
+    {
+      firstName: 'Alex',
+      lastName: 'Iwobi',
+      username: 'alexiwobi',
+      email: 'alexiwobi@nomad.com',
+      password: await passwordHash('123456'),
+      roleId: 4
+    },
   ], {}),
 
   /*

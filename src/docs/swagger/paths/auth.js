@@ -1,5 +1,6 @@
+/* eslint-disable import/prefer-default-export */
 
-const signInPath = {
+export const signInPath = {
   post: {
     tags: [
       'auth'
@@ -45,5 +46,3 @@ const signInPath = {
     }
   }
 };
-
-export default signInPath;

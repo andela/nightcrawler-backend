@@ -100,6 +100,21 @@ export default {
     {
       actionName: 'CREATE_TRIP_FLIGHT_DETAIL',
     },
+    {
+      actionName: 'EDIT_USER_ROLE',
+    },
+    {
+      actionName: 'VIEW_PERMISSIONS',
+    },
+    {
+      actionName: 'VIEW_ROLE_PERMISSIONS',
+    },
+    {
+      actionName: 'EDIT_ROLE_PERMISSIONS',
+    },
+    {
+      actionName: 'VIEW_ROLES',
+    },
   ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Permissions', null, {})

@@ -1,14 +1,14 @@
 import Model from '../../models';
 import { respondWithSuccess, respondWithWarning } from '../../helpers/responseHandler';
 
-const { Permission, RolePermission, User } = Model;
+const { User, Role } = Model;
 
 /**
  * @param {Object} data
  * @param {Object} res
  * @returns {Function} responseHandler
  */
-const createSingle = async (data, res) => {
+export const createSingle = async (data, res) => {
   try {
     const {
       username, email, firstName, lastName, roleId
@@ -29,7 +29,7 @@ const createSingle = async (data, res) => {
  * @param {Object} res
  * @returns {Function} responseHandler
  */
-const createMultiple = async (users, res) => {
+export const createMultiple = async (users, res) => {
   try {
     await User.bulkCreate(users, { individualHooks: true });
     return respondWithSuccess(res, 201, 'Users created successfuly');
@@ -39,7 +39,7 @@ const createMultiple = async (users, res) => {
   }
 };
 
-const createUser = (data, res) => {
+export const createUser = (data, res) => {
   const isArray = data.constructor === Array;
   return isArray ? createMultiple(data, res) : createSingle(data, res);
 };
@@ -48,7 +48,7 @@ const createUser = (data, res) => {
  * @param {object} condition
  * @returns {object} an object containing the information of the user or null
  */
-const findSingleUser = async (condition = {}) => {
+export const findSingleUser = async (condition = {}) => {
   try {
     const user = Object.keys(condition).length
       ? await User.findOne({
@@ -65,22 +65,18 @@ const findSingleUser = async (condition = {}) => {
   }
 };
 
-const hasPermission = async (permission = null, roleId = null) => {
+export const findSingleRole = async (condition = {}) => {
   try {
-    if (permission && roleId) {
-      const data = await Permission.findOne({ where: { actionName: permission }, attributes: ['id'] });
-      if (data) {
-        const { id: permissionId } = data;
-        const result = await RolePermission.findOne({ where: { roleId, permissionId } });
-        if (result) {
-          return true;
-        }
-      }
-    }
-    return false;
+    const role = Object.keys(condition).length
+      ? await Role.findOne({
+        where: condition,
+        logging: false
+      })
+      : null;
+    return role;
   } catch (error) {
-    return false;
+    return {
+      errors: error
+    };
   }
 };
-
-export { findSingleUser, createUser, hasPermission };

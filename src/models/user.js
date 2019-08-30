@@ -3,50 +3,24 @@ import Model from './index';
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        isEmail: true,
-      },
-    },
-    isVerified: {
-      type: DataTypes.BOOLEAN,
-      defaultValue: false,
-    },
-    password: {
-      type: DataTypes.STRING,
-    },
-    profileImage: {
-      type: DataTypes.STRING,
-    },
-    roleId: {
-      type: DataTypes.INTEGER,
-    },
-  });
+    username: DataTypes.STRING,
+    firstName: DataTypes.STRING,
+    lastName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    isVerified: DataTypes.BOOLEAN,
+    password: DataTypes.STRING,
+    profileImage: DataTypes.STRING,
+    roleId: DataTypes.INTEGER,
+  }, {});
+
+  User.associate = (models) => {
+    User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'roles', timestamps: false });
+  };
 
   User.beforeCreate(async (user) => {
-    const {
-      username, email, firstName, lastName, roleId
-    } = user;
-    const fields = {
-      username, email, firstName, lastName, roleId
-    };
     const error = new Error();
     error.code = 422;
-    error.field = fields;
+    error.field = { ...user.dataValues };
     const foundUser = await User.findOne({
       where: {
         [Model.Sequelize.Op.or]: [{ email: user.email }, { username: user.username }]
