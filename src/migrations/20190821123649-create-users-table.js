@@ -24,8 +24,9 @@ export default {
       allowNull: false,
       unique: true,
     },
-    emailVerifiedAt: {
-      type: Sequelize.DATE,
+    isVerified: {
+      type: Sequelize.BOOLEAN,
+      defaultValue: false,
     },
     password: {
       type: Sequelize.STRING,

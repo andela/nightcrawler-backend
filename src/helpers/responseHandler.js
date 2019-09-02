@@ -2,42 +2,25 @@
  * Handles all http responses
  * @exports responseHandler
  */
-const responseHandler = {
-  /**
-   * @param  {object} res
-  * @returns {Object} null
-   */
-  invalidCredential: res => res.status(401).json({
-    status: 'error',
-    message: 'email or password incorrect',
-  }),
 
-  /**
-  * @param  {object} res
-  * @param  {object} message
+/**
+  * @param  {Object} res
+  * @param  {Number} statusCode
+  * @param  {String} message
+  * @param {Object} additionalFields
   * @returns {Object} null
   */
-  validationError: (res, message) => {
-    res.status(400).json({
-      status: 'error',
-      message,
-    });
-  },
+export function respondWithSuccess(res, statusCode = 200, message, additionalFields = {}) {
+  return res.status(statusCode).send({ success: true, message, payload: { ...additionalFields } });
+}
 
-  /**
-  * @param  {object} res
-  * @param  {object} data
+/**
+  * @param  {Object} res
+  * @param  {Number} statusCode
+  * @param  {String} message
+  * @param {Object} additionalFields
   * @returns {Object} null
   */
-  success: (res, data) => {
-    if (typeof data.password !== 'undefined') {
-      delete data.password;
-    }
-    res.status(200).json({
-      status: 'success',
-      data,
-    });
-  }
-
-};
-export default responseHandler;
+export function respondWithWarning(res, statusCode = 500, message, additionalFields = {}) {
+  return res.status(statusCode).send({ success: false, message, payload: { ...additionalFields } });
+}
