@@ -6,8 +6,8 @@ import { SALT_ROUNDS } from '../config/constants';
 *   @exports passwordHash
 * */
 
-const passwordHash = async password => bcrypt.hash(password, Number(SALT_ROUNDS));
+const passwordHash = password => bcrypt.hash(password, Number(SALT_ROUNDS));
 
-const comparePasswords = async (userPass, hashedPass) => bcrypt.compare(userPass, hashedPass);
+const comparePasswords = (userPass, hashedPass) => bcrypt.compare(userPass, hashedPass);
 
 export { passwordHash, comparePasswords };

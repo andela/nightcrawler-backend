@@ -16,10 +16,13 @@ const SigninCreate = {
 const Signin = {
   type: 'object',
   properties: {
-    status: {
+    success: {
+      type: 'boolean'
+    },
+    message: {
       type: 'string'
     },
-    data: {
+    payload: {
       type: 'object',
       properties: {
         id: {
@@ -31,13 +34,10 @@ const Signin = {
           type: 'string',
           example: 'johndoe'
         },
-        firstName: {
-          type: 'string',
-          example: 'John'
-        },
-        lastName: {
-          type: 'string',
-          example: 'Doe'
+        companyId: {
+          type: 'integer',
+          format: 'int32',
+          example: 4
         },
         email: {
           type: 'string',

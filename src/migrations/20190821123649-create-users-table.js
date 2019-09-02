@@ -6,11 +6,7 @@ export default {
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    firstName: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    lastName: {
+    companyId: {
       type: Sequelize.STRING,
       allowNull: false,
     },

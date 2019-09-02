@@ -1,10 +1,10 @@
 const badRequest = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message', 'payload'],
   properties: {
-    status: {
-      type: 'string',
-      example: 'error'
+    success: {
+      type: 'boolean',
+      example: false
     },
     message: {
       type: 'array',
@@ -12,62 +12,115 @@ const badRequest = {
         type: 'string',
         example: 'Bad Bequest'
       }
+    },
+    payload: {
+      type: 'array',
+      example: {}
     }
   }
 };
 const notAuthorized = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message', 'payload'],
   properties: {
-    status: {
-      type: 'string',
-      example: 'error'
+    success: {
+      type: 'boolean',
+      example: false
     },
     message: {
-      type: 'string',
-      example: 'Not Authorized'
+      type: 'array',
+      items: {
+        type: 'string',
+        example: 'Not Authorized'
+      }
+    },
+    payload: {
+      type: 'object',
+      example: {}
     }
   }
 };
 const accessForbidden = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message', 'payload'],
   properties: {
-    status: {
-      type: 'string',
-      example: 'error'
+    success: {
+      type: 'boolean',
+      example: false
     },
     message: {
-      type: 'string',
-      example: 'Access Forbidden'
+      type: 'array',
+      items: {
+        type: 'string',
+        example: 'Forbidden'
+      }
     },
+    payload: {
+      type: 'object',
+      example: {}
+    }
   }
 };
 const conflict = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message', 'payload'],
   properties: {
-    status: {
-      type: 'string',
-      example: 'error'
+    success: {
+      type: 'boolean',
+      example: false
     },
     message: {
-      type: 'string',
-      example: 'Conflict'
+      type: 'array',
+      items: {
+        type: 'string',
+        example: 'Resource conflict'
+      }
     },
+    payload: {
+      type: 'object',
+      example: {}
+    }
   }
 };
 const serverError = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message', 'payload'],
   properties: {
-    status: {
-      type: 'string',
-      example: 'error'
+    success: {
+      type: 'boolean',
+      example: false
     },
     message: {
-      type: 'string',
-      example: 'Server Error'
+      type: 'array',
+      items: {
+        type: 'string',
+        example: 'Server Error'
+      }
+    },
+    payload: {
+      type: 'object',
+      example: {}
+    }
+  }
+};
+const notFound = {
+  type: 'object',
+  required: ['success', 'message', 'payload'],
+  properties: {
+    success: {
+      type: 'boolean',
+      example: false
+    },
+    message: {
+      type: 'array',
+      items: {
+        type: 'string',
+        example: 'Not Found'
+      }
+    },
+    payload: {
+      type: 'object',
+      example: {}
     }
   }
 };
@@ -77,5 +130,6 @@ export {
   notAuthorized,
   accessForbidden,
   conflict,
-  serverError
+  serverError,
+  notFound
 };

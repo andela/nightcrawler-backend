@@ -19,19 +19,19 @@ describe('USER CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(200);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('data');
-          expect(res.body.data).to.be.a('object');
-          expect(res.body.data).to.have.property('id');
-          expect(res.body.data).to.have.property('username');
-          expect(res.body.data).to.have.property('firstName');
-          expect(res.body.data).to.have.property('lastName');
-          expect(res.body.data).to.have.property('email');
-          expect(res.body.data).to.have.property('emailVerifiedAt');
-          expect(res.body.data).to.have.property('token');
-          expect(res.body.data).to.have.property('profileImage');
-          expect(res.body.data).to.have.property('roleId');
-          expect(res.body.data).to.have.property('createdAt');
-          expect(res.body.data).to.have.property('updatedAt');
+          expect(res.body).to.have.property('success');
+          expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('payload');
+          expect(res.body.payload).to.be.a('object');
+          expect(res.body.payload).to.have.property('id');
+          expect(res.body.payload).to.have.property('username');
+          expect(res.body.payload).to.have.property('email');
+          expect(res.body.payload).to.have.property('emailVerifiedAt');
+          expect(res.body.payload).to.have.property('token');
+          expect(res.body.payload).to.have.property('profileImage');
+          expect(res.body.payload).to.have.property('roleId');
+          expect(res.body.payload).to.have.property('createdAt');
+          expect(res.body.payload).to.have.property('updatedAt');
           done();
         });
     });
@@ -46,8 +46,9 @@ describe('USER CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(400);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('success');
           expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('payload');
           expect(res.body.message).to.be.an('array');
           expect(res.body.message[0]).to.equal('email must be a valid email');
           done();
@@ -64,8 +65,9 @@ describe('USER CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(400);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('success');
           expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('payload');
           expect(res.body.message).to.be.an('array');
           expect(res.body.message[0]).to.equal('password is not allowed to be empty');
           done();
@@ -82,8 +84,9 @@ describe('USER CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(400);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('success');
           expect(res.body).to.have.property('message');
+          expect(res.body).to.have.property('payload');
           expect(res.body.message).to.be.an('array');
           expect(res.body.message[0]).to.equal('email is not allowed to be empty');
           done();
@@ -100,9 +103,11 @@ describe('USER CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(401);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('success');
           expect(res.body).to.have.property('message');
-          expect(res.body.message).to.equal('email or password incorrect');
+          expect(res.body).to.have.property('payload');
+          expect(res.body.message).to.be.an('array');
+          expect(res.body.message[0]).to.equal('User not found');
           done();
         });
     });
@@ -115,11 +120,13 @@ describe('USER CONTROLLER', () => {
           password: '123', // incorrect password
         })
         .end((error, res) => {
-          expect(res).to.have.status(401);
+          expect(res).to.have.status(400);
           expect(res.body).to.be.an('object');
-          expect(res.body).to.have.property('status');
+          expect(res.body).to.have.property('success');
           expect(res.body).to.have.property('message');
-          expect(res.body.message).to.equal('email or password incorrect');
+          expect(res.body).to.have.property('payload');
+          expect(res.body.message).to.be.an('array');
+          expect(res.body.message[0]).to.equal('Invalid password');
           done();
         });
     });

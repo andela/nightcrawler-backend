@@ -5,7 +5,7 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './docs/swagger/swagger';
 import { PORT } from './config/constants';
-import router from './modules/auth/routes';
+import router from './modules/routes';
 
 const app = express();
 const port = PORT || 3000;

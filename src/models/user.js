@@ -5,11 +5,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    firstName: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    lastName: {
+    companyId: {
       type: DataTypes.STRING,
       allowNull: false,
     },

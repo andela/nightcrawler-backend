@@ -11,7 +11,7 @@ const joiValidator = (data, schema) => {
   const validationOptions = {
     allowUnknown: true, // allow unknown keys that will be ignored
     stripUnknown: true, // remove unknown keys from the validated data
-    abortEarly: false // validate all inputs befor flagging error
+    abortEarly: false // validate all inputs before flagging error
   };
   Joi.validate(data, schema, validationOptions, (err) => {
     if (err) {

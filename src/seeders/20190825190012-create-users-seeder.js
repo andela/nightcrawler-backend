@@ -14,20 +14,18 @@ export default {
     */
   up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [
     {
-      firstName: 'Jeffery',
-      lastName: 'Way',
       username: 'jeff',
       email: 'admin@nomad.com',
       password: await passwordHash('123456'),
-      roleId: 1
+      roleId: 1,
+      companyId: 4
     },
     {
-      firstName: 'John',
-      lastName: 'Doe',
       username: 'johndoe',
       email: 'johndoe@nomad.com',
       password: await passwordHash('123456'),
-      roleId: 2
+      roleId: 2,
+      companyId: 4
     },
   ], {}),
 
