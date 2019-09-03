@@ -27,13 +27,14 @@ const verifyToken = (token) => jwt.verify(token, SECRET_KEY);
    */
 
 const formatJWTErrorMessage = (message) => {
+  let formattedMessage;
   if (message.includes('invalid') || message.includes('malformed')) {
-    return 'Session is invalid. Signin to continue';
+    formattedMessage = 'Session is invalid. Signin to continue';
   }
   if (message.includes('expired')) {
-    return 'Session has expired. Signin to continue';
+    formattedMessage = 'Session has expired. Signin to continue';
   }
-  return message;
+  return formattedMessage;
 };
 
 export { generateToken, verifyToken, formatJWTErrorMessage };

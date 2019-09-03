@@ -12,6 +12,8 @@
     "src/models/index.js",
     "src/database/config.js",
     "src/modules/**/tests/*.test.js",
-    "src/doc/*"
+    "src/doc/*",
+    "src/migrations/*",
+    "src/seeders/*"
   ]
 }
