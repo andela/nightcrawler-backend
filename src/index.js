@@ -5,7 +5,7 @@ import cors from 'cors';
 import swaggerUI from 'swagger-ui-express';
 import swaggerDocument from './docs/swagger/swagger';
 import { PORT } from './config/constants';
-import router from './modules/routes';
+import apiRouter from './routes';
 import { respondWithSuccess, respondWithWarning } from './helpers/responseHandler';
 
 const app = express();
@@ -20,12 +20,11 @@ app.use(
 );
 app.use(cors());
 app.use(logger('dev'));
-const baseURL = '/api/v1/';
 
 // handles default route
 app.get('/', (req, res) => respondWithSuccess(res, 200, 'Welcome to barefoot Normad'));
 
-app.use(baseURL, router);
+app.use(apiRouter);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
 
 // handles non-existing routes

@@ -23,7 +23,11 @@ Make company global travel and accommodation easy and convenient for the strong 
 src
     ├── config
     │   ├── constants.js           #  constants and environment variables
-    ├── database                 # database configuration
+    ├── controllers               
+    ├── database
+        ├── config                  # database configuration file
+        ├── migrations                  # migration dump and script
+        ├── seeders                       # API route files
     ├── docs                          # serve static files used in the swagger documentation
     │   ├── swagger    
     │   │   ├── definitions     
@@ -31,14 +35,12 @@ src
     │   │   ├── swagger.js 
     ├── helpers                   # reusable functions across the project
     ├── middlewares                 # route validation functions
-    ├── migrations                  # migration dump and script
     ├── models                      # tables models
-    ├── modules                     # modules for each feature
-    │   ├── users                      # users module
-    │   │   ├── login.controller.js       
-    │   │   ├── login.routes.js
-    │   │   ├── login.services.js
-    │   │   ├── login.test.js         
-    │   ├── routes.js               # general routes for all modules
-    └── seeders                       # API route files
+    ├── routes.js               # general routes for all modules
+        ├── api    
+            ├── index.js    
+            ├── example.routes.js    # example route
+        ├── index.js    
+    ├── services
+    └── tests                       # integration test files
   ```

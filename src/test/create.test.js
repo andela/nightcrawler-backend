@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
-import app from '../../../index';
+import app from '../index';
 
 const createUrl = '/api/v1/users';
 const loginUrl = '/api/v1/auth/signin';

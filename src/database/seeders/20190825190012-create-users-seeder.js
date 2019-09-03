@@ -1,4 +1,4 @@
-import { passwordHash } from '../helpers/hash';
+import { passwordHash } from '../../helpers/hash';
 
 /* eslint-disable no-unused-vars */
 export default {

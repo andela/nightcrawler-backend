@@ -4,7 +4,7 @@
   "description": "Making company travel and accomodation easy and convinient",
   "main": "index.js",
   "scripts": {
-    "test": "npm run migration:refresh:test && NODE_ENV=test npm run db:seed && NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/modules/**/*.test.js --exit",
+    "test": "npm run migration:refresh:test && NODE_ENV=test npm run db:seed && NODE_ENV=test nyc --reporter=html --reporter=text mocha --timeout 20000 -r @babel/register ./src/test/**/*.test.js --exit",
     "start": "node dist",
     "build": "rm -rf dist/ && babel src/ -d dist/",
     "start:dev": "nodemon --exec babel-node ./src/index.js",
