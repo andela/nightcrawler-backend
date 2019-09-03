@@ -1,7 +1,7 @@
 import express from 'express';
 import createUserValidation from '../../middlewares/createUserValidation';
 import authentication from '../../middlewares/authentication';
-import * as userController from './user.controller';
+import * as userController from '../../controllers/userController';
 import checkPermission from '../../middlewares/checkPermission';
 import { editUserRoleValidation } from '../../middlewares/roleValidation';
 

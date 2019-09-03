@@ -1,5 +1,5 @@
-import Model from '../../models';
-import { respondWithSuccess, respondWithWarning } from '../../helpers/responseHandler';
+import Model from '../models';
+import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 
 const { User, Role } = Model;
 

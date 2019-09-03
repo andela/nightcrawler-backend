@@ -1,5 +1,5 @@
-import * as permissionsServices from './permissions.services';
-import { respondWithWarning, respondWithSuccess } from '../../helpers/responseHandler';
+import * as permissionsServices from '../services/permissionServices';
+import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
 
 /**
  * Function gets all permissions available

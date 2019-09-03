@@ -1,5 +1,5 @@
-import * as userServices from './user.services';
-import { respondWithSuccess, respondWithWarning } from '../../helpers/responseHandler';
+import * as userServices from '../services/userServices';
+import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 
 
 /**

@@ -1,7 +1,7 @@
-import { generateToken } from '../../helpers/JWT';
-import { respondWithWarning, respondWithSuccess } from '../../helpers/responseHandler';
-import * as userServices from '../user/user.services';
-import { comparePasswords } from '../../helpers/hash';
+import { generateToken } from '../helpers/JWT';
+import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
+import * as userServices from '../services/userServices';
+import { comparePasswords } from '../helpers/hash';
 
 /**
 * Login a user
