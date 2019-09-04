@@ -20,7 +20,16 @@
     "SECRET_KEY": {
       "required": true
     },
+    "SENDGRID_API_KEY": {
+      "required": true
+    },
     "NODE_MODULES_CACHE": {
+      "required": true
+    },
+    "SENDER_EMAIL": {
+      "required": true
+    },
+    "URL": {
       "required": true
     }
   },

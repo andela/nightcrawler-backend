@@ -20,7 +20,7 @@ describe('DEFAULT TESTS', () => {
         .end((error, res) => {
           expect(res).to.have.status(401);
           expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('email or password incorrect');
+          expect(res.body.message).to.equal('Incorrect email');
           done();
         });
     });

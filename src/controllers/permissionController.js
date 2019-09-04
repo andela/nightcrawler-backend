@@ -1,4 +1,4 @@
-import * as permissionsServices from '../services/permissionServices';
+import { findAllPermissions } from '../services/permissionServices';
 import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
 
 /**
@@ -9,7 +9,7 @@ import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandl
  */
 export const getPermissions = async (req, res) => {
   try {
-    const permissions = await permissionsServices.findAllPermissions();
+    const permissions = await findAllPermissions();
     if (!permissions) {
       return respondWithWarning(res, 404, 'resource not found');
     }
