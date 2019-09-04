@@ -1,5 +1,6 @@
+import _ from 'lodash';
 import {
-  updatePassword, createUser, findSingleRole, findSingleUser
+  updatePassword, createUser, findSingleRole, findSingleUser, verifyUserAccount
 } from '../services/userServices';
 import { sendMail } from '../helpers/sendMail';
 import { emailBody } from '../helpers/forgotPasswordNotification';
@@ -9,6 +10,8 @@ import resMessage from '../helpers/responseMessages';
 import { generateToken } from '../helpers/jwt';
 import { passwordHash } from '../helpers/hash';
 import { EMAIL_SENDER, URL } from '../config/constants';
+import { verificationSuccessEmail } from '../helpers/verificationNotifications';
+
 
 /**
  * Creates a new user
@@ -38,6 +41,7 @@ export const forgotPassowrd = async (req, res) => {
     emailSubject: 'Reset Password',
     emailBody: mailBody,
   };
+
   try {
     sendMail(data);
     return respondWithSuccess(res, statusCode.success, resMessage.forgotPassword);
@@ -86,7 +90,7 @@ export const editUserRole = async (req, res) => {
     const { roleId } = req.params;
     const user = await findSingleUser({ email });
     if (!user) {
-      return respondWithWarning(res, 404, `resource with email ${email} not found`);
+      return respondWithWarning(res, statusCode.resourceNotFound, `resource with email ${email} not found`);
     }
 
     if (user.dataValues.roleId === parseInt(roleId, 10)) {
@@ -95,10 +99,35 @@ export const editUserRole = async (req, res) => {
 
     const role = await findSingleRole({ id: roleId });
     const newRole = await user.setRoles(role);
-    delete newRole.dataValues.password;
-
-    return respondWithSuccess(res, statusCode.success, 'resource successfully updated', newRole.dataValues);
+    return respondWithSuccess(res, statusCode.success, 'resource successfully updated', _.omit(newRole.dataValues, 'password'));
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, resMessage.serverError);
+  }
+};
+
+/**
+ * Verifies a user
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const verifyUser = async (req, res) => {
+  try {
+    const { id, email } = req.user;
+    const isUserVerified = await findSingleUser({ id, isVerified: true });
+    if (isUserVerified) {
+      return respondWithWarning(res, statusCode.badRequest, 'User already verified');
+    }
+    await verifyUserAccount(id);
+    const data = {
+      emailFrom: EMAIL_SENDER,
+      emailTo: email,
+      emailSubject: 'Verification Success',
+      emailBody: verificationSuccessEmail(),
+    };
+    sendMail(data);
+    return respondWithSuccess(res, statusCode.success, 'Verification successful');
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
   }
 };

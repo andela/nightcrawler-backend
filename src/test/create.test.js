@@ -47,7 +47,7 @@ let userToken;
 let adminToken;
 
 describe('Create user(s) test', () => {
-  beforeEach(async () => {
+  before(async () => {
     await chai.request(app)
       .post(loginUrl)
       .send(user)

@@ -1,10 +1,32 @@
-const createSuccess = {
+const success = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message'],
   properties: {
     status: {
+      type: 'boolean',
+      example: true
+    },
+    message: {
       type: 'string',
-      example: 'success'
+      example: 'Ok'
+    },
+    payload: {
+      type: 'object',
+      items: {
+        type: 'string',
+        example: 'data'
+      }
+    }
+  }
+};
+
+const created = {
+  type: 'object',
+  required: ['success', 'message'],
+  properties: {
+    status: {
+      type: 'boolean',
+      example: true
     },
     message: {
       type: 'string',
@@ -22,16 +44,17 @@ const createSuccess = {
 
 const noContent = {
   type: 'object',
-  required: ['status', 'message'],
+  required: ['success', 'message'],
   properties: {
     status: {
-      type: 'string',
-      example: 'success'
+      type: 'boolean',
+      example: true
     }
   }
 };
 
 export {
-  createSuccess,
+  created,
   noContent,
+  success
 };

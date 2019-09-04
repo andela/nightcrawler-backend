@@ -1,21 +1,26 @@
-export const userCreate = {
+export const createUser = {
   type: 'object',
   properties: {
     username: {
       type: 'string',
+      example: 'jeff'
     },
     email: {
       type: 'string',
-      format: 'email'
+      format: 'email',
+      example: 'johndoe@nomad.com'
     },
     firstName: {
       type: 'string',
+      example: 'Jeffery'
     },
     lastName: {
       type: 'string',
+      example: 'Way'
     },
     roleId: {
       type: 'number',
+      example: 2
     }
   }
 };
@@ -146,5 +151,14 @@ export const resetPasswordResponse = {
     payload: {
       type: 'string',
     }
+  }
+};
+
+export const verifyUser = {
+  type: 'object',
+  properties: {
+    token: {
+      type: 'string',
+    },
   }
 };

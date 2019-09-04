@@ -4,8 +4,8 @@ import app from '../index';
 
 chai.should();
 chai.use(chaiHttp);
-describe('Testing for one-way trip request endpoint', function(){
-    this.timeout(15000);
+describe('Testing for one-way trip request endpoint', function () {
+  this.timeout(15000);
   it('user can make trip request if he is logged in and has a valid token', done => {
     (async () => {
       const validInput = {
@@ -30,7 +30,7 @@ describe('Testing for one-way trip request endpoint', function(){
       done();
     })();
   });
-  
+
   it('user cannot  make trip request if origin is missing', done => {
     (async () => {
       const validInput = {
@@ -51,7 +51,7 @@ describe('Testing for one-way trip request endpoint', function(){
       const { token } = signResponse.body.payload;
       const res = await request.post('/api/v1/trip/request').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-    
+
       done();
     })();
   });
@@ -76,7 +76,7 @@ describe('Testing for one-way trip request endpoint', function(){
       const { token } = signResponse.body.payload;
       const res = await request.post('/api/v1/trip/request').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-      
+
       done();
     })();
   });
@@ -101,7 +101,7 @@ describe('Testing for one-way trip request endpoint', function(){
       const token = '';
       const res = await request.post('/api/v1/trip/request').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-     
+
       done();
     })();
   });
@@ -126,7 +126,7 @@ describe('Testing for one-way trip request endpoint', function(){
       const token = 'dndkcndckdcnlsmlslmcksncjnscnnc';
       const res = await request.post('/api/v1/trip/request').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-      
+
       done();
     })();
   });

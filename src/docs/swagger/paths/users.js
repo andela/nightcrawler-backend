@@ -70,10 +70,15 @@ export const userRolePath = {
   }
 };
 
-export const createUser = {
+export const createUserPath = {
   post: {
     tags: [
       'users'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
     ],
     summary: 'Create a new user(s) record',
     description: 'Allows admin to create new user(s) record',
@@ -84,7 +89,7 @@ export const createUser = {
         description: 'User request object',
         required: true,
         schema: {
-          $ref: '#/definitions/userCreate'
+          $ref: '#/definitions/createUser'
         }
       }
     ],
@@ -92,7 +97,7 @@ export const createUser = {
       201: {
         description: 'User created successfully',
         schema: {
-          $ref: '#/definitions/createSuccess'
+          $ref: '#/definitions/created'
         }
       },
       400: {
@@ -262,6 +267,52 @@ export const forgotPasswordPath = {
         description: 'Incorrect login details',
         schema: {
           $ref: '#/definitions/notAuthorized'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};
+
+export const verifyUserPath = {
+  post: {
+    tags: [
+      'users'
+    ],
+    summary: 'Verify a user account',
+    parameters: [
+      {
+        name: 'body',
+        in: 'body',
+        description: 'Verify a user account',
+        required: true,
+        schema: {
+          $ref: '#/definitions/verifyUser'
+        }
+      }
+    ],
+    responses: {
+      200: {
+        description: 'Verification successful',
+        schema: {
+          $ref: '#/definitions/success'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      404: {
+        description: 'User not found',
+        schema: {
+          $ref: '#/definitions/notFound'
         }
       },
       500: {

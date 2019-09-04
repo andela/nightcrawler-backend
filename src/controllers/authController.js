@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { generateToken } from '../helpers/jwt';
 import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
 import { comparePasswords } from '../helpers/hash';
@@ -19,5 +20,5 @@ export const signin = async (req, res) => {
   const { id, roleId } = req.user;
   const payload = { id, roleId };
   req.user.token = await generateToken(payload);
-  return respondWithSuccess(res, statusCode.success, resMessage.successfulLogin, req.user);
+  return respondWithSuccess(res, statusCode.success, resMessage.successfulLogin, _.omit(req.user, ['password']));
 };

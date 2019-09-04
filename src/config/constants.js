@@ -12,7 +12,9 @@ const {
   SALT_ROUNDS,
   SENDGRID_API_KEY,
   EMAIL_SENDER,
-  URL
+  URL,
+  VERIFY_URL
+
 } = process.env;
 
 const EXPIRATION_DURATION = 172800;
@@ -29,6 +31,6 @@ export {
   EXPIRATION_DURATION,
   SENDGRID_API_KEY,
   EMAIL_SENDER,
-  URL
+  URL,
+  VERIFY_URL
 };
-
