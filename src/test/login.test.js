@@ -21,8 +21,6 @@ describe('AUTH CONTROLLER', () => {
           expect(res.body.success).to.equal(true);
           expect(res.body.payload).to.have.property('id');
           expect(res.body.payload).to.have.property('username');
-          expect(res.body.payload).to.have.property('firstName');
-          expect(res.body.payload).to.have.property('lastName');
           expect(res.body.payload).to.have.property('email');
           expect(res.body.payload).to.have.property('isVerified');
           expect(res.body.payload).to.have.property('token');

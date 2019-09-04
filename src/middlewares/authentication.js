@@ -19,7 +19,7 @@ export const authenticateUserToken = (req, res, next) => {
     token = token.slice(7, token.length);
   }
   if (!token) {
-    return respondWithWarning(res, 401, 'Please signin to continue');
+    return respondWithWarning(res, statusCode.unauthorizedAccess, resMessage.expiredSession);
   }
   try {
     const { key } = verifyToken(token);
@@ -48,7 +48,7 @@ export const validUser = async (req, res, next) => {
   return next();
 };
 
-export const isUserExist = async (req, res, next) => {
+export const verifyUserAccount = async (req, res, next) => {
   const { id } = req.auth;
   const findUser = await findSingleUser({ id });
   if (!findUser) {

@@ -1,4 +1,5 @@
 import _ from 'lodash';
+/* eslint-disable arrow-body-style */
 import Model from '../models';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
@@ -89,7 +90,6 @@ export const findSingleUser = async (condition = {}) => {
     };
   }
 };
-
 export const findSingleRole = async (condition = {}) => {
   try {
     const role = Object.keys(condition).length
@@ -114,4 +114,14 @@ export const verifyUserAccount = async (id) => {
       errors: error
     };
   }
+};
+
+export const createUserProfile = (profile) => Model.Profile.create(profile);
+
+export const updateUserProfile = (userId, profile) => {
+  return Model.Profile.update(profile, { where: userId, returning: true });
+};
+
+export const getUserProfile = (queryParam) => {
+  return Model.Profile.findOne({ where: queryParam });
 };
