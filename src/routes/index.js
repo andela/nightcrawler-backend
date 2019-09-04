@@ -1,8 +1,14 @@
 import { Router } from 'express';
-import router from './api';
+import auth from './api/auth.routes';
+import user from './api/user.routes';
+import permissions from './api/permissions.routes';
+import roles from './api/roles.routes';
 
 const apiRouter = Router();
 
-apiRouter.use('/api', router);
+apiRouter.use('/api/v1/auth', auth);
+apiRouter.use('/api/v1/users', user);
+apiRouter.use('/api/v1/permissions', permissions);
+apiRouter.use('/api/v1/roles', roles);
 
 export default apiRouter;

@@ -32,15 +32,14 @@ src
     │   ├── swagger    
     │   │   ├── definitions     
     │   │   ├── paths     
-    │   │   ├── swagger.js 
+    │   │   ├── swagger.js
     ├── helpers                   # reusable functions across the project
     ├── middlewares                 # route validation functions
     ├── models                      # tables models
     ├── routes.js               # general routes for all modules
-        ├── api    
-            ├── index.js    
+        ├── api   
             ├── example.routes.js    # example route
-        ├── index.js    
+        ├── index.js               # entry file for all routes
     ├── services
     └── tests                       # integration test files
   ```
