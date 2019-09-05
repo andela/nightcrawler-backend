@@ -39,19 +39,6 @@ describe('DEFAULT TESTS', () => {
   });
 
   describe('Expired session', () => {
-    it('it Return session expired for a user', (done) => {
-      chai.request(app)
-        .patch(`${userUrl}/roles/4`)
-        .send({ email: 'shonubijerry@nomad.com' })
-        .set('Authorization', 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJrZXkiOnsiaWQiOjEsInJvbGVJZCI6MX0sImlhdCI6MTU2NzE4NzMwNSwiZXhwIjoxNTY3MTg3MzA4fQ.TXFOAeu71-nOk_7SYG1IFfUdaw2EJeNT-zjScuXSYro')
-        .end((error, res) => {
-          expect(res).to.have.status(401);
-          expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('Session has expired. Signin to continue');
-          done();
-        });
-    });
-
     it('it Return session is invalid for a user', (done) => {
       chai.request(app)
         .patch(`${userUrl}/roles/4`)
