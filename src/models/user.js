@@ -15,9 +15,9 @@ export default (sequelize, DataTypes) => {
 
   User.associate = (models) => {
     User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'roles', timestamps: false });
+    User.hasMany(models.TripRequest, { foreignKey: 'userId', onDelete: 'CASCADE' });
   };
-
-  User.beforeCreate(async (user) => {
+ User.beforeCreate(async (user) => {
     const error = new Error();
     error.code = 422;
     error.field = { ...user.dataValues };
@@ -41,6 +41,5 @@ export default (sequelize, DataTypes) => {
       user.password = password;
     });
   });
-
   return User;
 };
