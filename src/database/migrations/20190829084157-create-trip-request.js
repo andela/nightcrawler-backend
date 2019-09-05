@@ -42,5 +42,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('TripRequests')
+  down: (queryInterface) => queryInterface.dropTable('TripRequests')
 };

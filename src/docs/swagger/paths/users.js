@@ -233,7 +233,7 @@ export const resetUserPasswordPath = {
 };
 
 export const forgotPasswordPath = {
-  patch: {
+  post: {
     tags: [
       'users'
     ],

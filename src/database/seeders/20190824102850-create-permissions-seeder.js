@@ -115,6 +115,12 @@ export default {
     {
       actionName: 'VIEW_ROLES',
     },
+    {
+      actionName: 'VIEW_ROOM',
+    },
+    {
+      actionName: 'CREATE_ROOM',
+    },
   ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Permissions', null, {})

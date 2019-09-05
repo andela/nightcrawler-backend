@@ -12,6 +12,12 @@ import {
 } from './definitions/users';
 import { permissionsRes } from './definitions/permissions';
 import { updateRolePermissionsReq, rolesRes, updateRolePermissionsRes } from './definitions/roles';
+import {
+  createAccommodationReq, createAccommodationRes, createRoomReq, createRoomRes,
+  getAccommodationRes, getAllAccommodationsRes
+} from './definitions/accommodation';
+
+
 import { signInPath } from './paths/auth';
 import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
@@ -21,6 +27,9 @@ import { requestTrip } from './paths/trips';
 import { createTrip } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
+import {
+  createAccommodationPath, createRoomPath, getAccommodationPath,
+} from './paths/accommodations';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -65,6 +74,10 @@ const swaggerDocument = {
     {
       name: 'trips',
       description: 'Trip related actions'
+    },
+    {
+      name: 'accommodations',
+      description: 'Accommodation related endpoints'
     }
   ],
   paths: {
@@ -79,8 +92,17 @@ const swaggerDocument = {
     '/users/reset-forgot-password': resetPasswordPath,
     '/users/reset-user-password': resetUserPasswordPath,
     '/trip/request': requestTrip,
+    '/accommodations': createAccommodationPath,
+    '/accommodations/rooms/{accommodationId}': createRoomPath,
+    '/accommodations/{accommodationId}': getAccommodationPath,
   },
   definitions: {
+    getAccommodationRes,
+    getAllAccommodationsRes,
+    createAccommodationRes,
+    createAccommodationReq,
+    createRoomReq,
+    createRoomRes,
     SigninCreate, // signin request
     Signin, // signin response
     createUser, // create user

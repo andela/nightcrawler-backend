@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { findSingleUser } from '../services/userServices';
 import { respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';

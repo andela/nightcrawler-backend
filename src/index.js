@@ -7,6 +7,7 @@ import swaggerDocument from './docs/swagger/swagger';
 import { PORT } from './config/constants';
 import apiRouter from './routes';
 import { respondWithSuccess, respondWithWarning } from './helpers/responseHandler';
+import { cloudinaryConfig } from './config/cloudinaryConfig';
 
 const app = express();
 const port = PORT || 3000;
@@ -18,6 +19,9 @@ app.use(
 );
 app.use(cors());
 app.use(logger('dev'));
+
+// Handle image upload
+app.use('*', cloudinaryConfig);
 
 // handles default route
 app.get('/', (req, res) => respondWithSuccess(res, 200, 'Welcome to barefoot Normad'));
