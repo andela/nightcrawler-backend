@@ -1,12 +1,11 @@
-
 export default (sequelize, DataTypes) => {
   const TripRequest = sequelize.define('TripRequest', {
     origin: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    destination: {
-      type: DataTypes.STRING,
+    destinationId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
     type: {
@@ -26,8 +25,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     returnDate: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      type: DataTypes.STRING
     },
     userId: {
       type: DataTypes.INTEGER,
@@ -36,6 +34,7 @@ export default (sequelize, DataTypes) => {
   }, {});
   TripRequest.associate = models => {
     TripRequest.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+    TripRequest.belongsTo(models.Destination, { foreignKey: 'destinationId', as: 'destination', onDelete: 'CASCADE' });
   };
   return TripRequest;
 };

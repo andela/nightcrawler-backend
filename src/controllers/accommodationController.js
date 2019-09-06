@@ -87,15 +87,10 @@ export const getAccommodations = async (req, res) => {
  */
 export const getTripAccommodations = async (req, res) => {
   try {
-    const { tripId } = req.params;
     const { offset, limit } = req.query;
-
-    const trip = await tripServices.findTripById(tripId);
-    if (!trip) {
-      return respondWithWarning(res, statusCode.resourceNotFound, 'trip not found');
-    }
-
-    const { destination } = trip;
+    const { destinationId } = req.trip;
+    const singleDestination = await tripServices.findOneDestination(destinationId);
+    const { destination } = singleDestination.toJSON();
     const queryOption = {
       city: destination
     };
