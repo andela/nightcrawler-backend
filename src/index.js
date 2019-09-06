@@ -8,6 +8,7 @@ import { PORT } from './config/constants';
 import apiRouter from './routes';
 import { respondWithSuccess, respondWithWarning } from './helpers/responseHandler';
 import { cloudinaryConfig } from './config/cloudinaryConfig';
+import './config/passport';
 
 const app = express();
 const port = PORT || 3000;
