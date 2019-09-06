@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import { Router } from 'express';
 import { checkPermission } from '../../middlewares/checkPermission';
 import { editUserRoleValidation } from '../../middlewares/roleValidation';

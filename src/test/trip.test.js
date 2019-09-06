@@ -4,8 +4,8 @@ import app from '../index';
 
 chai.should();
 chai.use(chaiHttp);
-describe('Testing for one-way trip request endpoint', function () {
-  this.timeout(15000);
+describe('Testing for one-way trip request endpoint', () => {
+  // this.timeout(15000);
   it('user can make trip request if he is logged in and has a valid token', done => {
     (async () => {
       const validInput = {
