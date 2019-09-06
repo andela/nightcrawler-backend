@@ -1,5 +1,8 @@
+import _ from 'lodash';
 import Model from '../models';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
+import statusCode from '../helpers/statusCode';
+
 
 const { User, Role } = Model;
 
@@ -16,11 +19,10 @@ export const createSingle = async (data, res) => {
     const user = await User.create({
       username, email, firstName, lastName, roleId
     });
-    delete user.password;
-    return respondWithSuccess(res, 201, 'User created successfully', user.dataValues);
+    return respondWithSuccess(res, statusCode.created, 'User created successfully', _.omit(user.dataValues, 'password'));
   } catch (error) {
-    const { message, code } = error;
-    return respondWithWarning(res, code || 500, message, error);
+    const { message, code, field: user } = error;
+    return respondWithWarning(res, code || statusCode.internalServerError, message, user);
   }
 };
 
@@ -32,10 +34,10 @@ export const createSingle = async (data, res) => {
 export const createMultiple = async (users, res) => {
   try {
     await User.bulkCreate(users, { individualHooks: true });
-    return respondWithSuccess(res, 201, 'Users created successfuly');
+    return respondWithSuccess(res, statusCode.created, 'Users created successfuly');
   } catch (error) {
     const { message, code, field: user } = error;
-    return respondWithWarning(res, code || 500, message, user);
+    return respondWithWarning(res, code || statusCode.internalServerError, message, user);
   }
 };
 
@@ -98,6 +100,16 @@ export const findSingleRole = async (condition = {}) => {
       })
       : null;
     return role;
+  } catch (error) {
+    return {
+      errors: error
+    };
+  }
+};
+
+export const verifyUserAccount = async (id) => {
+  try {
+    return await User.update({ isVerified: true }, { where: { id } });
   } catch (error) {
     return {
       errors: error

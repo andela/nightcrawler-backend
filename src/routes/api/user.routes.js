@@ -2,15 +2,17 @@ import { Router } from 'express';
 import { checkPermission } from '../../middlewares/checkPermission';
 import { editUserRoleValidation } from '../../middlewares/roleValidation';
 import {
-  authenticateUserToken, validUser, isUserExist, compareResetForgotPassword, compareResetUserPassword
+  authenticateUserToken, validUser, isUserExist, compareResetForgotPassword,
+  compareResetUserPassword
 } from '../../middlewares/authentication';
 import {
-  resetForgotPassword, createNewUser, editUserRole, forgotPassowrd, resetUserPassword
+  resetForgotPassword, createNewUser, editUserRole, forgotPassowrd, resetUserPassword, verifyUser
 } from '../../controllers/userController';
 import {
   validateForgotPasswordForm, validateResetUserPasswordForm,
   validateResetForgotPasswordForm, validateSignUpFormData
 } from '../../middlewares/validateAuth';
+import verifyEmailToken from '../../middlewares/verifyEmailToken';
 
 const router = Router();
 
@@ -23,5 +25,6 @@ router.patch('/reset-forgot-password', validateResetForgotPasswordForm, authenti
 router.patch('/reset-user-password', authenticateUserToken, validateResetUserPasswordForm, isUserExist, compareResetUserPassword, resetUserPassword);
 
 router.patch('/roles/:roleId', authenticateUserToken, checkPermission('EDIT_USER_ROLE'), editUserRoleValidation, editUserRole);
+router.post('/verify', verifyEmailToken, isUserExist, verifyUser);
 
 export default router;

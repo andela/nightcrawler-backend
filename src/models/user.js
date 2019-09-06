@@ -1,5 +1,11 @@
 import { passwordHash } from '../helpers/hash';
 import Model from './index';
+import { generateToken } from '../helpers/jwt';
+import { verifyEmail } from '../helpers/verificationNotifications';
+import { EMAIL_SENDER } from '../config/constants';
+import { sendMail } from '../helpers/sendMail';
+import statusCode from '../helpers/statusCode';
+
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
@@ -17,9 +23,9 @@ export default (sequelize, DataTypes) => {
     User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'roles', timestamps: false });
     User.hasMany(models.TripRequest, { foreignKey: 'userId', onDelete: 'CASCADE' });
   };
- User.beforeCreate(async (user) => {
+  User.beforeCreate(async (user) => {
     const error = new Error();
-    error.code = 422;
+    error.code = statusCode.unprocessableEntity;
     error.field = { ...user.dataValues };
     const foundUser = await User.findOne({
       where: {
@@ -41,5 +47,18 @@ export default (sequelize, DataTypes) => {
       user.password = password;
     });
   });
+
+  User.afterCreate(async (user) => {
+    const { id, email } = user;
+    const token = await generateToken({ id }, {});
+    const data = {
+      emailFrom: EMAIL_SENDER,
+      emailTo: email,
+      emailSubject: 'Welcome to Barefoot Nomad! Confirm Your Email',
+      emailBody: verifyEmail(email, token),
+    };
+    sendMail(data);
+  });
+
   return User;
 };

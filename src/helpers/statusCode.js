@@ -6,4 +6,5 @@ export default {
   badRequest: 400,
   resourceNotFound: 404,
   conflict: 409,
+  unprocessableEntity: 422
 };

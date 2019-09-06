@@ -4,10 +4,11 @@ import { SECRET_KEY, EXPIRATION_DURATION } from '../config/constants';
 /**
  * Function to generate token from userId and role
  * @param {object} data
+ * @param {object} options
  * @returns {string} generated token
  */
-export const generateToken = async (data) => {
-  const token = await jwt.sign({ key: data }, SECRET_KEY, { expiresIn: EXPIRATION_DURATION });
+export const generateToken = async (data, options = { expiresIn: EXPIRATION_DURATION }) => {
+  const token = await jwt.sign({ key: data }, SECRET_KEY, options);
   return token;
 };
 
@@ -35,7 +36,3 @@ export const formatJWTErrorMessage = (message) => {
   }
   return formattedMessage;
 };
-
-
-
-

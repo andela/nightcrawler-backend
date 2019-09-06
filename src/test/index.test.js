@@ -38,7 +38,7 @@ describe('DEFAULT TESTS', () => {
     });
   });
 
-  describe('Expired session', () => {
+  describe('Invalid session', () => {
     it('it Return session is invalid for a user', (done) => {
       chai.request(app)
         .patch(`${userUrl}/roles/4`)

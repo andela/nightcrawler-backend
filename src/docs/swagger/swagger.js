@@ -1,23 +1,24 @@
 // eslint-disable-next-line import/named
 import { API_URL } from '../../config/constants';
-import { createSuccess } from './definitions/successResponse';
+import { created, success } from './definitions/successResponse';
 import {
   badRequest, notAuthorized, accessForbidden, notFound, conflict,
   serverError
 } from './definitions/errorResponse';
 import { SigninCreate, Signin } from './definitions/auth';
 import {
-  userCreate, updateRoleReq, updateRoleRes,
-  resetPassword, resetPasswordResponse, forgotPassword, resetUserPassword
+  createUser, updateRoleReq, updateRoleRes,
+  resetPassword, resetPasswordResponse, forgotPassword, resetUserPassword, verifyUser
 } from './definitions/users';
 import { permissionsRes } from './definitions/permissions';
 import { updateRolePermissionsReq, rolesRes, updateRolePermissionsRes } from './definitions/roles';
 import { signInPath } from './paths/auth';
 import {
-  userRolePath, createUser, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath
+  userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
+  verifyUserPath
 } from './paths/users';
 import { requestTrip } from './paths/trips';
-import { createTrip } from './definitions/trip'
+import { createTrip } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 
@@ -68,7 +69,8 @@ const swaggerDocument = {
   ],
   paths: {
     '/auth/signin': signInPath,
-    '/users': userCreate,
+    '/users': createUserPath,
+    '/users/verify': verifyUserPath,
     '/users/roles/{roleId}': userRolePath,
     '/permissions': permissionsPath,
     '/roles': rolesPath,
@@ -82,7 +84,9 @@ const swaggerDocument = {
     SigninCreate, // signin request
     Signin, // signin response
     createUser, // create user
-    createSuccess,
+    verifyUser, // verify user
+    success, // 200
+    created,
     updateRoleReq,
     updateRoleRes,
     permissionsRes,

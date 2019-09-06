@@ -17,7 +17,6 @@ export const authenticateUserToken = (req, res, next) => {
   if (token && token.startsWith('Bearer ')) {
     token = token.slice(7, token.length);
   }
-  console.log(token)
   if (!token) {
     return respondWithWarning(res, 401, 'Please signin to continue');
   }
@@ -69,6 +68,7 @@ export const compareResetForgotPassword = (req, res, next) => {
 export const compareResetUserPassword = async (req, res, next) => {
   const { oldPassword } = req.body;
   const isMatch = await comparePasswords(oldPassword, req.user.password);
+  // eslint-disable-next-line max-len
   return (!isMatch) ? respondWithWarning(res, statusCode.unauthorizedAccess, resMessage.incorrectPassword)
     : next();
 };
