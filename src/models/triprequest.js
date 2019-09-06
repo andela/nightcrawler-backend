@@ -21,15 +21,15 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     departureDate: {
-      type: DataTypes.STRING,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     returnDate: {
-      type: DataTypes.STRING
+      type: DataTypes.DATE
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: false
     }
   }, {});
   TripRequest.associate = models => {
@@ -41,6 +41,8 @@ export default (sequelize, DataTypes) => {
       as: 'subTrips',
       timestamps: false
     });
+    TripRequest.belongsTo(models.Flight, { foreignKey: 'returnDate', onDelete: 'CASCADE' });
+    TripRequest.belongsTo(models.Flight, { foreignKey: 'departureDate', onDelete: 'CASCADE' });
   };
   return TripRequest;
 };

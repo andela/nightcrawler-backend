@@ -8,6 +8,7 @@ export default (sequelize, DataTypes) => {
   Destination.associate = (models) => {
     Destination.hasMany(models.TripRequest, { foreignKey: 'destinationId', as: 'tripRequests', timestamps: false });
     Destination.hasMany(models.SubTripRequest, { foreignKey: 'subDestinationId', as: 'subTripRequests', timestamps: false });
+    Destination.hasMany(models.Flight, { foreignKey: 'destinationId', timestamps: false });
   };
   return Destination;
 };
