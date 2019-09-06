@@ -80,4 +80,18 @@ const Signin = {
   }
 };
 
-export { SigninCreate, Signin };
+const Logout = {
+  type: 'object',
+  properties: {
+    success: {
+      type: 'boolean',
+      example: true
+    },
+    message: {
+      type: 'string',
+      example: 'logout successful'
+    }
+  }
+};
+
+export { SigninCreate, Signin, Logout };

@@ -1,8 +1,6 @@
 export const signInPath = {
   post: {
-    tags: [
-      'auth'
-    ],
+    tags: ['auth'],
     summary: 'Sign a user in',
     description: 'Allows registered user to signin',
     parameters: [
@@ -39,6 +37,21 @@ export const signInPath = {
         description: 'Server error',
         schema: {
           $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};
+export const logoutPath = {
+  post: {
+    tags: ['auth'],
+    summary: 'Logout a user',
+    description: 'Allows logged in user to logout',
+    responses: {
+      200: {
+        description: 'User logout successfully',
+        schema: {
+          $ref: '#/definitions/Logout'
         }
       }
     }

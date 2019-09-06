@@ -5,7 +5,7 @@ import {
   badRequest, notAuthorized, accessForbidden, notFound, conflict,
   serverError
 } from './definitions/errorResponse';
-import { SigninCreate, Signin } from './definitions/auth';
+import { SigninCreate, Signin, Logout } from './definitions/auth';
 import {
   createUser, updateRoleReq, updateRoleRes,
   resetPassword, resetPasswordResponse, forgotPassword, resetUserPassword, verifyUser
@@ -18,7 +18,7 @@ import {
 } from './definitions/accommodation';
 
 
-import { signInPath } from './paths/auth';
+import { signInPath, logoutPath } from './paths/auth';
 import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
   verifyUserPath
@@ -84,6 +84,7 @@ const swaggerDocument = {
   ],
   paths: {
     '/auth/signin': signInPath,
+    '/auth/logout': logoutPath,
     '/users': createUserPath,
     '/users/verify': verifyUserPath,
     '/users/roles/{roleId}': userRolePath,
@@ -131,7 +132,8 @@ const swaggerDocument = {
     notFound, // 404
     conflict, // 409
     serverError, // 503
-    socialMediaAuthentication // social media login response
+    socialMediaAuthentication, // social media login response
+    Logout
   }
 };
 
