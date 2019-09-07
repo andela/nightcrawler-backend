@@ -54,7 +54,7 @@ export const createUser = (data, res) => {
  */
 export const updatePassword = async (userEmail, hashedPassword) => {
   try {
-    const user = User.update({
+    return await User.update({
       password: hashedPassword
     }, {
       where: { email: userEmail },
@@ -62,7 +62,6 @@ export const updatePassword = async (userEmail, hashedPassword) => {
       logging: false,
       plain: true
     });
-    return user;
   } catch (error) {
     return {
       errors: error

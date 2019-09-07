@@ -1,45 +1,35 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('TripRequests', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Notifications', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
     },
-    origin: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    destination: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    reason: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    departureDate: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    returnDate: {
-      type: Sequelize.STRING
-    },
     type: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    status: {
-      type: Sequelize.STRING,
+    title: {
+      type: Sequelize.TEXT,
       allowNull: false,
-      defaultValue: 'Open',
+    },
+    tripId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
     },
     userId: {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+    },
+    message: {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    accomodationId: {
-      type: Sequelize.STRING
+    read: {
+      type: Sequelize.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
     },
     createdAt: {
       allowNull: false,
@@ -52,5 +42,5 @@ export default {
       defaultValue: new Date()
     }
   }),
-  down: (queryInterface) => queryInterface.dropTable('TripRequests')
+  down: queryInterface => queryInterface.dropTable('Notifications')
 };
