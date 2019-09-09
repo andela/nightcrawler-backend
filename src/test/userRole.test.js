@@ -27,7 +27,7 @@ describe('USER CONTROLLER', () => {
     it('it should not assign role if user is not Super Administrator', (done) => {
       chai.request(app)
         .patch(`${userUrl}/roles/4`)
-        .set('Authorization', currentToken)
+        .set('Authorization', currentToken )
         .send({ email: 'johndoe@nomad.com' }) // valid email
         .end((error, res) => {
           expect(res).to.have.status(403);

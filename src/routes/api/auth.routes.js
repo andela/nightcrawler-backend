@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import passport from 'passport';
 import { validateSigninFormData } from '../../middlewares/validateAuth';
-import { validUser, isUserExist, authenticateUserToken } from '../../middlewares/authentication';
+import { validUser, verifyUserAccount, authenticateUserToken } from '../../middlewares/authentication';
 import { signin, google, facebook } from '../../controllers/authController';
 import logout from '../../controllers/logoutController';
 
@@ -16,7 +16,7 @@ router.get('/google/redirect', google);
 router.get('/facebook', passport.authenticate('facebook', { scope: ['email'] }));
 router.get('/facebook/redirect', facebook);
 
-router.get('/logout', authenticateUserToken, isUserExist, logout);
+router.get('/logout', authenticateUserToken, verifyUserAccount, logout);
 
 
 export default router;

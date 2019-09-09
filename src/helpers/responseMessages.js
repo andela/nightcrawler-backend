@@ -7,6 +7,7 @@ export default {
   notAUser: 'User not found',
   updatedTripRequest: 'Trip request has been updated successfully',
   successfulOperation: 'Operation was successful',
+  profileFound: 'Profile found',
   passwordComparison: 'The two password are not the same',
   forgotPassword: 'A link has been sent to your email. Kindly follow that link to reset your password',
   successfulLogin: 'Login successful',
@@ -15,5 +16,7 @@ export default {
   resetPasswordWithoutPassword: 'password has been reset successfully, please check your mail for your password',
   userRoleConflict: 'user already belongs to this role',
   forbiddenAccess: 'Forbidden Action',
-  expiredSession: 'Please signin to continue'
+  expiredSession: 'Please signin to continue',
+  profileCreated: 'Profile successfully created',
+  profileUpdated: 'Profile updated',
 };

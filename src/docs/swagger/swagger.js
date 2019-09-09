@@ -32,6 +32,10 @@ import {
 } from './paths/accommodations';
 import socialMediaAuthentication from './definitions/socialMedia';
 import { googlePath, facebookPath } from './paths/socialAuth';
+import {
+  ProfileCreate, ProfileResponds, ProfileHeaders, ProfileUpdate, ProfileUpdateResponds
+} from './definitions/profile';
+import profilePath from './paths/profile';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -103,6 +107,7 @@ const swaggerDocument = {
     '/auth/google': googlePath,
     '/auth/facebook': facebookPath,
     '/user': createUser,
+    '/users/profile': profilePath,
   },
   definitions: {
     getAccommodationRes,
@@ -117,6 +122,11 @@ const swaggerDocument = {
     verifyUser, // verify user
     success, // 200
     created,
+    ProfileHeaders, // profile header token
+    ProfileCreate, // profile create request
+    ProfileResponds, // profile response
+    ProfileUpdate, // profile update request
+    ProfileUpdateResponds, // profile update response
     updateRoleReq,
     updateRoleRes,
     permissionsRes,

@@ -46,7 +46,7 @@ export const validateSignUpFormData = (req, res, next) => {
   if (!errors) {
     return next();
   }
-  return respondWithWarning(res, 400, 'Bad requst', errors);
+  return respondWithWarning(res, 400, 'Bad request', errors);
 };
 
 /**

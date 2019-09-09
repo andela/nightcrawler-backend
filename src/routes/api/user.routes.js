@@ -1,17 +1,31 @@
 /* eslint-disable max-len */
 import { Router } from 'express';
 import { checkPermission } from '../../middlewares/checkPermission';
+import * as profileValidation from '../../middlewares/profileValidation';
 import { editUserRoleValidation } from '../../middlewares/roleValidation';
 import {
-  authenticateUserToken, validUser, isUserExist, compareResetForgotPassword,
-  compareResetUserPassword
+  authenticateUserToken,
+  validUser,
+  verifyUserAccount,
+  compareResetForgotPassword,
+  compareResetUserPassword,
 } from '../../middlewares/authentication';
 import {
-  resetForgotPassword, createNewUser, editUserRole, forgotPassowrd, resetUserPassword, verifyUser
+  verifyUser,
+  resetForgotPassword,
+  createNewUser,
+  editUserRole,
+  forgotPassowrd,
+  resetUserPassword,
+  createProfile,
+  getProfile,
+  updateProfile,
 } from '../../controllers/userController';
 import {
-  validateForgotPasswordForm, validateResetUserPasswordForm,
-  validateResetForgotPasswordForm, validateSignUpFormData
+  validateForgotPasswordForm,
+  validateResetUserPasswordForm,
+  validateResetForgotPasswordForm,
+  validateSignUpFormData
 } from '../../middlewares/validateAuth';
 import verifyEmailToken from '../../middlewares/verifyEmailToken';
 
@@ -21,11 +35,17 @@ router.post('/', authenticateUserToken, checkPermission('REGISTER_USERS'), valid
 
 router.post('/forgot-password', validateForgotPasswordForm, validUser, forgotPassowrd);
 
-router.patch('/reset-forgot-password', validateResetForgotPasswordForm, authenticateUserToken, isUserExist, compareResetForgotPassword, resetForgotPassword);
+router.patch('/reset-forgot-password', validateResetForgotPasswordForm, authenticateUserToken, verifyUserAccount, compareResetForgotPassword, resetForgotPassword);
 
-router.patch('/reset-user-password', authenticateUserToken, validateResetUserPasswordForm, isUserExist, compareResetUserPassword, resetUserPassword);
+router.patch('/reset-user-password', authenticateUserToken, validateResetUserPasswordForm, verifyUserAccount, compareResetUserPassword, resetUserPassword);
 
 router.patch('/roles/:roleId', authenticateUserToken, checkPermission('EDIT_USER_ROLE'), editUserRoleValidation, editUserRole);
-router.post('/verify', verifyEmailToken, isUserExist, verifyUser);
+router.post('/verify', verifyEmailToken, verifyUserAccount, verifyUser);
+
+router.get('/profile', authenticateUserToken, verifyUserAccount, getProfile);
+
+router.post('/profile', authenticateUserToken, verifyUserAccount, profileValidation.validateProfileCreation, createProfile);
+
+router.patch('/profile', authenticateUserToken, verifyUserAccount, profileValidation.validateProfileUpdate, updateProfile);
 
 export default router;
