@@ -120,3 +120,22 @@ export const updateUserProfile = (userId, profile) => {
 export const getUserProfile = (queryParam) => {
   return Model.Profile.findOne({ where: queryParam });
 };
+
+export const getAllManager = async () => {
+  try {
+    return await Role.findAll({
+      where: {
+        id: 4
+      },
+      include: {
+        model: User,
+        as: 'users',
+        plain: true,
+      },
+    });
+  } catch (error) {
+    return {
+      errors: error
+    };
+  }
+};

@@ -124,6 +124,9 @@ export default {
     {
       actionName: 'VIEW_BOOK_ACCOMODATION_FOR_TRIP',
     },
+    {
+      actionName: 'VIEW_TRIP_COMMENT',
+    },
   ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Permissions', null, {})

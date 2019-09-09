@@ -1,18 +1,10 @@
 export default {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Notifications', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Comments', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER
-    },
-    type: {
-      type: Sequelize.STRING,
-      allowNull: false,
-    },
-    title: {
-      type: Sequelize.TEXT,
-      allowNull: false,
     },
     tripId: {
       type: Sequelize.INTEGER,
@@ -22,17 +14,14 @@ export default {
       type: Sequelize.INTEGER,
       allowNull: false,
     },
-    message: {
-      type: Sequelize.STRING,
+    comment: {
+      type: Sequelize.TEXT,
       allowNull: false,
     },
-    read: {
+    isVisible: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
-      defaultValue: false,
-    },
-    commentId: {
-      type: Sequelize.INTEGER,
+      defaultValue: true,
     },
     createdAt: {
       allowNull: false,
@@ -45,5 +34,5 @@ export default {
       defaultValue: new Date(),
     }
   }),
-  down: queryInterface => queryInterface.dropTable('Notifications')
+  down: queryInterface => queryInterface.dropTable('Comments')
 };

@@ -6,12 +6,14 @@ import permissions from './api/permissions.routes';
 import roles from './api/roles.routes';
 import accommodation from './api/accommodation.routes';
 import booking from './api/booking.routes';
+import comments from './api/comment.routes';
 
 const apiRouter = Router();
 
 apiRouter.use('/api/v1/auth', auth);
 apiRouter.use('/api/v1/users', user);
 apiRouter.use('/api/v1/trips', trip);
+apiRouter.use('/api/v1/trips', comments);
 apiRouter.use('/api/v1/permissions', permissions);
 apiRouter.use('/api/v1/roles', roles);
 apiRouter.use('/api/v1/accommodations', accommodation);

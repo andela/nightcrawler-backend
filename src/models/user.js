@@ -23,6 +23,7 @@ export default (sequelize, DataTypes) => {
     User.belongsTo(models.Role, { foreignKey: 'roleId', as: 'roles', timestamps: false });
     User.hasMany(models.TripRequest, { foreignKey: 'userId', onDelete: 'CASCADE' });
     User.hasMany(models.Notification, { foreignKey: 'userId', onDelete: 'CASCADE' });
+    User.hasMany(models.Comment, { foreignKey: 'userId', onDelete: 'CASCADE' });
   };
   User.beforeCreate(async (user) => {
     const error = new Error();

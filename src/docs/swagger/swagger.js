@@ -42,6 +42,8 @@ import {
   ProfileCreate, ProfileResponds, ProfileHeaders, ProfileUpdate, ProfileUpdateResponds
 } from './definitions/profile';
 import profilePath from './paths/profile';
+import { createComment } from './definitions/createComment';
+import { createCommentPath, deleteCommentPath, getTripCommentsPath } from './paths/commentPath';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -111,6 +113,9 @@ const swaggerDocument = {
     '/trips/request': requestTrip,
     '/trips/{tripId}/approve': approvedTripPath,
     '/trips/{tripId}': getTripPath,
+    '/trips/{tripId}/comment': createCommentPath,
+    '/trips/{tripId}/comments': getTripCommentsPath,
+    '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
@@ -154,6 +159,7 @@ const swaggerDocument = {
     updateRolePermissionsRes,
     rolesRes,
     createTrip,
+    createComment,
     resetPassword, // reset password request
     resetPasswordResponse,
     badRequest, // 400
