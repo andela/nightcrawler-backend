@@ -1,6 +1,6 @@
 import Model from '../models';
 
-const { Comment, TripRequest } = Model;
+const { Comment, User } = Model;
 
 /**
  * @exports createComment
@@ -79,3 +79,13 @@ export const getAllComments = async (id) => {
     };
   }
 };
+
+export const fetchTripComments = async (trip) => trip.getComments({
+  attributes: ['id', 'tripId', 'comment', 'userId', 'createdAt', 'updatedAt'],
+  where: {
+    isVisible: true
+  },
+  include: [
+    { model: User, as: 'users', attributes: ['id', 'username', 'firstName', 'lastName'] }
+  ]
+});

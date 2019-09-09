@@ -58,7 +58,5 @@ export default {
       type: Sequelize.DATE
     }
   }),
-  down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Profiles');
-  }
+  down: (queryInterface, Sequelize) => queryInterface.dropTable('Profiles')
 };

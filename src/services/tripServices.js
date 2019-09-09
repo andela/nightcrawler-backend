@@ -60,3 +60,7 @@ export const findOneDestination = async (destinationId) => {
   });
   return destination;
 };
+
+export const findUserTrip = async (id, userId) => TripRequest.findOne({
+  where: { id, userId }
+});

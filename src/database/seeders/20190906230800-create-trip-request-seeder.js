@@ -4,7 +4,7 @@ export default {
       origin: 'Lagos',
       destinationId: 2,
       reason: 'Trade Fair',
-      departureDate: '9/9/2019',
+      departureDate: '2019-19-09T00:09:31.812Z',
       type: 'one-way',
       userId: 3,
       status: 'pending'
@@ -26,7 +26,7 @@ export default {
       departureDate: '2019-19-09T00:09:31.812Z',
       status: 'pending',
       userId: 2
-    }
+    },
   ], {}),
 
   down: queryInterface => queryInterface.bulkDelete('TripRequests', null, {})

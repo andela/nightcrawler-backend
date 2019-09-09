@@ -9,7 +9,7 @@ export default {
       tripId: 1,
       userId: 3,
       comment: 'Good to Go',
-    }
+    },
   ], {}),
 
   down: queryInterface => queryInterface.bulkDelete('Comments', null, {})

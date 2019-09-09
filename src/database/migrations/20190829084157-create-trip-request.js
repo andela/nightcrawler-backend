@@ -35,7 +35,7 @@ export default {
       defaultValue: 'pending'
     },
     userId: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     createdAt: {
