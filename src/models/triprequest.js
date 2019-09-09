@@ -15,14 +15,10 @@ export default (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      defaultValue: 'pending'
     },
     reason: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    accomodationId: {
-      type: DataTypes.INTEGER,
       allowNull: false,
     },
     departureDate: {

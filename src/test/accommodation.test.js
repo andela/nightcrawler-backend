@@ -176,7 +176,7 @@ describe('ACCOMMODATION CONTROLLER', () => {
         .end((error, res) => {
           expect(res).to.have.status(404);
           expect(res.body.success).to.equal(false);
-          expect(res.body.message).to.equal('this ccommodation does not exist');
+          expect(res.body.message).to.equal('accommodation does not exist');
           done();
         });
     });
@@ -195,6 +195,7 @@ describe('ACCOMMODATION CONTROLLER', () => {
           done();
         });
     });
+
     it('it should get all accommodations', (done) => {
       chai.request(app)
         .get(`${accommodationUrl}`)
@@ -210,7 +211,24 @@ describe('ACCOMMODATION CONTROLLER', () => {
           done();
         });
     });
-    it('it should get all accommodations', (done) => {
+
+    it('it should get filtered accommodations by city', (done) => {
+      chai.request(app)
+        .get(`${accommodationUrl}?city=Lagos`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.payload[0]).to.have.property('name');
+          expect(res.body.payload[0]).to.have.property('country');
+          expect(res.body.payload[0]).to.have.property('city');
+          expect(res.body.payload[0]).to.have.property('address');
+          expect(res.body.payload[0]).to.have.property('description');
+          done();
+        });
+    });
+
+    it('it should get an accommodations', (done) => {
       chai.request(app)
         .get(`${accommodationUrl}/1`)
         .set('Authorization', currentToken)
@@ -227,6 +245,23 @@ describe('ACCOMMODATION CONTROLLER', () => {
           done();
         });
     });
+
+    it('it should get accommodations for a specific trip', (done) => {
+      chai.request(app)
+        .get(`${accommodationUrl}/trip/2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.payload[0]).to.have.property('name');
+          expect(res.body.payload[0]).to.have.property('country');
+          expect(res.body.payload[0]).to.have.property('city');
+          expect(res.body.payload[0]).to.have.property('address');
+          expect(res.body.payload[0]).to.have.property('description');
+          done();
+        });
+    });
+
     it('it should return error if accommodationId does not exist', (done) => {
       chai.request(app)
         .get(`${accommodationUrl}/22`)
@@ -235,6 +270,28 @@ describe('ACCOMMODATION CONTROLLER', () => {
           expect(res).to.have.status(404);
           expect(res.body.success).to.equal(false);
           expect(res.body.message).to.equal('resource not found');
+          done();
+        });
+    });
+
+    it('it should return error if accommodationId is invalid', (done) => {
+      chai.request(app)
+        .get(`${accommodationUrl}/a2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+
+    it('it should return error if tripId is invalid', (done) => {
+      chai.request(app)
+        .get(`${accommodationUrl}/trip/a2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
           done();
         });
     });

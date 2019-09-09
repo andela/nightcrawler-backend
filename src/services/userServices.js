@@ -71,18 +71,15 @@ export const updatePassword = async (userEmail, hashedPassword) => {
 };
 
 /**
- * @param {object} condition
+ * @param {object} queryOption
  * @returns {object} an object containing the information of the user or null
  */
-export const findSingleUser = async (condition = {}) => {
+export const findSingleUser = async (queryOption = {}) => {
   try {
-    const user = Object.keys(condition).length
-      ? await User.findOne({
-        where: condition,
-        logging: false
-      })
-      : null;
-
+    const user = await User.findOne({
+      where: queryOption,
+      logging: false
+    });
     return user;
   } catch (error) {
     return {
@@ -92,12 +89,10 @@ export const findSingleUser = async (condition = {}) => {
 };
 export const findSingleRole = async (condition = {}) => {
   try {
-    const role = Object.keys(condition).length
-      ? await Role.findOne({
-        where: condition,
-        logging: false
-      })
-      : null;
+    const role = await Role.findOne({
+      where: condition,
+      logging: false
+    });
     return role;
   } catch (error) {
     return {

@@ -31,15 +31,12 @@ export default {
     },
     status: {
       type: Sequelize.STRING,
-      allowNull: false,
-      defaultValue: 'Open',
+      defaultValue: 'pending'
+      // values should be ['approved', 'pending', 'rejected']
     },
     userId: {
       type: Sequelize.STRING,
       allowNull: false,
-    },
-    accomodationId: {
-      type: Sequelize.STRING
     },
     createdAt: {
       allowNull: false,

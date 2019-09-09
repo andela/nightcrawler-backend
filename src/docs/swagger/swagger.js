@@ -16,6 +16,9 @@ import {
   createAccommodationReq, createAccommodationRes, createRoomReq, createRoomRes,
   getAccommodationRes, getAllAccommodationsRes
 } from './definitions/accommodation';
+import {
+  createBookingReq, createBookingRes, getBookingRes, getAllBookingsRes
+} from './definitions/booking';
 
 
 import { signInPath, logoutPath } from './paths/auth';
@@ -28,8 +31,11 @@ import { createTrip } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
-  createAccommodationPath, createRoomPath, getAccommodationPath,
+  createAccommodationPath, createRoomPath, getAccommodationPath, getTripAccommodationsPath
 } from './paths/accommodations';
+import {
+  bookingPath, getSingleBookingPath, getUserBookings
+} from './paths/booking';
 import socialMediaAuthentication from './definitions/socialMedia';
 import { googlePath, facebookPath } from './paths/socialAuth';
 import {
@@ -84,6 +90,10 @@ const swaggerDocument = {
     {
       name: 'accommodations',
       description: 'Accommodation related endpoints'
+    },
+    {
+      name: 'bookings',
+      description: 'Accommodation related endpoints'
     }
   ],
   paths: {
@@ -104,12 +114,20 @@ const swaggerDocument = {
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
+    '/accommodations/trips/{tripId}': getTripAccommodationsPath,
     '/auth/google': googlePath,
     '/auth/facebook': facebookPath,
     '/user': createUser,
     '/users/profile': profilePath,
+    '/bookings': bookingPath,
+    '/bookings/user': getUserBookings,
+    '/bookings{bookingId}': getSingleBookingPath,
   },
   definitions: {
+    createBookingReq,
+    createBookingRes,
+    getBookingRes,
+    getAllBookingsRes,
     getAccommodationRes,
     getAllAccommodationsRes,
     createAccommodationRes,

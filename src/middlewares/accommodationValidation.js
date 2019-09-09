@@ -27,6 +27,7 @@ export const createAccommodation = (req, res, next) => {
   }
   return respondWithWarning(res, 400, 'Bad request', errors);
 };
+
 /**
    * validate create room
    * @param {Object} req
@@ -35,11 +36,55 @@ export const createAccommodation = (req, res, next) => {
    * @returns {Object} error
    */
 export const createRoom = (req, res, next) => {
-  const data = req.body;
-  data.accommodationId = req.params.accommodationId;
+  const data = {
+    ...req.body,
+    accommodationId: req.params.accommodationId
+  };
   const schema = Joi.object().keys({
     name: Joi.string().required(),
     type: Joi.string().required(),
+    accommodationId: Joi.number().required()
+  });
+  const errors = joiValidator(data, schema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, 'Bad request', errors);
+};
+
+/**
+   * validate get trip accommodations
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @returns {Object} error
+   */
+export const getTripAccommodations = (req, res, next) => {
+  const data = {
+    tripId: req.params.tripId,
+  };
+  const schema = Joi.object().keys({
+    tripId: Joi.number().required()
+  });
+  const errors = joiValidator(data, schema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, 'Bad request', errors);
+};
+
+/**
+   * validate get single accommodations
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @returns {Object} error
+   */
+export const getSingleAccommodation = (req, res, next) => {
+  const data = {
+    accommodationId: req.params.accommodationId,
+  };
+  const schema = Joi.object().keys({
     accommodationId: Joi.number().required()
   });
   const errors = joiValidator(data, schema);

@@ -16,9 +16,9 @@ export const findTripById = async (tripId) => {
   } catch (error) {
     return {
       errors: error
-    }
+    };
   }
-}
+};
 
 /**
  * Function to update trip status
@@ -48,4 +48,4 @@ export const updateTripStatus = async (tripId, tripStatus) => {
 export const getRequesterEmail = async (requesterId) => {
   const user = await findSingleUser({ id: requesterId });
   return user.toJSON().email;
-}
+};

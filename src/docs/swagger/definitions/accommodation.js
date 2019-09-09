@@ -114,6 +114,10 @@ export const createRoomRes = {
           type: 'string',
           example: 'Single'
         },
+        isAvailable: {
+          type: 'boolean',
+          example: true
+        },
         accommodationId: {
           type: 'string',
           example: 1
@@ -219,6 +223,10 @@ export const getAccommodationRes = {
                 type: 'string',
                 example: 'Single'
               },
+              isAvailable: {
+                type: 'boolean',
+                example: true
+              },
             }
           }
         }
@@ -316,6 +324,10 @@ export const getAllAccommodationsRes = {
                 type: {
                   type: 'string',
                   example: 'Single'
+                },
+                isAvailable: {
+                  type: 'boolean',
+                  example: true
                 },
               }
             }
