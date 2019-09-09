@@ -1,7 +1,9 @@
 import Joi from '@hapi/joi';
 import { joiValidator } from '../helpers/joiValidator';
 import { respondWithWarning } from '../helpers/responseHandler';
-
+import validator from '../helpers/validator';
+import statusCode from '../helpers/statusCode';
+import resMessage from '../helpers/responseMessages';
 
 /**
    * validate trip request form
@@ -10,7 +12,7 @@ import { respondWithWarning } from '../helpers/responseHandler';
    * @param {Function} next
    * @returns {Object} error
    */
-const validateRequestTripForm = (req, res, next) => {
+export const validateRequestTripForm = (req, res, next) => {
   const origin = Joi.string().required();
   const destination = Joi.string().required();
   const type = Joi.string().required();
@@ -30,6 +32,18 @@ const validateRequestTripForm = (req, res, next) => {
     return next();
   }
   return respondWithWarning(res, 400, errors);
+};
+
+export const validateTripId = (req, res, next) => {
+  const tripIdSchema = Joi.object().keys({
+    tripId: validator.id
+  });
+
+  const errors = joiValidator(req.params, tripIdSchema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
 };
 
 export default validateRequestTripForm;

@@ -45,6 +45,11 @@ export const signInPath = {
 export const logoutPath = {
   post: {
     tags: ['auth'],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
     summary: 'Logout a user',
     description: 'Allows logged in user to logout',
     responses: {

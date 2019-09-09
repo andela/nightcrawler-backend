@@ -1,9 +1,15 @@
-import express from 'express';
-import { oneWayTripRequest } from '../../controllers/tripController';
-import validateRequestTripForm from '../../middlewares/validateTripRequest';
+import { Router } from 'express';
+import { oneWayTripRequest, approveTripRequest, getTripRequest } from '../../controllers/tripController';
+import { validateRequestTripForm, validateTripId } from '../../middlewares/validateTripRequest';
 import { authenticateUserToken } from '../../middlewares/authentication';
+import { checkPermission } from '../../middlewares/checkPermission';
+import { verifyTrip, checkTripStatus } from '../../middlewares/tripMiddleware';
 
-const trip = express.Router();
+const trip = Router();
 trip.post('/request', authenticateUserToken, validateRequestTripForm, oneWayTripRequest);
+
+trip.patch('/:tripId/approve', authenticateUserToken, validateTripId, verifyTrip, checkTripStatus, checkPermission('APPROVE_TRIP_REQUEST'), approveTripRequest);
+
+trip.get('/:tripId', authenticateUserToken, validateTripId, verifyTrip, checkPermission('VIEW_USERS_TRIP_REQUESTS'), getTripRequest);
 
 export default trip;

@@ -23,7 +23,7 @@ import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
   verifyUserPath
 } from './paths/users';
-import { requestTrip } from './paths/trips';
+import { requestTrip, approvedTripPath, getTripPath } from './paths/trips';
 import { createTrip } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
@@ -94,7 +94,9 @@ const swaggerDocument = {
     '/users/forgot-password': forgotPasswordPath,
     '/users/reset-forgot-password': resetPasswordPath,
     '/users/reset-user-password': resetUserPasswordPath,
-    '/trip/request': requestTrip,
+    '/trips/request': requestTrip,
+    '/trips/{tripId}/approve': approvedTripPath,
+    '/trips/{tripId}': getTripPath,
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
