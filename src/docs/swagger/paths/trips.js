@@ -117,7 +117,7 @@ export const approvedTripPath = {
       }
     }
   }
-}
+};
 
 export const getTripPath = {
   get: {
@@ -180,4 +180,4 @@ export const getTripPath = {
       }
     }
   }
-}
+};

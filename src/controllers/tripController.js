@@ -1,4 +1,6 @@
-import { postTrip, updateTripStatus, getRequesterEmail,  findTripById } from '../services/tripServices';
+import {
+  postTrip, updateTripStatus, getRequesterEmail
+} from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 import { approvedEmitter } from '../helpers/notificationHandler';
@@ -34,7 +36,7 @@ export const approveTripRequest = async (req, res) => {
       userId: dataValues.userId,
       requester: requesterEmail,
       message: 'Your Trip has been approved'
-    }
+    };
     approvedEmitter(payload);
     return respondWithSuccess(res, statusCode.success, 'Trip has been updated successfully', dataValues);
   } catch (error) {
@@ -42,7 +44,5 @@ export const approveTripRequest = async (req, res) => {
   }
 };
 
-export const getTripRequest = async (req, res) => {
-  return !req.trip ? respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened')
-    : respondWithSuccess(res, statusCode.success, 'Operation successful', req.trip);
-}
+export const getTripRequest = async (req, res) => (!req.trip ? respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened')
+  : respondWithSuccess(res, statusCode.success, 'Operation successful', req.trip));

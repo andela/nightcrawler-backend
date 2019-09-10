@@ -1,6 +1,7 @@
 /* eslint-disable max-len */
 import Model from '../models';
 import * as accommodationServices from '../services/accommodationServices';
+import * as tripServices from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 
@@ -39,7 +40,7 @@ export const createRoom = async (req, res) => {
     };
     const accommodation = await accommodationServices.findOne(Accommodation, { id: data.accommodationId });
     if (!accommodation) {
-      return respondWithWarning(res, statusCode.resourceNotFound, 'this ccommodation does not exist');
+      return respondWithWarning(res, statusCode.resourceNotFound, 'accommodation does not exist');
     }
 
     const room = await accommodationServices.create(Room, data);
@@ -57,7 +58,54 @@ export const createRoom = async (req, res) => {
  */
 export const getAccommodations = async (req, res) => {
   try {
-    const accommodations = await accommodationServices.findAllAccommodations();
+    const { city, offset, limit } = req.query;
+
+    const queryOptions = {
+      ...city && { city }
+    };
+
+    const paginationOptions = {
+      ...offset && { offset },
+      ...limit && { limit },
+    };
+
+    const accommodations = await accommodationServices.findAllAccommodations(queryOptions, paginationOptions);
+    if (!accommodations) {
+      return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
+    }
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', accommodations);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
+
+/**
+ * Function gets all accommodations for a trip
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const getTripAccommodations = async (req, res) => {
+  try {
+    const { tripId } = req.params;
+    const { offset, limit } = req.query;
+
+    const trip = await tripServices.findTripById(tripId);
+    if (!trip) {
+      return respondWithWarning(res, statusCode.resourceNotFound, 'trip not found');
+    }
+
+    const { destination } = trip;
+    const queryOption = {
+      city: destination
+    };
+    const paginationOptions = {
+      ...offset && { offset },
+      ...limit && { limit },
+    };
+
+    const accommodations = await accommodationServices.findAllAccommodations(queryOption, paginationOptions);
+
     if (!accommodations) {
       return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
     }

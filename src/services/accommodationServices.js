@@ -28,10 +28,17 @@ export const findOne = async (model, condition) => {
 };
 
 /**
+ * Get all accommodations
+ * @param {String} queryOption
+ * @param {Number} paginationOptions
  * @returns {object} response object containing the information of all rows
  */
-export const findAllAccommodations = async () => {
+export const findAllAccommodations = async (queryOption, paginationOptions) => {
   const accommodations = await Accommodation.findAll({
+    where: {
+      ...queryOption
+    },
+    ...paginationOptions,
     include: {
       model: Room,
       as: 'rooms',

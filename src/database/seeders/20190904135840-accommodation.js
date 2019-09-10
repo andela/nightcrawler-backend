@@ -14,9 +14,9 @@ export default {
     },
     {
       country: 'Nigeria',
-      city: 'Lagos',
+      city: 'Ikeja',
       name: 'Eko Hotel',
-      address: '1415 Adetokunbo Ademola Street, Victoria Island, Lagos',
+      address: '1415 Adetokunbo Ademola Street, Ikeja, Lagos',
       type: ['Hotel'],
       description: 'The Lagos Continental Hotel, is a 5-Star Hotel located at Plot 52A, Kofo Abayomi Street, Victoria Island, within the heart of the central business district of Lagos Nigeria.',
       images: ['https://res.cloudinary.com/normad/image/upload/v1567604491/nc-bn/vfac9xcbtbudd7vzpbap.jpg', 'https://res.cloudinary.com/normad/image/upload/v1567604491/nc-bn/mphngyfglwny3i7pn4cm.png'],

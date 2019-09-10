@@ -121,6 +121,9 @@ export default {
     {
       actionName: 'CREATE_ROOM',
     },
+    {
+      actionName: 'VIEW_BOOK_ACCOMODATION_FOR_TRIP',
+    },
   ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Permissions', null, {})

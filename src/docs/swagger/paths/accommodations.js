@@ -118,6 +118,29 @@ export const createAccommodationPath = {
     ],
     summary: 'Get all accommodation',
     description: 'Users can view all accommodations',
+    parameters: [
+      {
+        name: 'city',
+        description: 'optional location to get accommodations by country/city',
+        in: 'query',
+        required: false,
+        type: 'string'
+      },
+      {
+        name: 'offset',
+        description: 'optional offset',
+        in: 'query',
+        required: false,
+        type: 'string'
+      },
+      {
+        name: 'limit',
+        description: 'optional limit',
+        in: 'query',
+        required: false,
+        type: 'string'
+      }
+    ],
     responses: {
       200: {
         description: 'Accommodations successfully fetched',
@@ -240,6 +263,71 @@ export const getAccommodationPath = {
         description: 'Accommodations successfully fetched',
         schema: {
           $ref: '#/definitions/getAccommodationRes'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};
+
+
+export const getTripAccommodationsPath = {
+  get: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Get all accommodation',
+    description: 'Users can view all accommodations based on trip destination',
+    parameters: [
+      {
+        name: 'tripId',
+        description: 'tripId to get locations for',
+        in: 'path',
+        required: true,
+        type: 'string'
+      },
+      {
+        name: 'offset',
+        description: 'optional offset',
+        in: 'query',
+        required: false,
+        type: 'string'
+      },
+      {
+        name: 'limit',
+        description: 'optional limit',
+        in: 'query',
+        required: false,
+        type: 'string'
+      }
+    ],
+    responses: {
+      200: {
+        description: 'Accommodations successfully fetched',
+        schema: {
+          $ref: '#/definitions/getAllAccommodationsRes'
         }
       },
       401: {
