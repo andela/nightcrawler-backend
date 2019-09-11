@@ -26,8 +26,8 @@ import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
   verifyUserPath
 } from './paths/users';
-import { requestTrip, approvedTripPath, getTripPath } from './paths/trips';
-import { createTrip } from './definitions/trip';
+import { requestTrip, approvedTripPath, getTripPath, viewAllTripRequest, rejectTrip } from './paths/trips';
+import { createTrip, viewAllTripRequestRes, updateTrip } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
@@ -55,7 +55,7 @@ const swaggerDocument = {
   basePath: '/api/v1/',
   produces: ['application/json'],
   consumes: ['application/json'],
-  schemes: ['https', 'http'],
+  schemes: ['http', 'https'],
   securityDefinitions: {
     BearerToken: {
       description: `
@@ -110,7 +110,9 @@ const swaggerDocument = {
     '/users/reset-user-password': resetUserPasswordPath,
     '/trips/request': requestTrip,
     '/trips/{tripId}/approve': approvedTripPath,
+    '/trips/{tripId}/reject': rejectTrip,
     '/trips/{tripId}': getTripPath,
+    '/trips': viewAllTripRequest,
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
@@ -154,6 +156,9 @@ const swaggerDocument = {
     updateRolePermissionsRes,
     rolesRes,
     createTrip,
+    updateTrip,
+    updateRoleRes,
+    viewAllTripRequestRes,
     resetPassword, // reset password request
     resetPasswordResponse,
     badRequest, // 400

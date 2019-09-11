@@ -1,9 +1,10 @@
-import {
-  postTrip, updateTripStatus, getRequesterEmail
-} from '../services/tripServices';
+import { postTrip, updateTripStatus, getRequesterEmail, getRequest, rejectRequest, findTripById } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 import { approvedEmitter } from '../helpers/notificationHandler';
+
+
+
 
 /**
 * make trip request
@@ -22,6 +23,15 @@ export const oneWayTripRequest = async (req, res) => {
     return respondWithWarning(res, statusCode.internalServerError, 'Internal Server Error');
   }
 };
+export const getTripRequests = async (req, res) => {
+  const { id } = req.auth;
+  try {
+    const tripRequests = await getRequest(id);
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', tripRequests);
+  } catch(error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+}
 
 export const approveTripRequest = async (req, res) => {
   const status = 'approved';
@@ -46,3 +56,15 @@ export const approveTripRequest = async (req, res) => {
 
 export const getTripRequest = async (req, res) => (!req.trip ? respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened')
   : respondWithSuccess(res, statusCode.success, 'Operation successful', req.trip));
+
+
+  export const rejectTripRequest = async (req, res) => {
+    const {  status } = req.body;
+   
+    try {
+      const [ , tripRequest ]= await rejectRequest(req.params.tripId, status);
+      return respondWithSuccess(res, statusCode.success, 'Trip has been updated successfully', tripRequest.toJSON());
+    } catch (error) {
+      return respondWithWarning(res, statusCode.internalServerError, error.message);
+    }
+  }

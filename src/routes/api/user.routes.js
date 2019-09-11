@@ -48,4 +48,5 @@ router.post('/profile', authenticateUserToken, verifyUserAccount, profileValidat
 
 router.patch('/profile', authenticateUserToken, verifyUserAccount, profileValidation.validateProfileUpdate, updateProfile);
 
+
 export default router;

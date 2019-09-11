@@ -35,7 +35,7 @@ export default {
       // values should be ['approved', 'pending', 'rejected']
     },
     userId: {
-      type: Sequelize.STRING,
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     createdAt: {
