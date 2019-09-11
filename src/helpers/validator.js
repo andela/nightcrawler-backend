@@ -8,7 +8,7 @@ export default {
   id: Joi.number().integer().required(),
 
   // Profile validations
-  rememberMe: Joi.boolean(),
+  rememberMe: Joi.boolean().required(),
   gender: Joi.string().valid('male', 'Male', 'female', 'Female').required(),
   managerId: Joi.number().integer().required(),
   birthDate: Joi.date().iso().required(),

@@ -19,4 +19,5 @@ export default {
   expiredSession: 'Please signin to continue',
   profileCreated: 'Profile successfully created',
   profileUpdated: 'Profile updated',
+  success: 'success',
 };

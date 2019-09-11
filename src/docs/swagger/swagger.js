@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/named
-import { created, success } from './definitions/successResponse';
+import { created, success, NotificationResponds } from './definitions/successResponse';
 import {
   badRequest, notAuthorized, accessForbidden, notFound, conflict,
   serverError
@@ -51,7 +51,7 @@ import profilePath from './paths/profile';
 import { createComment } from './definitions/createComment';
 import { createCommentPath, deleteCommentPath, getTripCommentsPath } from './paths/commentPath';
 import { postChatPath, getChatsPath } from './paths/chat';
-import { markAllNotficationPath } from './paths/notification';
+import { markAllNotficationPath, getAllNotficationPath  } from './paths/notification';
 import { createChat } from './definitions/chat';
 import { flightPath } from './paths/flight';
 import { FlightCreate } from './definitions/flight';
@@ -164,6 +164,7 @@ const swaggerDocument = {
     '/bookings': bookingPath,
     '/bookings/{bookingId}': getSingleBookingPath,
     '/notifications/readAll': markAllNotficationPath,
+    '/notifications': getAllNotficationPath,
     '/chat': postChatPath,
     '/chats/?sender={sender}&recipient={recipient}': getChatsPath,
     '/flights/add/{tripId}': flightPath
@@ -187,6 +188,7 @@ const swaggerDocument = {
     createUser, // create user
     verifyUser, // verify user
     success, // 200
+    NotificationResponds,
     created,
     ProfileHeaders, // profile header token
     ProfileCreate, // profile create request

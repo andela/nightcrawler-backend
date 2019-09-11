@@ -28,13 +28,3 @@ apiRouter.use('/api/v1', chats);
 apiRouter.use('/api/v1/flights', flight);
 
 export default apiRouter;
-
-
-
-
-
-
-
-
-
-

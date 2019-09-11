@@ -7,6 +7,7 @@ const tripEmitter = new EventEmitter();
 /**
  * @exports approvedEmitter
  * @exports approveTripNotification
+ * @exports tripRequestEmitter
  */
 
 
@@ -85,11 +86,37 @@ export const chatEmitter = (data) => {
 
 /**
  * Function to listen for the created chat event and send
+ * Function to emit trip request
+ * @param {object} data
+ * @returns {null} null
+ */
+export const tripRequestEmitter = (data) => {
+  tripEmitter.emit('trip request', data);
+};
+
+/**
+ * Function to listen for the trip request event and send
+ * a notification to the all managers for approval
  * @param {Object} io
  * @param {Object} staffs
  * @override
  */
+export const tripRequestNotification = (io, staffs) => {
+  tripEmitter.on('trip request', async (payload) => {
+    const notification = await createNotification(payload);
+    payload.managersEmail.forEach(email => {
+      io.to(staffs[email]).emit('trip request', notification);
+    });
+  });
+};
 
+/**
+ * Function to listen for the trip request event and send
+ * a notification to both requester and manager for approprate action.
+ * @param {Object} io
+ * @param {Object} staffs
+ * @override
+ */
 export const chatBot = (io, staffs) => {
   tripEmitter.on('chat', (payload) => {
     const receivers = [payload.sender, payload.recipient];
@@ -114,7 +141,6 @@ export const getChatsEmitter = (data) => {
  * @param {Object} staffs
  * @override
  */
-
 export const getPrivateChats = (io, staffs) => {
   tripEmitter.on('chats', (payload) => {
     const receivers = [payload.sender, payload.recipient];

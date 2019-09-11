@@ -87,6 +87,7 @@ export const findSingleUser = async (queryOption = {}) => {
     };
   }
 };
+
 export const findSingleRole = async (condition = {}) => {
   try {
     const role = await Role.findOne({

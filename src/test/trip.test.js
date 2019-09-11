@@ -197,6 +197,7 @@ describe('USER RETURN TRIP ROUTE', () => {
           done();
         });
     });
+    
     it('Should create trip request if user is logged in and input complete data', (done) => {
       chai.request(app)
         .post('/api/v1/trips/return')
@@ -213,10 +214,11 @@ describe('USER RETURN TRIP ROUTE', () => {
         .end((err, res) => {
           expect(res).to.have.status(201);
           expect(res.body.success).to.equal(true);
-          expect(res.body.message).to.equal('Request Successful');
+          expect(res.body.message).to.equal('request successfully sent');
           done();
         });
     });
+    
     it('Should return error if return date is not specified', (done) => {
       chai.request(app)
         .post('/api/v1/trips/return')

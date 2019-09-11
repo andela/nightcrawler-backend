@@ -1,6 +1,6 @@
 import socketIO from 'socket.io';
 import {
-  approvedTripNotification, commentNotification, chatBot, getPrivateChats
+  approvedTripNotification, commentNotification, chatBot, getPrivateChats, tripRequestNotification
 } from './notificationHandler';
 
 const staffs = {};
@@ -33,4 +33,5 @@ export const socketConnection = server => {
   commentNotification(io, staffs);
   chatBot(io, staffs);
   getPrivateChats(io, staffs);
+  tripRequestNotification(io, staffs);
 };

@@ -53,7 +53,61 @@ const noContent = {
   }
 };
 
+const NotificationResponds = {
+  type: 'object',
+  properties: {
+    success: {
+      type: 'boolean'
+    },
+    message: {
+      type: 'string'
+    },
+    payload: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'integer',
+          format: 'int32',
+          example: 1
+        },
+        type: {
+          type: 'string',
+          example: 'Approved Trip'
+        },
+        title: {
+          type: 'string',
+          example: 'Trade Fair'
+        },
+        message: {
+          type: 'string',
+          example: 'Your Trip has been approved'
+        },
+        tripId: {
+          type: 'integer',
+          example: 1,
+        },
+        commentId: {
+          type: 'integer',
+          example: 2
+        },
+        userId: {
+          type: 'integer',
+          example: 4
+        },
+        createdAt: {
+          type: 'string',
+          format: 'date-time'
+        },
+        updatedAt: {
+          type: 'string',
+          format: 'date-time'
+        }
+      }
+    }
+  }
+};
 export {
+  NotificationResponds,
   created,
   noContent,
   success
