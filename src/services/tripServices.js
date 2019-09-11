@@ -1,7 +1,7 @@
 import Model from '../models';
 import { findSingleUser } from './userServices';
 
-const { TripRequest } = Model;
+const { TripRequest, Destination } = Model;
 
 export const postTrip = async body => TripRequest.create(body);
 
@@ -48,4 +48,15 @@ export const updateTripStatus = async (tripId, tripStatus) => {
 export const getRequesterEmail = async (requesterId) => {
   const user = await findSingleUser({ id: requesterId });
   return user.toJSON().email;
+};
+
+/**
+ * @param {object} destinationId
+ * @returns {object} response object with a single destination
+ */
+export const findOneDestination = async (destinationId) => {
+  const destination = await Destination.findOne({
+    where: { id: destinationId }
+  });
+  return destination;
 };

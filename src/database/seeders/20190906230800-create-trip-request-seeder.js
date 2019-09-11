@@ -2,29 +2,27 @@ export default {
   up: async (queryInterface) => queryInterface.bulkInsert('TripRequests', [
     {
       origin: 'Lagos',
-      destination: 'Nairobi',
+      destinationId: 2,
       reason: 'Trade Fair',
       departureDate: '9/9/2019',
-      returnDate: '10/10/2019',
       type: 'one-way',
-      userId: 3
+      userId: 3,
+      status: 'pending'
     },
     {
       origin: 'Capetown',
-      destination: 'Lagos',
+      destinationId: 1,
       reason: 'Vacation with my family',
-      type: 'one-way',
-      returnDate: '2019-09-09T00:09:31.812Z',
+      type: 'multi-city',
       departureDate: '2019-19-09T00:09:31.812Z',
       status: 'approved',
       userId: 2
     },
     {
       origin: 'London',
-      destination: 'Ikeja',
+      destinationId: 5,
       reason: 'Vacation with my family',
       type: 'one-way',
-      returnDate: '2019-09-09T00:09:31.812Z',
       departureDate: '2019-19-09T00:09:31.812Z',
       status: 'pending',
       userId: 2

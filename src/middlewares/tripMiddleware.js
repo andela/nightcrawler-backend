@@ -1,4 +1,4 @@
-import { findTripById } from '../services/tripServices';
+import { findTripById, findOneDestination } from '../services/tripServices';
 import { respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 
@@ -8,6 +8,15 @@ export const verifyTrip = async (req, res, next) => {
     return respondWithWarning(res, statusCode.resourceNotFound, 'Trip not found');
   }
   req.trip = trip.toJSON();
+  next();
+};
+
+export const verifyTripDestination = async (req, res, next) => {
+  const destination = await findOneDestination(req.body.destinationId);
+  if (!destination) {
+    return respondWithWarning(res, statusCode.resourceNotFound, 'Destination not found');
+  }
+  req.destination = destination.toJSON();
   next();
 };
 

@@ -181,3 +181,61 @@ export const getTripPath = {
     }
   }
 };
+
+export const returnTrip = {
+  post: {
+    tags: [
+      'trips'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'A Return trip request',
+    description: 'A user can make a return trip request',
+    parameters: [
+      {
+        name: 'body',
+        in: 'body',
+        description: 'Trip request object',
+        required: true,
+        schema: {
+          $ref: '#/definitions/returnTripSchema'
+        }
+      }
+    ],
+    responses: {
+      201: {
+        description: 'request successfully sent',
+        schema: {
+          $ref: '#/definitions/created'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Access forbidden',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};

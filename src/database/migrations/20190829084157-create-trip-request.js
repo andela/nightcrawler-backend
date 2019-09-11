@@ -10,8 +10,8 @@ export default {
       type: Sequelize.STRING,
       allowNull: false,
     },
-    destination: {
-      type: Sequelize.STRING,
+    destinationId: {
+      type: Sequelize.INTEGER,
       allowNull: false,
     },
     reason: {
@@ -31,8 +31,8 @@ export default {
     },
     status: {
       type: Sequelize.STRING,
+      allowNull: false,
       defaultValue: 'pending'
-      // values should be ['approved', 'pending', 'rejected']
     },
     userId: {
       type: Sequelize.STRING,

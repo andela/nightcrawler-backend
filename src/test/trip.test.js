@@ -1,4 +1,4 @@
-import chai from 'chai';
+import chai, { expect } from 'chai';
 import chaiHttp from 'chai-http';
 import app from '../index';
 
@@ -14,12 +14,12 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destination: 'Abj',
+        destinationId: 1,
         reason: 'kckcmlcm',
-        departureDate: '52555353553',
+        departureDate: '05-09-2019',
         accomodationId: '1',
         type: 'one-way',
-        returnDate: '6363ydd'
+        returnDate: '02-10-2019'
       };
       const request = chai.request(app).keepOpen();
       const signResponse = await request.post('/api/v1/auth/signin').send(validInput);
@@ -39,12 +39,12 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: '',
-        destination: 'Abj',
+        destinationId: 1,
         reason: 'kckcmlcm',
-        departureDate: '52555353553',
+        departureDate: '05-08-2019',
         accomodationId: '1',
         type: 'one-way',
-        returnDate: '6363ydd'
+        returnDate: '05-09-2019'
       };
       const request = chai.request(app).keepOpen();
       const signResponse = await request.post('/api/v1/auth/signin').send(validInput);
@@ -64,10 +64,9 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destination: '',
         reason: 'kckcmlcm',
-        departureDate: '52555353553',
-        accomodationId: '1',
+        departureDate: '',
+        accomodationId: 1,
         type: 'one-way',
         returnDate: '6363ydd'
       };
@@ -89,12 +88,12 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destination: 'Abj',
+        destinationId: 1,
         reason: 'kckcmlcm',
-        departureDate: '52555353553',
-        accomodationId: '1',
+        departureDate: '05-09-2019',
+        accomodationId: 1,
         type: 'one-way',
-        returnDate: '12-12-2019'
+        returnDate: '12-12-2020'
       };
       const request = chai.request(app).keepOpen();
       await request.post('/api/v1/auth/signin').send(validInput);
@@ -114,10 +113,10 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destination: 'Abj',
+        destinationId: 1,
         reason: 'kckcmlcm',
-        departureDate: '52555353553',
-        accomodationId: '1',
+        departureDate: '05-09-2019',
+        accomodationId: 1,
         type: 'one-way',
         returnDate: '12-12-2019'
       };
@@ -129,5 +128,81 @@ describe('Testing for one-way trip request endpoint', () => {
 
       done();
     })();
+  });
+});
+
+let token;
+describe('USER RETURN TRIP ROUTE', () => {
+  describe('Test User Return Trip', () => {
+    before((done) => {
+      chai.request(app)
+        .post('/api/v1/auth/signin')
+        .send({
+          email: 'admin@nomad.com', // valid login details
+          password: '123456',
+        })
+        .end((error, res) => {
+          token = res.body.payload.token;
+          done();
+        });
+    });
+    it('Should create trip request if user is logged in and input complete data', (done) => {
+      chai.request(app)
+        .post('/api/v1/trips/return')
+        .set('Authorization', token)
+        .send({
+          origin: 'Lagos',
+          destinationId: 1,
+          reason: 'Vacation',
+          departureDate: '12-12-2019',
+          returnDate: '12-02-2020',
+          accomodationId: 1,
+          type: 'return',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(201);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.message).to.equal('Request Successful');
+          done();
+        });
+    });
+    it('Should return error if return date is not specified', (done) => {
+      chai.request(app)
+        .post('/api/v1/trips/return')
+        .set('Authorization', token)
+        .send({
+          origin: 'Lagos',
+          destinationId: 1,
+          reason: 'Vacation',
+          departureDate: '12-12-2019',
+          accomodationId: 1,
+          type: 'return',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
+
+    it('Should return error if return date is before departure', (done) => {
+      chai.request(app)
+        .post('/api/v1/trips/return')
+        .set('Authorization', token)
+        .send({
+          origin: 'Lagos',
+          destinationId: 1,
+          reason: 'Vacation',
+          departureDate: '12-12-2019',
+          returnDate: '12-01-2018',
+          accomodationId: 1,
+          type: 'return',
+        })
+        .end((err, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
+          done();
+        });
+    });
   });
 });

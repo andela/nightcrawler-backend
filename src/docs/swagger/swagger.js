@@ -26,8 +26,10 @@ import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
   verifyUserPath
 } from './paths/users';
-import { requestTrip, approvedTripPath, getTripPath } from './paths/trips';
-import { createTrip } from './definitions/trip';
+import {
+  requestTrip, approvedTripPath, getTripPath, returnTrip
+} from './paths/trips';
+import { createTrip, returnTripSchema } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
@@ -116,6 +118,7 @@ const swaggerDocument = {
     '/trips/{tripId}/comment': createCommentPath,
     '/trips/{tripId}/comments': getTripCommentsPath,
     '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
+    '/trips/return': returnTrip,
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
@@ -169,7 +172,8 @@ const swaggerDocument = {
     conflict, // 409
     serverError, // 503
     socialMediaAuthentication, // social media login response
-    Logout
+    Logout,
+    returnTripSchema
   }
 };
 
