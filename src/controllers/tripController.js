@@ -1,7 +1,7 @@
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
-  getTripRequests, findOneTripRequest, rejectRequest, fetchUserTripStats,
-  fetchTripStats, fetchTripRequests
+  getTripRequests, findOneTripRequest, rejectRequest, searchTripRequest,
+  fetchUserTripStats, fetchTripStats, fetchTripRequests
 } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
@@ -204,5 +204,15 @@ export const retrieveTripRequest = async (req, res) => {
     return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', tripRequests);
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+};
+
+export const searchTripRequests = async (req, res) => {
+  try {
+    const tripRequests = await searchTripRequest(req.query.key);
+    return !tripRequests.length ? respondWithWarning(res, statusCode.resourceNotFound, 'Trip request not found')
+      : respondWithSuccess(res, statusCode.success, 'Data has been retrieved successfully', tripRequests);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened');
   }
 };

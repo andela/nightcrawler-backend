@@ -10,6 +10,7 @@ import notification from './api/notification.route';
 import comments from './api/comment.routes';
 import chats from './api/chats.routes';
 import flight from './api/flight.routes';
+import ratings from './api/rating.routes';
 
 const apiRouter = Router();
 
@@ -21,10 +22,11 @@ apiRouter.use('/api/v1/trips', comments);
 apiRouter.use('/api/v1/permissions', permissions);
 apiRouter.use('/api/v1/roles', roles);
 apiRouter.use('/api/v1/accommodations', accommodation);
+apiRouter.use('/api/v1/accommodations', ratings);
 apiRouter.use('/api/v1/bookings', booking);
 apiRouter.use('/api/v1', chats);
-
 apiRouter.use('/api/v1/flights', flight);
+
 export default apiRouter;
 
 

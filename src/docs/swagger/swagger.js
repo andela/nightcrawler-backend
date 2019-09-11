@@ -27,8 +27,7 @@ import {
   verifyUserPath, fetchTripPath,
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath,
-  rejectTripPath, getTripStatsPath
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath, getTripStatsPath, searchTripRequestPath
 } from './paths/trips';
 import {
   createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes,
@@ -56,6 +55,8 @@ import { markAllNotficationPath } from './paths/notification';
 import { createChat } from './definitions/chat';
 import { flightPath } from './paths/flight';
 import { FlightCreate } from './definitions/flight';
+import { accommodationRatingSchema } from './definitions/rating';
+import { accommodationRating, getAccommodationRatings } from './paths/rating';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -112,7 +113,7 @@ const swaggerDocument = {
     {
       name: 'chats',
       description: 'Chat related endpoints'
-    }, 
+    },
     {
       name: 'flights',
       description: 'Flight related endpoints'
@@ -142,11 +143,14 @@ const swaggerDocument = {
     '/trips/{tripId}/reject': rejectTripPath,
     '/trips/{tripId}/comments': getTripCommentsPath,
     '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
+    '/trips/search/?key={key}': searchTripRequestPath,
     '/trips/return': returnTrip,
     '/trips/stats': getTripStatsPath,
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
+    '/accommodations/{accommodationId}/rating': accommodationRating,
+    '/accommodations/{accommodationId}/ratings': getAccommodationRatings,
     '/accommodations/trip/{tripId}': getTripAccommodationsPath,
     '/accommodations/like/{accommodationId}': accommodationLike,
     '/accommodations/trips/{tripId}': getTripAccommodationsPath,
@@ -196,6 +200,7 @@ const swaggerDocument = {
     resetUserPassword,
     updateRolePermissionsReq,
     updateRolePermissionsRes,
+    accommodationRatingSchema,
     rolesRes,
     createTrip,
     createComment,

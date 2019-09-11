@@ -132,3 +132,15 @@ export const validateTripStatDate = (req, res, next) => {
   }
   return respondWithWarning(res, 400, errors);
 };
+
+export const validateSearchQuery = (req, res, next) => {
+  const searchQuery = Joi.object().keys({
+    key: Joi.string().required().trim()
+  });
+
+  const errors = joiValidator(req.query, searchQuery);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
+};

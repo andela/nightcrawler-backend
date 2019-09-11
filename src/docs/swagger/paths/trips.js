@@ -1,3 +1,4 @@
+
 export const requestTrip = {
   post: {
     tags: [
@@ -54,7 +55,7 @@ export const requestTrip = {
       }
     }
   },
- 
+
 };
 
 export const multiCityTripPath = {
@@ -411,6 +412,68 @@ export const getTripStatsPath = {
         description: 'Access forbidden',
         schema: {
           $ref: '#/definitions/accessForbidden'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};
+
+export const searchTripRequestPath = {
+  get: {
+    tags: [
+      'trips'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Search for trips',
+    description: 'Search for trip requests',
+    parameters: [
+      {
+        name: 'key',
+        in: 'query',
+        description: 'Query parameter takes in the search query',
+        required: true,
+        type: 'string'
+      }
+    ],
+    responses: {
+      200: {
+        description: 'Trip resquest has been approved',
+        schema: {
+          $ref: '#/definitions/success'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Access forbidden',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Trip not found',
+        schema: {
+          $ref: '#/definitions/notFound'
         }
       },
       500: {
