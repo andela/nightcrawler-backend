@@ -176,4 +176,3 @@ const ProfilePath = {
 };
 
 export default ProfilePath;
-

@@ -54,7 +54,7 @@ export const validateTripId = (req, res, next) => {
   return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
 };
 
-export const validatePostComment = (req, res, next) => {
+export const validateCreateComment = (req, res, next) => {
   const commentSchema = Joi.object().keys({
     tripId: validator.id,
     comment: validator.username

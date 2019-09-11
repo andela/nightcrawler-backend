@@ -3,6 +3,7 @@ import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandl
 import statusCode from '../helpers/statusCode';
 import { approvedEmitter } from '../helpers/notificationHandler';
 
+
 /**
  * make trip request
  * @param {object} req

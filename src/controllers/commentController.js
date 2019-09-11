@@ -1,8 +1,8 @@
-import { createComment, deleteCommentById, getAllComments } from '../services/commentServices';
+import { createComment, deleteCommentById, fetchTripComments } from '../services/commentServices';
 import statusCode from '../helpers/statusCode';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import { commentEmitter } from '../helpers/notificationHandler';
-import { findTripById, getRequesterEmail } from '../services/tripServices';
+import { findTripById, findUserTrip, getRequesterEmail } from '../services/tripServices';
 
 
 /**
@@ -11,7 +11,7 @@ import { findTripById, getRequesterEmail } from '../services/tripServices';
  * @param {Object} res
  * @returns {Object} comment object
  */
-export const postComment = async (req, res) => {
+export const createTripComment = async (req, res) => {
   const data = {
     tripId: Number(req.params.tripId),
     userId: req.auth.id,
@@ -31,7 +31,9 @@ export const postComment = async (req, res) => {
     const requesterEmail = await getRequesterEmail(Number(userId));
 
     // generate payload to be sent to the frontend
-    const payload = { ...comment.toJSON(), type: 'Trip Comment', title: 'Trip Comment ', message: `A comment was made on ${reason}`, sender: senderRole, requester: requesterEmail };
+    const payload = {
+      ...comment.toJSON(), type: 'Trip Comment', title: 'Trip Comment ', message: `A comment was made on ${reason}`, sender: senderRole, requester: requesterEmail
+    };
 
     // Emmit the payload
     commentEmitter(payload);
@@ -59,17 +61,43 @@ export const removeComment = async (req, res) => {
 };
 
 /**
- * Delete a Comment
- * @param {Object} req
- * @param {Object} res
- * @returns {Object} response object
- */
-export const getComments = async (req, res) => {
+* get a user trip comments
+* @param {object} req
+* @param {object} res
+* @param {Function} next
+* @returns {object} json response
+*/
+export const getUserTripComments = async (req, res, next) => {
   try {
-    const comments = await getAllComments(Number(req.params.tripId));
-    return !comments.length ? respondWithWarning(res, statusCode.resourceNotFound, 'Comments not found')
-      : respondWithSuccess(res, statusCode.success, 'Operation successful', comments);
+    const { tripId } = req.params;
+    const { id, roleId } = req.auth;
+    if (roleId === 6) {
+      const trip = await findUserTrip(Number(tripId), id);
+      if (!trip) {
+        return respondWithWarning(res, statusCode.resourceNotFound, 'Trip not found');
+      }
+      const data = await fetchTripComments(trip);
+      return respondWithSuccess(res, statusCode.success, 'Data retrieved successfully', data);
+    }
+    return next();
   } catch (error) {
-    return respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened');
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+};
+
+/**
+* get a trip comments
+* @param {object} req
+* @param {object} res
+* @returns {object} json response
+*/
+export const getTripComments = async (req, res) => {
+  try {
+    const { tripId } = req.params;
+    const trip = await findTripById(Number(tripId));
+    const data = await fetchTripComments(trip);
+    return respondWithSuccess(res, statusCode.success, 'Data retrieved successfully', data);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
   }
 };
