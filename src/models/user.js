@@ -9,14 +9,37 @@ import statusCode from '../helpers/statusCode';
 
 export default (sequelize, DataTypes) => {
   const User = sequelize.define('User', {
-    username: DataTypes.STRING,
-    firstName: DataTypes.STRING,
-    lastName: DataTypes.STRING,
-    email: DataTypes.STRING,
-    isVerified: DataTypes.BOOLEAN,
-    password: DataTypes.STRING,
-    profileImage: DataTypes.STRING,
-    roleId: DataTypes.INTEGER,
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    lastName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    isVerified: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue: false,
+    },
+    password: {
+      type: DataTypes.STRING,
+    },
+    profileImage: {
+      type: DataTypes.STRING,
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    }
   }, {});
 
   User.associate = (models) => {

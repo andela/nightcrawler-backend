@@ -302,15 +302,7 @@ export default {
       permissionId: 29
     },
     {
-      roleId: 1,
-      permissionId: 30
-    },
-    {
       roleId: 2,
-      permissionId: 30
-    },
-    {
-      roleId: 3,
       permissionId: 30
     },
     {
@@ -480,6 +472,18 @@ export default {
     {
       roleId: 6,
       permissionId: 42
+    },
+    {
+      roleId: 2,
+      permissionId: 43
+    },
+    {
+      roleId: 4,
+      permissionId: 43
+    },
+    {
+      roleId: 6,
+      permissionId: 43
     }
   ], {}),
 

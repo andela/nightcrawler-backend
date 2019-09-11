@@ -3,7 +3,16 @@ import { findSingleUser } from './userServices';
 
 const { TripRequest, Destination } = Model;
 
-export const postTrip = async body => TripRequest.create(body);
+export const postTrip = async (payload) => {
+  try {
+    const trip = await TripRequest.create(payload);
+    return trip;
+  } catch (error) {
+    return {
+      errors: error
+    };
+  }
+};
 
 export const findTripById = async (tripId) => {
   try {

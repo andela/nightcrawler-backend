@@ -1,5 +1,5 @@
 import socketIO from 'socket.io';
-import { approvedTripNotification, commentNotification } from './notificationHandler';
+import { approvedTripNotification, commentNotification, chatBot, getPrivateChats } from './notificationHandler';
 
 const staffs = {};
 
@@ -10,12 +10,25 @@ const staffs = {};
  */
 export const socketConnection = server => {
   const io = socketIO(server);
+
+  const onlineStaffs = () => {
+    io.emit('users', Object.keys(staffs));
+  };
+
   io.on('connection', (socket) => {
     socket.on('logged in', (data) => {
       const { email } = data;
       staffs[email] = socket.id;
+      onlineStaffs();
+    });
+    socket.on('disconnecting', (data) => {
+      if (!data.email) return;
+      delete staffs[data.email];
+      onlineStaffs();
     });
   });
   approvedTripNotification(io, staffs);
   commentNotification(io, staffs);
+  chatBot(io, staffs);
+  getPrivateChats(io, staffs);
 };

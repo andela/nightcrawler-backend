@@ -127,6 +127,9 @@ export default {
     {
       actionName: 'VIEW_TRIP_COMMENT',
     },
+    {
+      actionName: 'VIEW_CHAT_MESSAGE',
+    },
   ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('Permissions', null, {})

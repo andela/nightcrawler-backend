@@ -7,6 +7,7 @@ import roles from './api/roles.routes';
 import accommodation from './api/accommodation.routes';
 import booking from './api/booking.routes';
 import comments from './api/comment.routes';
+import chats from './api/chats.routes';
 
 const apiRouter = Router();
 
@@ -18,5 +19,6 @@ apiRouter.use('/api/v1/permissions', permissions);
 apiRouter.use('/api/v1/roles', roles);
 apiRouter.use('/api/v1/accommodations', accommodation);
 apiRouter.use('/api/v1/bookings', booking);
+apiRouter.use('/api/v1', chats);
 
 export default apiRouter;

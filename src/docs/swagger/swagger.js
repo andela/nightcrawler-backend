@@ -46,6 +46,8 @@ import {
 import profilePath from './paths/profile';
 import { createComment } from './definitions/createComment';
 import { createCommentPath, deleteCommentPath, getTripCommentsPath } from './paths/commentPath';
+import { postChatPath, getChatsPath } from './paths/chat';
+import { createChat } from './definitions/chat';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -98,6 +100,10 @@ const swaggerDocument = {
     {
       name: 'bookings',
       description: 'Accommodation related endpoints'
+    },
+    {
+      name: 'chats',
+      description: 'Chat related endpoints'
     }
   ],
   paths: {
@@ -128,7 +134,9 @@ const swaggerDocument = {
     '/user': createUser,
     '/users/profile': profilePath,
     '/bookings': bookingPath,
-    '/bookings{bookingId}': getSingleBookingPath,
+    '/bookings/{bookingId}': getSingleBookingPath,
+    '/chat': postChatPath,
+    '/chats/?sender={sender}&recipient={recipient}': getChatsPath,
   },
   definitions: {
     createBookingReq,
@@ -172,7 +180,8 @@ const swaggerDocument = {
     serverError, // 503
     socialMediaAuthentication, // social media login response
     Logout,
-    returnTripSchema
+    returnTripSchema,
+    createChat,
   }
 };
 

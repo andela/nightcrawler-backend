@@ -26,18 +26,17 @@ export default {
     },
     isVerified: {
       type: Sequelize.BOOLEAN,
+      allowNull: false,
       defaultValue: false,
     },
     password: {
       type: Sequelize.STRING,
-      allowNull: false,
     },
     profileImage: {
       type: Sequelize.STRING,
     },
     roleId: {
       type: Sequelize.INTEGER,
-      allowNull: false,
     },
     createdAt: {
       allowNull: false,
