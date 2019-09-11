@@ -1,6 +1,6 @@
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
-  getTripRequests, findOneTripRequest
+  getTripRequests, findOneTripRequest,rejectRequest
 } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
@@ -161,4 +161,16 @@ export const getTripRequest = async (req, res) => {
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }
+};
+
+export const rejectTripRequest = async (req, res) => {
+  const {  status } = req.body;
+ try {
+    const [ , tripRequest ]= await rejectRequest(req.params.tripId, status);
+    console.log(tripRequest)
+    return respondWithSuccess(res, statusCode.success, 'Trip request was rejected', tripRequest.toJSON());
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+
 };

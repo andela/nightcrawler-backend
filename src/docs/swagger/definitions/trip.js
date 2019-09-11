@@ -188,3 +188,13 @@ export const multiCityTripRes = {
     }
   }
 };
+
+export const rejectTripRequest = {
+  type: 'object',
+  properties: {
+    status: {
+      type: 'string',
+      example: "rejected"
+    }
+  }
+}

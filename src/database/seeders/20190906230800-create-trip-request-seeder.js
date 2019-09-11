@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 export default {
   up: async (queryInterface) => queryInterface.bulkInsert('TripRequests', [
     {
@@ -29,5 +30,5 @@ export default {
     },
   ], {}),
 
-  down: queryInterface => queryInterface.bulkDelete('TripRequests', null, {})
+  down: (queryInterface, Sequelize) => queryInterface.bulkDelete('TripRequests', null, {})
 };

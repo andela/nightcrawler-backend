@@ -122,3 +122,4 @@ export const findOneDestination = async (destinationId) => {
 export const findUserTrip = async (id, userId) => TripRequest.findOne({
   where: { id, userId }
 });
+ export const rejectRequest = async (tripId, status) => updateTripStatus(tripId, status);
