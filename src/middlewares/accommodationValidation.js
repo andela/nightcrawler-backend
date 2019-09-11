@@ -74,13 +74,13 @@ export const getTripAccommodations = (req, res, next) => {
 };
 
 /**
-   * validate get single accommodations
+   * validate accommodationId
    * @param {Object} req
    * @param {Object} res
    * @param {Function} next
    * @returns {Object} error
    */
-export const getSingleAccommodation = (req, res, next) => {
+export const validateAccommodationId = (req, res, next) => {
   const data = {
     accommodationId: req.params.accommodationId,
   };

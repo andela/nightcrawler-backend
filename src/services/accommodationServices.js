@@ -1,6 +1,8 @@
 import Model from '../models';
 
-const { Accommodation, Room } = Model;
+const {
+  Accommodation, Room, Like
+} = Model;
 
 /**
  * Create a new item
@@ -55,11 +57,48 @@ export const findAllAccommodations = async (queryOption, paginationOptions) => {
 export const findOneAccommodation = async (accommodationId) => {
   const accommodationRoom = await Accommodation.findOne({
     where: { id: accommodationId },
-    include: {
-      model: Room,
-      as: 'rooms',
-      attributes: ['id', 'name', 'type']
-    }
+    include: [
+      {
+        model: Room,
+        as: 'rooms',
+        attributes: ['id', 'name', 'type']
+      },
+    ]
   });
   return accommodationRoom;
+};
+
+/**
+ * checks if an accommodation is already liked by user
+ * @param {String} userId
+ * @param {String} accommodationId
+ * @returns {Object} object
+ */
+export const checkLikedAccommodation = async (userId, accommodationId) => {
+  const liked = await Like.findOne({ where: { userId, accommodationId } });
+  return liked;
+};
+
+/**
+ * like an accommodation
+ * @param {String} userId
+ * @param {String} accommodationId
+ * @returns {Object} object
+ */
+export const createLike = async (userId, accommodationId) => {
+  await Like.create({ userId, accommodationId });
+  const totalLikes = await Like.count({ where: { accommodationId } });
+  return totalLikes;
+};
+
+/**
+ * unlike an accommodation
+ * @param {String} userId
+ * @param {String} accommodationId
+ * @returns {object} object
+ */
+export const unlikeAccommodation = async (userId, accommodationId) => {
+  await Like.destroy({ where: { userId, accommodationId }, force: true });
+  const totalLikes = await Like.count({ where: { accommodationId } });
+  return totalLikes;
 };

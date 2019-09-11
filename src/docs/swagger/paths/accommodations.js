@@ -347,3 +347,114 @@ export const getTripAccommodationsPath = {
     }
   }
 };
+
+export const accommodationLike = {
+  patch: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Like/Unlike an accommodation',
+    description: 'Users can like or unlike an accommodation through this endpoint',
+    parameters: [
+      {
+        name: 'accommodationId',
+        in: 'path',
+        description: 'path parameter takes the accommodation id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+    ],
+    responses: {
+      200: {
+        description: 'request successful',
+        schema: {
+          $ref: '#/definitions/likeUnlikeAccommodationRes'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Accommodation not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  },
+  get: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Check accommodation like/unlike status',
+    description: 'Users can check if they already liked an accommodation through this endpoint',
+    parameters: [
+      {
+        name: 'accommodationId',
+        in: 'path',
+        description: 'path parameter takes the accommodation id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+    ],
+    responses: {
+      200: {
+        description: 'fetch successful',
+        schema: {
+          $ref: '#/definitions/checkAccommodationLikeRes'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Accommodation not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};

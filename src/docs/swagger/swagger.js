@@ -13,7 +13,8 @@ import { permissionsRes } from './definitions/permissions';
 import { updateRolePermissionsReq, rolesRes, updateRolePermissionsRes } from './definitions/roles';
 import {
   createAccommodationReq, createAccommodationRes, createRoomReq, createRoomRes,
-  getAccommodationRes, getAllAccommodationsRes
+  getAccommodationRes, getAllAccommodationsRes, checkAccommodationLikeRes,
+  likeUnlikeAccommodationRes
 } from './definitions/accommodation';
 import {
   createBookingReq, createBookingRes, getBookingRes, getAllBookingsRes
@@ -34,7 +35,8 @@ import {
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
-  createAccommodationPath, createRoomPath, getAccommodationPath, getTripAccommodationsPath
+  createAccommodationPath, createRoomPath, getAccommodationPath, getTripAccommodationsPath,
+  accommodationLike
 } from './paths/accommodations';
 import {
   bookingPath, getSingleBookingPath
@@ -130,7 +132,8 @@ const swaggerDocument = {
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
-    '/accommodations/trips/{tripId}': getTripAccommodationsPath,
+    '/accommodations/trip/{tripId}': getTripAccommodationsPath,
+    '/accommodations/like/{accommodationId}': accommodationLike,
     '/auth/google': googlePath,
     '/auth/facebook': facebookPath,
     '/user': createUser,
@@ -186,6 +189,8 @@ const swaggerDocument = {
     Logout,
     returnTripSchema,
     createChat,
+    checkAccommodationLikeRes,
+    likeUnlikeAccommodationRes
   }
 };
 
