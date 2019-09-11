@@ -1,5 +1,5 @@
 import socketIO from 'socket.io';
-import { approvedTripNotification } from './notificationHandler';
+import { approvedTripNotification, commentNotification } from './notificationHandler';
 
 const staffs = {};
 
@@ -17,4 +17,5 @@ export const socketConnection = server => {
     });
   });
   approvedTripNotification(io, staffs);
+  commentNotification(io, staffs);
 };

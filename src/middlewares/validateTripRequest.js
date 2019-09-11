@@ -34,6 +34,13 @@ export const validateRequestTripForm = (req, res, next) => {
   return respondWithWarning(res, 400, errors);
 };
 
+/**
+   * validate trip id
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @returns {Object} error
+   */
 export const validateTripId = (req, res, next) => {
   const tripIdSchema = Joi.object().keys({
     tripId: validator.id
@@ -46,4 +53,40 @@ export const validateTripId = (req, res, next) => {
   return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
 };
 
-export default validateRequestTripForm;
+export const validatePostComment = (req, res, next) => {
+  const commentSchema = Joi.object().keys({
+    tripId: validator.id,
+    comment: validator.username
+  });
+
+  const data = {
+    tripId: req.params.tripId,
+    comment: req.body.comment
+  }
+
+  const errors = joiValidator(data, commentSchema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
+};
+
+/**
+   * validate trip and comment id
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @returns {Object} error
+   */
+export const validateDeleteParams = (req, res, next) => {
+  const paramsSchema = Joi.object().keys({
+    tripId: validator.id,
+    commentId: validator.id
+  });
+
+  const errors = joiValidator(req.params, paramsSchema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
+};

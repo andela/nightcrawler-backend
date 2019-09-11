@@ -2,16 +2,6 @@ import { passwordHash } from '../../helpers/hash';
 
 /* eslint-disable no-unused-vars */
 export default {
-  /*
-    Add altering commands here.
-    Return a promise to correctly handle asynchronicity.
-
-    Example:
-    return queryInterface.bulkInsert('People', [{
-      role: 'John Doe',
-      isBetaMember: false
-    }], {});
-    */
   up: async (queryInterface, Sequelize) => queryInterface.bulkInsert('Users', [
     {
       firstName: 'Jeffery',
@@ -44,6 +34,14 @@ export default {
       email: 'alexiwobi@nomad.com',
       password: await passwordHash('123456'),
       roleId: 4
+    },
+    {
+      firstName: 'Jack',
+      lastName: 'Marcus',
+      username: 'marcus',
+      email: 'marcus@nomad.com',
+      password: await passwordHash('123456'),
+      roleId: 5
     },
   ], {}),
 

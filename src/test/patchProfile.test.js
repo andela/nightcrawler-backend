@@ -41,7 +41,7 @@ describe('USER CONTROLLER', () => {
     it('it should return a success status code and user profile data', (done) => {
       chai.request(app)
         .patch(profileUrl)
-        .set('authorization', `Bearer ${token}`)
+        .set('Authorization', token)
         .send({
           saveProfile: true,
           gender: 'male',
