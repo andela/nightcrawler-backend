@@ -30,7 +30,8 @@ describe('Testing for one-way trip request endpoint', () => {
       done();
     })();
   });
-  it('user cannot  make trip request if origin is missing', done => {
+  
+  it('user cannot  make trips request if origin is missing', done => {
     (async () => {
       const validInput = {
         email: 'admin@nomad.com',
@@ -50,7 +51,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const { token } = signResponse.body.payload;
       const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-
+    
       done();
     })();
   });
@@ -75,7 +76,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const { token } = signResponse.body.payload;
       const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-
+      
       done();
     })();
   });
@@ -100,7 +101,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const token = '';
       const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-
+     
       done();
     })();
   });
@@ -125,10 +126,9 @@ describe('Testing for one-way trip request endpoint', () => {
       const token = 'dndkcndckdcnlsmlslmcksncjnscnnc';
       const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
-
       done();
     })();
-  });
+  });  
 });
 
 let token;

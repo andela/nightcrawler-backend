@@ -9,3 +9,4 @@ export const emailBody = (name, URL, token) => {
   Thanks,\n
   Barefoot Nomad Team.`;
 };
+

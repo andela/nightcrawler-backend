@@ -53,7 +53,8 @@ export const requestTrip = {
         }
       }
     }
-  }
+  },
+ 
 };
 
 export const multiCityTripPath = {
