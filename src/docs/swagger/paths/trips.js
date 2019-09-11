@@ -56,6 +56,64 @@ export const requestTrip = {
   }
 };
 
+export const multiCityTripPath = {
+  post: {
+    tags: [
+      'trips'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'User can make multi-city trip request',
+    description: 'user can make multi-city trip request',
+    parameters: [
+      {
+        name: 'body',
+        in: 'body',
+        description: 'User request object',
+        required: true,
+        schema: {
+          $ref: '#/definitions/createMultiCityTrip'
+        }
+      }
+    ],
+    responses: {
+      201: {
+        description: 'request successfully sent',
+        schema: {
+          $ref: '#/definitions/multiCityTripRes'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Access forbidden',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};
+
 export const approvedTripPath = {
   patch: {
     tags: [

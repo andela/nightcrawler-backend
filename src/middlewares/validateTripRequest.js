@@ -18,15 +18,15 @@ const Joi = BaseJoi.extend(Extension);
 export const validateRequestTripForm = (req, res, next) => {
   const origin = Joi.string().required();
   const destinationId = Joi.number().required();
+  const type = Joi.string().required();
   const reason = Joi.string().required();
-  const accomodationId = Joi.number().required();
-  const departureDate = Joi.date().format('DD-MM-YYYY').required();
+  const departureDate = Joi.string().required();
   const tripRequestSchema = Joi.object().keys({
     origin,
     destinationId,
     departureDate,
     reason,
-    accomodationId,
+    type
   });
   const errors = joiValidator(req.body, tripRequestSchema);
   if (!errors) {

@@ -27,9 +27,11 @@ import {
   verifyUserPath
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath
 } from './paths/trips';
-import { createTrip, returnTripSchema } from './definitions/trip';
+import {
+  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes
+} from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
@@ -118,7 +120,8 @@ const swaggerDocument = {
     '/users/forgot-password': forgotPasswordPath,
     '/users/reset-forgot-password': resetPasswordPath,
     '/users/reset-user-password': resetUserPasswordPath,
-    '/trips/request': requestTrip,
+    '/trips/oneway': requestTrip,
+    '/trips/multicity': multiCityTripPath,
     '/trips/{tripId}/approve': approvedTripPath,
     '/trips/{tripId}': getTripPath,
     '/trips/{tripId}/comment': createCommentPath,
@@ -139,6 +142,8 @@ const swaggerDocument = {
     '/chats/?sender={sender}&recipient={recipient}': getChatsPath,
   },
   definitions: {
+    createMultiCityTrip,
+    multiCityTripRes,
     createBookingReq,
     createBookingRes,
     getBookingRes,

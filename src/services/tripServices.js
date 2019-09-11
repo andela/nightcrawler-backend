@@ -1,7 +1,7 @@
 import Model from '../models';
 import { findSingleUser } from './userServices';
 
-const { TripRequest, Destination } = Model;
+const { TripRequest, Destination, SubTripRequest } = Model;
 
 export const postTrip = async (payload) => {
   try {
@@ -57,6 +57,55 @@ export const updateTripStatus = async (tripId, tripStatus) => {
 export const getRequesterEmail = async (requesterId) => {
   const user = await findSingleUser({ id: requesterId });
   return user.toJSON().email;
+};
+
+export const bulkCreate = async (subRequests) => {
+  const trip = await SubTripRequest.bulkCreate(subRequests, { returning: true });
+  return trip;
+};
+
+/**
+ * @returns {object} response object containing the information of all rows
+ */
+export const getTripRequests = async () => {
+  const trips = await TripRequest.findAll({
+    include: [
+      {
+        model: Destination,
+        as: 'destination',
+        attributes: ['id', 'destination']
+      },
+      {
+        model: SubTripRequest,
+        as: 'subTrips',
+        include: {
+          model: Destination,
+          as: 'destination',
+          attributes: ['id', 'destination']
+        }
+      }]
+  });
+  return trips;
+};
+
+/**
+ * @param {object} tripId
+ * @returns {object} response object containing the information of a single trip
+ */
+export const findOneTripRequest = async (tripId) => {
+  const trip = await TripRequest.findOne({
+    where: { id: tripId },
+    include: {
+      model: SubTripRequest,
+      as: 'subTrips',
+      include: {
+        model: Destination,
+        as: 'destination',
+        attributes: ['id', 'destination']
+      }
+    }
+  });
+  return trip;
 };
 
 /**

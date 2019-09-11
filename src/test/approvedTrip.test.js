@@ -102,7 +102,7 @@ describe('GET TRIP', () => {
     expect(res.body.success).to.equal(true);
   });
 
-  it('it should return the trip object', async () => {
+  it('it should return not found', async () => {
     const res = await request
       .get(`${approveTripUrl}/100`)
       .set('Authorization', token);

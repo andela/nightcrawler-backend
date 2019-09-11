@@ -1,4 +1,7 @@
-import { postTrip, updateTripStatus, getRequesterEmail } from '../services/tripServices';
+import {
+  postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
+  getTripRequests, findOneTripRequest
+} from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 import { approvedEmitter } from '../helpers/notificationHandler';
@@ -26,6 +29,43 @@ export const oneWayTripRequest = async (req, res) => {
     );
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Internal Server Error');
+  }
+};
+
+/**
+* make multi-city trip request
+* @param {object} req
+* @param {object} res
+* @returns {object} json response
+*/
+export const multiCityTripRequest = async (req, res) => {
+  let tripRequest;
+  const { id } = req.auth;
+  const { destination } = req.destination;
+  const {
+    origin, destinationId, reason, departureDate, type, subRequest
+  } = req.body;
+  try {
+    const payload = {
+      origin,
+      destinationId,
+      reason,
+      departureDate,
+      type,
+      status: 'pending',
+      userId: id
+    };
+    const multiCityTrip = await postTrip(payload);
+    const multiCityRequests = subRequest.map(sub => ({
+      tripId: multiCityTrip.id,
+      ...sub
+    }));
+    const subRequestedTrips = await bulkCreate(multiCityRequests);
+    tripRequest = { ...multiCityTrip.toJSON(), destination, subRequestedTrips };
+
+    return respondWithSuccess(res, statusCode.created, 'request successfully sent', tripRequest);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }
 };
 
@@ -57,9 +97,6 @@ export const approveTripRequest = async (req, res) => {
   }
 };
 
-export const getTripRequest = async (req, res) => (!req.trip
-  ? respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened')
-  : respondWithSuccess(res, statusCode.success, 'Operation successful', req.trip));
 /**
  * A function to create a return trip
  * @param {object} req
@@ -86,5 +123,42 @@ export const returnTripRequest = async (req, res) => {
     return respondWithSuccess(res, statusCode.created, 'Request Successful', returnTrip.dataValues);
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Internal Server Error');
+  }
+};
+
+/**
+ * Function gets all tripRequests
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const getAllTripRequests = async (req, res) => {
+  try {
+    const tripRequests = await getTripRequests();
+    if (!tripRequests) {
+      return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
+    }
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', tripRequests);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
+
+/**
+ * Function gets one tripRequest
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const getTripRequest = async (req, res) => {
+  try {
+    const { tripId } = req.params;
+    const tripRequests = await findOneTripRequest(Number(tripId));
+    if (!tripRequests) {
+      return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
+    }
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', tripRequests.toJSON());
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }
 };
