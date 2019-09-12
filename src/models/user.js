@@ -47,6 +47,7 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.TripRequest, { foreignKey: 'userId', onDelete: 'CASCADE' });
     User.hasMany(models.Notification, { foreignKey: 'userId', onDelete: 'CASCADE' });
     User.hasMany(models.Comment, { foreignKey: 'userId', onDelete: 'CASCADE' });
+    User.hasMany(models.Like, { foreignKey: 'userId', as: 'accommodationLikes', onDelete: 'CASCADE' });
   };
   User.beforeCreate(async (user) => {
     const error = new Error();

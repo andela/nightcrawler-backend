@@ -128,3 +128,42 @@ export const getOneAccommodation = async (req, res) => {
     return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }
 };
+
+/**
+ * Function likes an accommodations
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const unlikeAccommodation = async (req, res) => {
+  try {
+    const { accommodationId } = req.params;
+    const { id } = req.auth;
+    const likes = await accommodationServices.unlikeAccommodation(id, Number(accommodationId));
+    return respondWithSuccess(res, statusCode.success, 'request successful', { likes });
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
+
+/**
+ * Function checks if an accommodations is liked by a particular user
+ * This will help UI display of like status
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const getLikeStatus = async (req, res) => {
+  try {
+    const { accommodationId } = req.params;
+    const { id } = req.auth;
+    const liked = await accommodationServices.checkLikedAccommodation(id, Number(accommodationId));
+    if (!liked) {
+      return respondWithSuccess(res, statusCode.success, 'fetch successful', { likeStatus: false });
+    }
+    const payload = { ...liked.toJSON(), likeStatus: true };
+    return respondWithSuccess(res, statusCode.success, 'fetch successful', payload);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};

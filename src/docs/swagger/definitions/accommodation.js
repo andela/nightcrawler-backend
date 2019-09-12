@@ -337,3 +337,73 @@ export const getAllAccommodationsRes = {
     }
   }
 };
+
+export const likeUnlikeAccommodationRes = {
+  type: 'object',
+  properties: {
+    success: {
+      type: 'boolean',
+      example: true
+    },
+    message: {
+      type: 'string',
+      example: 'request successful'
+    },
+    payload: {
+      type: 'object',
+      properties: {
+        likes: {
+          type: 'integer',
+          format: 'int32',
+          example: 4
+        },
+      },
+    },
+  }
+};
+
+export const checkAccommodationLikeRes = {
+  type: 'object',
+  properties: {
+    success: {
+      type: 'boolean',
+      example: true
+    },
+    message: {
+      type: 'string',
+      example: 'unlike request successful'
+    },
+    payload: {
+      type: 'object',
+      properties: {
+        id: {
+          type: 'integer',
+          format: 'int32',
+          example: 2
+        },
+        userId: {
+          type: 'integer',
+          format: 'int32',
+          example: 1
+        },
+        accommodationId: {
+          type: 'integer',
+          format: 'int32',
+          example: 3
+        },
+        createdAt: {
+          type: 'string',
+          format: 'date-time'
+        },
+        updatedAt: {
+          type: 'string',
+          format: 'date-time'
+        },
+        likeStatus: {
+          type: 'boolean',
+          example: true
+        }
+      },
+    },
+  }
+};

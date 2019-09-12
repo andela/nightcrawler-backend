@@ -52,6 +52,11 @@ export default (sequelize, DataTypes) => {
       as: 'rooms',
       timestamps: false
     });
+    Accommodation.hasMany(models.Like, {
+      foreignKey: 'accommodationId',
+      as: 'likes',
+      timestamps: false
+    });
   };
   return Accommodation;
 };

@@ -296,4 +296,96 @@ describe('ACCOMMODATION CONTROLLER', () => {
         });
     });
   });
+
+  describe('LIKE ACCOMMODATION', () => {
+    before((done) => {
+      chai.request(app)
+        .post(signinUrl)
+        .send({
+          email: 'admin@nomad.com', // valid login details
+          password: '123456',
+        })
+        .end((error, res) => {
+          currentToken = res.body.payload.token;
+          done();
+        });
+    });
+
+    it('it should like an accommodation', (done) => {
+      chai.request(app)
+        .patch(`${accommodationUrl}/like/2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.message).to.equal('request successful');
+          expect(res.body.payload).to.have.property('likes');
+          done();
+        });
+    });
+
+    it('it should return likeStatus as true if a user has liked an accommodation', (done) => {
+      chai.request(app)
+        .get(`${accommodationUrl}/like/2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.message).to.equal('fetch successful');
+          expect(res.body.payload).to.have.property('id');
+          expect(res.body.payload.likeStatus).to.equal(true);
+          done();
+        });
+    });
+
+    it('it should unlike an accommodation', (done) => {
+      chai.request(app)
+        .patch(`${accommodationUrl}/like/2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.message).to.equal('request successful');
+          expect(res.body.payload).to.have.property('likes');
+          done();
+        });
+    });
+
+    it('it should return likeStatus as false if a user hasn\'t liked an accommodation', (done) => {
+      chai.request(app)
+        .get(`${accommodationUrl}/like/2`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(200);
+          expect(res.body.success).to.equal(true);
+          expect(res.body.message).to.equal('fetch successful');
+          expect(res.body.payload.likeStatus).to.equal(false);
+          done();
+        });
+    });
+
+    it('it should return error if accommodationId param is invalid', (done) => {
+      chai.request(app)
+        .patch(`${accommodationUrl}/like/dnn`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(400);
+          expect(res.body.success).to.equal(false);
+          expect(res.body.payload[0]).to.equal('accommodationId must be a number');
+          done();
+        });
+    });
+
+    it('it should return error if accommodationId does not exist', (done) => {
+      chai.request(app)
+        .patch(`${accommodationUrl}/like/22`)
+        .set('Authorization', currentToken)
+        .end((error, res) => {
+          expect(res).to.have.status(404);
+          expect(res.body.success).to.equal(false);
+          expect(res.body.message).to.equal('accommodation not found');
+          done();
+        });
+    });
+  });
 });
