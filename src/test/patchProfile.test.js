@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 const profileUrl = '/api/v1/users/profile';
 
 describe('USER CONTROLLER', () => {
-  const requester = chai.request(app).keepOpen();
+  const requester = chai.request(app);
 
   describe('PATCH USERS PROFILE', () => {
     let token = '';

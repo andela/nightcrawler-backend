@@ -1,4 +1,3 @@
-
 export const createAccommodationPath = {
   post: {
     tags: [
@@ -10,7 +9,7 @@ export const createAccommodationPath = {
       }
     ],
     consumes: [
-      'multipart/mixed'
+      'multipart/form-data'
     ],
     summary: 'Create an accommodation',
     description: 'Allows travel admin and suppliers to create accommodation',
@@ -64,14 +63,11 @@ export const createAccommodationPath = {
         }
       },
       {
-        name: 'images[]',
+        name: 'images',
         in: 'formData',
         description: 'file to upload',
         required: false,
-        type: 'array',
-        items: {
-          type: 'file'
-        }
+        type: 'file',
       }
     ],
     responses: {

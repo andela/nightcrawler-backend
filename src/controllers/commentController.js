@@ -73,7 +73,7 @@ export const getUserTripComments = async (req, res, next) => {
     const { id, roleId } = req.auth;
     if (roleId === 6) {
       const trip = await findUserTrip(Number(tripId), id);
-      if (!trip) {
+      if (!trip.length) {
         return respondWithWarning(res, statusCode.resourceNotFound, 'Trip not found');
       }
       const data = await fetchTripComments(trip);

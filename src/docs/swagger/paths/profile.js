@@ -1,20 +1,16 @@
 const ProfilePath = {
   post: {
     tags: [
-      'profile'
+      'users'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
     ],
     summary: 'Create profile of a user',
     description: 'Allows signed-in user to create profile',
     parameters: [
-      {
-        name: 'authorization',
-        in: 'header',
-        description: 'User authentication token',
-        required: true,
-        schema: {
-          $ref: '#/definitions/ProfileHeaders'
-        }
-      },
       {
         name: 'body',
         in: 'body',
@@ -26,7 +22,7 @@ const ProfilePath = {
       }
     ],
     responses: {
-      200: {
+      201: {
         description: 'User creates profile successfully',
         schema: {
           $ref: '#/definitions/ProfileResponds'
@@ -51,7 +47,7 @@ const ProfilePath = {
         }
       },
       409: {
-        description: 'Server error',
+        description: 'Conflict',
         schema: {
           $ref: '#/definitions/conflict'
         }
@@ -66,21 +62,15 @@ const ProfilePath = {
   },
   get: {
     tags: [
-      'profile'
+      'users'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
     ],
     summary: 'Get profile of a user',
     description: 'Allows signed-in user to get their profile',
-    parameters: [
-      {
-        name: 'authorization',
-        in: 'header',
-        description: 'User authentication token',
-        required: true,
-        schema: {
-          $ref: '#/definitions/ProfileHeaders'
-        }
-      }
-    ],
     responses: {
       200: {
         description: 'User creates profile successfully',
@@ -101,7 +91,7 @@ const ProfilePath = {
         }
       },
       404: {
-        description: 'Unauthorized user',
+        description: 'User not found',
         schema: {
           $ref: '#/definitions/notFound'
         }
@@ -116,20 +106,16 @@ const ProfilePath = {
   },
   patch: {
     tags: [
-      'profile'
+      'users'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
     ],
     summary: 'Update profile of a user',
     description: 'Allows signed-in user to update profile',
     parameters: [
-      {
-        name: 'authorization',
-        in: 'header',
-        description: 'User authentication token',
-        required: true,
-        schema: {
-          $ref: '#/definitions/ProfileHeaders'
-        }
-      },
       {
         name: 'body',
         in: 'body',

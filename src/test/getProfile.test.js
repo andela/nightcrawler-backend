@@ -15,7 +15,7 @@ const { Profile } = models;
 
 describe('USER CONTROLLER', () => {
   describe('GET USERS PROFILE', () => {
-    const requester = chai.request(app).keepOpen();
+    const requester = chai.request(app);
     let token = '';
     let secondToken = '';
 

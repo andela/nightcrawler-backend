@@ -1,5 +1,4 @@
 // eslint-disable-next-line import/named
-import { API_URL } from '../../config/constants';
 import { created, success } from './definitions/successResponse';
 import {
   badRequest, notAuthorized, accessForbidden, notFound, conflict,
@@ -57,7 +56,7 @@ const swaggerDocument = {
     description: 'API Documentation for Barefoot Nomad.',
     header: 'none'
   },
-  host: API_URL,
+  host: 'bn-api-staging.herokuapp.com',
   basePath: '/api/v1/',
   produces: ['application/json'],
   consumes: ['application/json'],

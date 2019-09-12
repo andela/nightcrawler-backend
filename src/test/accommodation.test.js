@@ -248,7 +248,7 @@ describe('ACCOMMODATION CONTROLLER', () => {
 
     it('it should get accommodations for a specific trip', (done) => {
       chai.request(app)
-        .get(`${accommodationUrl}/trip/2`)
+        .get(`${accommodationUrl}/trips/2`)
         .set('Authorization', currentToken)
         .end((error, res) => {
           expect(res).to.have.status(200);
@@ -287,7 +287,7 @@ describe('ACCOMMODATION CONTROLLER', () => {
 
     it('it should return error if tripId is invalid', (done) => {
       chai.request(app)
-        .get(`${accommodationUrl}/trip/a2`)
+        .get(`${accommodationUrl}/trips/a2`)
         .set('Authorization', currentToken)
         .end((error, res) => {
           expect(res).to.have.status(400);
