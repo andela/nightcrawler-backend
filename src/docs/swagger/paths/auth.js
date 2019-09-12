@@ -43,7 +43,7 @@ export const signInPath = {
   }
 };
 export const logoutPath = {
-  post: {
+  get: {
     tags: ['auth'],
     security: [
       {

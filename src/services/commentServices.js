@@ -34,11 +34,14 @@ export const createComment = async (payload) => {
 export const findCommentById = async (commentId) => {
   try {
     const comment = await Comment.findOne({
-      where: { id: commentId },
+      attributes: ['id', 'tripId', 'userId', 'comment', 'isVisible'],
+      where: {
+        id: commentId
+      },
       logging: false
     });
 
-    return comment;
+    return comment.toJSON();
   } catch (error) {
     return {
       errors: error

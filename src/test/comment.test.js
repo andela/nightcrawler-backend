@@ -174,9 +174,9 @@ describe('DELETE TRIP COMMENT', () => {
 
   it('it should return an error for access denied', async () => {
     const res = await request
-      .delete(`${approveTripUrl}/1/comments/1`)
+      .delete(`${approveTripUrl}/1/comments/2`)
       .set('Authorization', blockedToken);
-    expect(res).to.have.status(403);
+    expect(res).to.have.status(401);
     expect(res.body).to.have.property('success');
     expect(res.body).to.have.property('message');
     expect(res.body).to.have.property('payload');
