@@ -28,31 +28,10 @@ export const createBooking = async (req, res) => {
  * @param {object} res
  * @returns {object} response object
  */
-export const getAllBookings = async (req, res) => {
+export const getBookings = async (req, res) => {
   try {
     const bookings = await bookingServices.findAllBookings();
-    if (!bookings) {
-      return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
-    }
-    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', bookings);
-  } catch (error) {
-    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
-  }
-};
 
-/**
- * Function gets one booking for a requester
- * @param {object} req
- * @param {object} res
- * @returns {object} response object
- */
-export const getUserBookings = async (req, res) => {
-  const { id } = req.auth;
-  try {
-    const bookings = await bookingServices.findUserBookings(id);
-    if (!bookings) {
-      return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
-    }
     return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', bookings);
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
