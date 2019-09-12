@@ -4,8 +4,8 @@ import app from '../index';
 
 chai.should();
 chai.use(chaiHttp);
+
 describe('Testing for one-way trip request endpoint', () => {
-  // this.timeout(15000);
   it('user can make trip request if he is logged in and has a valid token', done => {
     (async () => {
       const validInput = {
@@ -14,7 +14,7 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destinationId: 1,
+        destinationId: 3,
         reason: 'kckcmlcm',
         departureDate: '05-09-2019',
         accomodationId: '1',
@@ -24,7 +24,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const request = chai.request(app).keepOpen();
       const signResponse = await request.post('/api/v1/auth/signin').send(validInput);
       const { token } = signResponse.body.payload;
-      const res = await request.post('/api/v1/trips/request').set('Authorization', `Bearer ${token}`).send(data);
+      const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(true);
       res.should.have.status(201);
       done();
@@ -39,7 +39,7 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: '',
-        destinationId: 1,
+        destinationId: 3,
         reason: 'kckcmlcm',
         departureDate: '05-08-2019',
         accomodationId: '1',
@@ -49,7 +49,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const request = chai.request(app).keepOpen();
       const signResponse = await request.post('/api/v1/auth/signin').send(validInput);
       const { token } = signResponse.body.payload;
-      const res = await request.post('/api/v1/trips/request').set('Authorization', `Bearer ${token}`).send(data);
+      const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
 
       done();
@@ -64,6 +64,7 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
+        destinationId: '',
         reason: 'kckcmlcm',
         departureDate: '',
         accomodationId: 1,
@@ -73,7 +74,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const request = chai.request(app).keepOpen();
       const signResponse = await request.post('/api/v1/auth/signin').send(validInput);
       const { token } = signResponse.body.payload;
-      const res = await request.post('/api/v1/trips/request').set('Authorization', `Bearer ${token}`).send(data);
+      const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
 
       done();
@@ -88,7 +89,7 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destinationId: 1,
+        destinationId: 3,
         reason: 'kckcmlcm',
         departureDate: '05-09-2019',
         accomodationId: 1,
@@ -98,7 +99,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const request = chai.request(app).keepOpen();
       await request.post('/api/v1/auth/signin').send(validInput);
       const token = '';
-      const res = await request.post('/api/v1/trips/request').set('Authorization', `Bearer ${token}`).send(data);
+      const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
 
       done();
@@ -113,7 +114,7 @@ describe('Testing for one-way trip request endpoint', () => {
       };
       const data = {
         origin: 'Lagos',
-        destinationId: 1,
+        destinationId: 3,
         reason: 'kckcmlcm',
         departureDate: '05-09-2019',
         accomodationId: 1,
@@ -123,7 +124,7 @@ describe('Testing for one-way trip request endpoint', () => {
       const request = chai.request(app).keepOpen();
       await request.post('/api/v1/auth/signin').send(validInput);
       const token = 'dndkcndckdcnlsmlslmcksncjnscnnc';
-      const res = await request.post('/api/v1/trips/request').set('Authorization', `Bearer ${token}`).send(data);
+      const res = await request.post('/api/v1/trips/oneway').set('Authorization', `Bearer ${token}`).send(data);
       res.body.should.have.property('success').equal(false);
 
       done();

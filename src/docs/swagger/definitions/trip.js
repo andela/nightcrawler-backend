@@ -44,3 +44,147 @@ export const returnTripSchema = {
     },
   }
 };
+
+export const createMultiCityTrip = {
+  type: 'object',
+  properties: {
+    type: {
+      type: 'string',
+      example: 'multi-city'
+    },
+    origin: {
+      type: 'string',
+      example: 'Nairobi'
+    },
+    destinationId: {
+      type: 'integer',
+      example: 2
+    },
+    reason: {
+      type: 'string',
+      example: 'Meet with clients'
+    },
+    departureDate: {
+      type: 'string',
+      format: 'date-time'
+    },
+    returnDate: {
+      type: 'string',
+      format: 'date-time',
+    },
+    subRequest: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          subOrigin: {
+            type: 'string',
+            example: 'Johanesburg'
+          },
+          subDestinationId: {
+            type: 'integer',
+            example: 5
+          },
+          subDepartureDate: {
+            type: 'string',
+            format: 'date-time'
+          },
+          subReason: {
+            type: 'string',
+            example: 'Vacation'
+          },
+        }
+      }
+    }
+  }
+};
+
+export const multiCityTripRes = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'integer',
+      example: 3
+    },
+    userId: {
+      type: 'integer',
+      example: 2
+    },
+    type: {
+      type: 'string',
+      example: 'multi-city'
+    },
+    origin: {
+      type: 'string',
+      example: 'Nairobi'
+    },
+    destinationId: {
+      type: 'integer',
+      example: 2
+    },
+    reason: {
+      type: 'string',
+      example: 'Meet with clients'
+    },
+    status: {
+      type: 'string',
+      example: 'pending'
+    },
+    departureDate: {
+      type: 'string',
+      format: 'date-time'
+    },
+    returnDate: {
+      type: 'string',
+      example: null,
+    },
+    destination: {
+      type: 'string',
+      example: 'Kampala',
+    },
+    createdAt: {
+      type: 'string',
+      format: 'date-time'
+    },
+    updatedAt: {
+      type: 'string',
+      format: 'date-time'
+    },
+    subRequestedTrips: {
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          id: {
+            type: 'integer',
+            example: 6
+          },
+          subOrigin: {
+            type: 'string',
+            example: 'Johanesburg'
+          },
+          subDestinationId: {
+            type: 'integer',
+            example: 4
+          },
+          subDepartureDate: {
+            type: 'string',
+            format: 'date-time'
+          },
+          subReason: {
+            type: 'string',
+            example: 'Vacation'
+          },
+          createdAt: {
+            type: 'string',
+            format: 'date-time'
+          },
+          updatedAt: {
+            type: 'string',
+            format: 'date-time'
+          },
+        }
+      }
+    }
+  }
+};

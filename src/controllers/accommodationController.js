@@ -119,7 +119,7 @@ export const getTripAccommodations = async (req, res) => {
 export const getOneAccommodation = async (req, res) => {
   try {
     const { accommodationId } = req.params;
-    const accommodations = await accommodationServices.findOneAccommodation(parseInt(accommodationId, 10));
+    const accommodations = await accommodationServices.findOneAccommodation(Number(accommodationId));
     if (!accommodations) {
       return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
     }
