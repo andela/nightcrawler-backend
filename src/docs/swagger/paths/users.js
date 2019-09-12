@@ -324,3 +324,57 @@ export const verifyUserPath = {
     }
   }
 };
+
+export const fetchTripPath = {
+  get: {
+    tags: [
+      'users'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: ' Requester should see all trip requests',
+    description: ' Requester should see all trip requests',
+    parameters: [],
+    responses: {
+      200: {
+        description: 'Trip resource successfully fetched',
+        schema: {
+          $ref: '#/definitions/multiCityTripRes'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Access forbidden',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Trip not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};

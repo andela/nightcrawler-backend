@@ -22,6 +22,7 @@ export const createAccommodation = async (req, res) => {
     const accommodation = await accommodationServices.create(Accommodation, data);
     return respondWithSuccess(res, statusCode.created, 'resource successfully created', accommodation.toJSON());
   } catch (error) {
+    console.log(error.stack)
     return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }
 };

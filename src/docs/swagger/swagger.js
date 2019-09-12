@@ -24,13 +24,13 @@ import {
 import { signInPath, logoutPath } from './paths/auth';
 import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
-  verifyUserPath
+  verifyUserPath, fetchTripPath,
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath, viewAllTripRequest
 } from './paths/trips';
 import {
-  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes
+  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes, rejectTripRequest,  viewAllTripRequestRes
 } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
@@ -126,6 +126,7 @@ const swaggerDocument = {
     '/trips/{tripId}/approve': approvedTripPath,
     '/trips/{tripId}': getTripPath,
     '/trips/{tripId}/comment': createCommentPath,
+    '/trips/{tripId}/reject': rejectTripPath,
     '/trips/{tripId}/comments': getTripCommentsPath,
     '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
     '/trips/return': returnTrip,
@@ -138,6 +139,7 @@ const swaggerDocument = {
     '/auth/facebook': facebookPath,
     '/user': createUser,
     '/users/profile': profilePath,
+    '/users/trips': fetchTripPath,
     '/bookings': bookingPath,
     '/bookings/{bookingId}': getSingleBookingPath,
     '/chat': postChatPath,
@@ -156,6 +158,7 @@ const swaggerDocument = {
     createAccommodationReq,
     createRoomReq,
     createRoomRes,
+    rejectTripRequest,
     SigninCreate, // signin request
     Signin, // signin response
     createUser, // create user

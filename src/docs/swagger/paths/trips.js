@@ -53,7 +53,8 @@ export const requestTrip = {
         }
       }
     }
-  }
+  },
+ 
 };
 
 export const multiCityTripPath = {
@@ -297,3 +298,71 @@ export const returnTrip = {
     }
   }
 };
+
+export const rejectTripPath = {
+  patch: {
+    tags: [
+      'trips'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Reject trip request',
+    description: 'A manager can reject trip request',
+    parameters: [
+      {
+        name: 'tripId',
+        in: 'path',
+        description: 'Path parameter takes in trip id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+      {
+        name: 'body',
+        in: 'body',
+        description: ' Reject Trip request object',
+        required: true,
+        schema: {
+          $ref: '#/definitions/rejectTripRequest'
+        }
+      }
+    ],
+    responses: {
+      201: {
+        description: 'request successfully sent',
+        schema: {
+          $ref: '#/definitions/created'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Access forbidden',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+}
+
+

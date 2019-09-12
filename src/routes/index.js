@@ -22,3 +22,13 @@ apiRouter.use('/api/v1/bookings', booking);
 apiRouter.use('/api/v1', chats);
 
 export default apiRouter;
+
+
+
+
+
+
+
+
+
+
