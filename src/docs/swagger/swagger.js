@@ -27,10 +27,10 @@ import {
   verifyUserPath
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath 
 } from './paths/trips';
 import {
-  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes
+  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes, rejectTripRequest, 
 } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
@@ -64,7 +64,7 @@ const swaggerDocument = {
   basePath: '/api/v1/',
   produces: ['application/json'],
   consumes: ['application/json'],
-  schemes: ['https', 'http'],
+  schemes: ['http', 'https'],
   securityDefinitions: {
     BearerToken: {
       description: `
@@ -126,6 +126,7 @@ const swaggerDocument = {
     '/trips/{tripId}/approve': approvedTripPath,
     '/trips/{tripId}': getTripPath,
     '/trips/{tripId}/comment': createCommentPath,
+    '/trips/{tripId}/reject': rejectTripPath,
     '/trips/{tripId}/comments': getTripCommentsPath,
     '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
     '/trips/return': returnTrip,
@@ -156,6 +157,7 @@ const swaggerDocument = {
     createAccommodationReq,
     createRoomReq,
     createRoomRes,
+    rejectTripRequest,
     SigninCreate, // signin request
     Signin, // signin response
     createUser, // create user

@@ -14,7 +14,6 @@ import { socketConnection } from './helpers/socketIO';
 
 const app = express();
 const port = PORT || 3000;
-
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({

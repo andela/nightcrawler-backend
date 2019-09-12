@@ -30,7 +30,6 @@ describe('Testing for one-way trip request endpoint', () => {
       done();
     })();
   });
-
   it('user cannot  make trip request if origin is missing', done => {
     (async () => {
       const validInput = {
