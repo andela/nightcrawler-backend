@@ -2,6 +2,8 @@ import Joi from '@hapi/joi';
 import { joiValidator } from '../helpers/joiValidator';
 import { respondWithWarning } from '../helpers/responseHandler';
 import { country } from '../helpers/countriesList';
+import statusCode from '../helpers/statusCode';
+import { findAccomodationReviewById } from '../services/accommodationServices';
 
 /**
    * validate create accommodation
@@ -92,4 +94,30 @@ export const validateAccommodationId = (req, res, next) => {
     return next();
   }
   return respondWithWarning(res, 400, 'Bad request', errors);
+};
+
+/**
+   * validate create accommodation review
+   * @param {Object} req
+   * @param {Object} res
+   * @param {Function} next
+   * @returns {Object} error
+   */
+export const accommodationReview = (req, res, next) => {
+  const schema = Joi.object().keys({
+    review: Joi.string().required(),
+  });
+  const errors = joiValidator(req.body, schema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, 'Bad request', errors);
+};
+
+export const verifyAccommodationReview = async (req, res, next) => {
+  const review = await findAccomodationReviewById(req.params.reviewId);
+  if (!review) {
+    return respondWithWarning(res, statusCode.resourceNotFound, 'Review not found');
+  }
+  return next();
 };

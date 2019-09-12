@@ -18,7 +18,6 @@ export const authenticateUserToken = (req, res, next) => {
   if (token && token.startsWith('Bearer ')) {
     token = token.slice(7, token.length);
   }
-  console.log(token)
   if (!token) {
     return respondWithWarning(res, statusCode.unauthorizedAccess, resMessage.expiredSession);
   }

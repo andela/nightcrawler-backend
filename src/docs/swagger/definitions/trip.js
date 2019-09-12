@@ -194,7 +194,7 @@ export const rejectTripRequest = {
   properties: {
     status: {
       type: 'string',
-      example: "rejected"
+      example: 'rejected'
     }
   }
-}
+};

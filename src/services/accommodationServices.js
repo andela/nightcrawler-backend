@@ -1,7 +1,7 @@
 import Model from '../models';
 
 const {
-  Accommodation, Room, Like
+  Accommodation, Room, Like, AccommodationReview, User
 } = Model;
 
 /**
@@ -102,3 +102,85 @@ export const unlikeAccommodation = async (userId, accommodationId) => {
   const totalLikes = await Like.count({ where: { accommodationId } });
   return totalLikes;
 };
+/**
+ * Create an accommodation review
+ * @exports
+ * @param {Object} payload
+ * @returns {Object} review object
+ */
+export const createReview = async (payload) => {
+  try {
+    const review = await AccommodationReview.create(payload);
+    return review;
+  } catch (error) {
+    return {
+      errors: error
+    };
+  }
+};
+
+/**
+ * find an accommodation by id
+ * @exports
+ * @param {Number} id
+ * @returns {Object} Accomodation object
+ */
+export const findAccomodationById = (id) => Accommodation.findByPk(id);
+
+/**
+ * find an accommodation review by id
+ * @exports
+ * @param {Number} id
+ * @returns {Object} Review object
+ */
+export const findAccomodationReviewById = (id) => AccommodationReview.findByPk(id);
+
+
+/**
+ * fetch reviews for an accommodation
+ * @exports
+ * @param {Object} accommodation
+ * @returns {Object} Accomodation review object
+ */
+export const fetchAccommodationReviews = (accommodation) => accommodation.getReviews({
+  include: [
+    { model: User, as: 'user', attributes: ['id', 'username', 'firstName', 'lastName'] }
+  ]
+});
+
+/**
+ * delete a review
+ * @exports
+ * @param {Number} id
+ * @returns {Object} response
+ */
+export const deleteReview = (id) => AccommodationReview.destroy({
+  where: {
+    id
+  }
+});
+
+/**
+ * findUserReview
+ * @exports
+ * @param {Number} id
+ * @param {Number} userId
+ * @returns {Object}Accomodation review response
+ */
+export const findUserReview = (id, userId) => AccommodationReview.findOne({
+  where: {
+    id,
+    userId
+  }
+});
+
+/**
+ * update a review
+ * @exports
+ * @param {Number} id
+ * @param {String} review
+ * @returns {Object}updated response
+ */
+export const updateReview = (id, review) => AccommodationReview.update(
+  { review }, { where: { id }, returning: true, plain: true }
+);
