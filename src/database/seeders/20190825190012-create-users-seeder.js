@@ -43,6 +43,14 @@ export default {
       password: await passwordHash('123456'),
       roleId: 5
     },
+    {
+      firstName: 'John',
+      lastName: 'Jammy',
+      username: 'jammjones',
+      email: 'jammjones@nomad.com',
+      password: await passwordHash('123456'),
+      roleId: 6
+    },
   ], {}),
 
   /*

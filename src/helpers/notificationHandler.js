@@ -73,3 +73,53 @@ export const commentNotification = (io, staffs) => {
     }
   });
 };
+
+/**
+ * Function to emit chat
+ * @param {Object} data
+ * @override
+ */
+export const chatEmitter = (data) => {
+  tripEmitter.emit('chat', data);
+};
+
+/**
+ * Function to listen for the created chat event and send
+ * @param {Object} io
+ * @param {Object} staffs
+ * @override
+ */
+
+export const chatBot = (io, staffs) => {
+  tripEmitter.on('chat', (payload) => {
+    const receivers = [payload.sender, payload.recipient];
+    receivers.forEach(receiver => {
+      io.to(staffs[receiver]).emit('chat', payload);
+    });
+  });
+};
+
+/**
+ * Function to emit chats
+ * @param {Object} data
+ * @override
+ */
+export const getChatsEmitter = (data) => {
+  tripEmitter.emit('chats', data);
+};
+
+/**
+ * Function to listen for the created chats event and send
+ * @param {Object} io
+ * @param {Object} staffs
+ * @override
+ */
+
+export const getPrivateChats = (io, staffs) => {
+  tripEmitter.on('chats', (payload) => {
+    const receivers = [payload.sender, payload.recipient];
+    receivers.forEach(receiver => {
+      io.to(staffs[receiver]).emit('chats', payload);
+    });
+  });
+};
