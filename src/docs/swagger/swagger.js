@@ -36,7 +36,7 @@ import {
   createAccommodationPath, createRoomPath, getAccommodationPath, getTripAccommodationsPath
 } from './paths/accommodations';
 import {
-  bookingPath, getSingleBookingPath, getUserBookings
+  bookingPath, getSingleBookingPath
 } from './paths/booking';
 import socialMediaAuthentication from './definitions/socialMedia';
 import { googlePath, facebookPath } from './paths/socialAuth';
@@ -128,7 +128,6 @@ const swaggerDocument = {
     '/user': createUser,
     '/users/profile': profilePath,
     '/bookings': bookingPath,
-    '/bookings/user': getUserBookings,
     '/bookings{bookingId}': getSingleBookingPath,
   },
   definitions: {

@@ -156,32 +156,6 @@ describe('BOOKING CONTROLLER', () => {
   });
 
   describe('VIEW BOOKINGS ', () => {
-    describe('VIEW USER BOOKINGS ', () => {
-      before((done) => {
-        chai.request(app)
-          .post(signinUrl)
-          .send({
-            email: 'johndoe@nomad.com', // valid login details
-            password: '123456',
-          })
-          .end((error, res) => {
-            currentToken = res.body.payload.token;
-            done();
-          });
-      });
-      it('it should get all requester\'s bookings', (done) => {
-        chai.request(app)
-          .get(`${bookingUrl}`)
-          .set('Authorization', currentToken)
-          .end((error, res) => {
-            expect(res).to.have.status(200);
-            expect(res.body.success).to.equal(true);
-            expect(res.body.message).to.equal('resource successfully fetched');
-            done();
-          });
-      });
-    });
-
     describe('VIEW ALL BOOKINGS', () => {
       before((done) => {
         chai.request(app)
@@ -221,9 +195,9 @@ describe('BOOKING CONTROLLER', () => {
             done();
           });
       });
-      it('it should get all bookings if role is not requester', (done) => {
+      it('it should get all bookings if role is requester', (done) => {
         chai.request(app)
-          .get(`${bookingUrl}/user`)
+          .get(`${bookingUrl}`)
           .set('Authorization', currentToken)
           .end((error, res) => {
             expect(res).to.have.status(200);
