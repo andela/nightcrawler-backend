@@ -1,7 +1,5 @@
 import socketIO from 'socket.io';
-import {
-  approvedTripNotification, commentNotification, chatBot, getPrivateChats
-} from './notificationHandler';
+import { approvedTripNotification, commentNotification, chatBot, getPrivateChats, requestUpdateNotification } from './notificationHandler';
 
 const staffs = {};
 
@@ -30,6 +28,7 @@ export const socketConnection = server => {
     });
   });
   approvedTripNotification(io, staffs);
+  requestUpdateNotification(io, staffs);
   commentNotification(io, staffs);
   chatBot(io, staffs);
   getPrivateChats(io, staffs);

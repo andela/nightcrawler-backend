@@ -208,3 +208,21 @@ export const getTripStats = {
     }
   }
 };
+
+export const editTripRequest = {
+  type: 'object',
+  properties: {
+    destinationId: {
+      type: 'intger',
+      example: 1
+    },
+    reason: {
+      type: 'string',
+    },
+    departureDate: {
+      type: 'string',
+      example: '10-10-2019',
+    },
+  
+  }
+};

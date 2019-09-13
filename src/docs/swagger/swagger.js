@@ -7,7 +7,7 @@ import {
 import { SigninCreate, Signin, Logout } from './definitions/auth';
 import {
   createUser, updateRoleReq, updateRoleRes,
-  resetPassword, resetPasswordResponse, forgotPassword, resetUserPassword, verifyUser
+  resetPassword, resetPasswordResponse, forgotPassword, resetUserPassword, verifyUser,
 } from './definitions/users';
 import { permissionsRes } from './definitions/permissions';
 import { updateRolePermissionsReq, rolesRes, updateRolePermissionsRes } from './definitions/roles';
@@ -27,11 +27,11 @@ import {
   verifyUserPath, fetchTripPath,
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath, getTripStatsPath, searchTripRequestPath
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath, getTripStatsPath, searchTripRequestPath,editTripRequestPath
 } from './paths/trips';
 import {
   createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes,
-  rejectTripRequest, getTripStats
+  rejectTripRequest, getTripStats, editTripRequest
 } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
@@ -141,6 +141,7 @@ const swaggerDocument = {
     '/trips/{tripId}': getTripPath,
     '/trips/{tripId}/comment': createCommentPath,
     '/trips/{tripId}/reject': rejectTripPath,
+    '/trips/{tripId}/edit': editTripRequestPath,
     '/trips/{tripId}/comments': getTripCommentsPath,
     '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
     '/trips/search/?key={key}': searchTripRequestPath,
@@ -182,6 +183,7 @@ const swaggerDocument = {
     createRoomReq,
     createRoomRes,
     rejectTripRequest,
+    editTripRequest,
     SigninCreate, // signin request
     Signin, // signin response
     createUser, // create user

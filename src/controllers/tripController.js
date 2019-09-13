@@ -1,11 +1,11 @@
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
   getTripRequests, findOneTripRequest, rejectRequest, searchTripRequest,
-  fetchUserTripStats, fetchTripStats, fetchTripRequests
+  fetchUserTripStats, fetchTripStats, fetchTripRequests, editTripRequest
 } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
-import { approvedEmitter } from '../helpers/notificationHandler';
+import { editRequestEmitter, approvedEmitter } from '../helpers/notificationHandler';
 
 
 /**
@@ -216,3 +216,26 @@ export const searchTripRequests = async (req, res) => {
     return respondWithWarning(res, statusCode.internalServerError, 'Oops something bad happened');
   }
 };
+
+export const updateTripRequest = async (req, res) => {
+  const { params, auth, body} = req;
+  try { 
+    const [, tripRequest] = await editTripRequest(body, params.tripId, auth.id);
+    const payload = {
+    type: 'Trip Request edited',
+    title: tripRequest.reason,
+    tripId: tripRequest.id,
+    userId: auth.id,
+    message: 'Your have successfully edited your request'
+   };
+   editRequestEmitter(payload);
+   return respondWithSuccess(
+    res,
+    statusCode.success,
+    'TripUpdated',
+    tripRequest.toJSON()
+  );
+} catch(error) {
+  return respondWithWarning(res, statusCode.internalServerError, 'Internal Server Error');
+}
+}
