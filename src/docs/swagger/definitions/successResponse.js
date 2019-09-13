@@ -8,7 +8,7 @@ const success = {
     },
     message: {
       type: 'string',
-      example: 'Ok'
+      example: 'Operation successful'
     },
     payload: {
       type: 'object',
@@ -30,7 +30,7 @@ const created = {
     },
     message: {
       type: 'string',
-      example: 'Ok'
+      example: 'Resource created'
     },
     payload: {
       type: 'object',

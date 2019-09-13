@@ -4,7 +4,7 @@ import statusCode from '../helpers/statusCode';
 
 export const verifyTrip = async (req, res, next) => {
   const trip = await findTripById(req.params.tripId);
-  
+
   if (!trip) {
     return respondWithWarning(res, statusCode.resourceNotFound, 'Trip not found');
   }

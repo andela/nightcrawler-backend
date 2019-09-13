@@ -14,7 +14,7 @@ import { updateRolePermissionsReq, rolesRes, updateRolePermissionsRes } from './
 import {
   createAccommodationReq, createAccommodationRes, createRoomReq, createRoomRes,
   getAccommodationRes, getAllAccommodationsRes, checkAccommodationLikeRes,
-  likeUnlikeAccommodationRes
+  likeUnlikeAccommodationRes, createReview
 } from './definitions/accommodation';
 import {
   createBookingReq, createBookingRes, getBookingRes, getAllBookingsRes
@@ -27,16 +27,16 @@ import {
   verifyUserPath
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath 
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath
 } from './paths/trips';
 import {
-  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes, rejectTripRequest, 
+  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes, rejectTripRequest,
 } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
 import {
   createAccommodationPath, createRoomPath, getAccommodationPath, getTripAccommodationsPath,
-  accommodationLike
+  accommodationLike, createAndFetchReviewPath, updateAndDeleteReviewPath
 } from './paths/accommodations';
 import {
   bookingPath, getSingleBookingPath
@@ -135,6 +135,9 @@ const swaggerDocument = {
     '/accommodations/{accommodationId}': getAccommodationPath,
     '/accommodations/trip/{tripId}': getTripAccommodationsPath,
     '/accommodations/like/{accommodationId}': accommodationLike,
+    '/accommodations/trips/{tripId}': getTripAccommodationsPath,
+    '/accommodations/{accommodationId}/reviews': createAndFetchReviewPath,
+    '/accommodations/{accommodationId}/reviews/{reviewId}': updateAndDeleteReviewPath,
     '/auth/google': googlePath,
     '/auth/facebook': facebookPath,
     '/user': createUser,
@@ -192,7 +195,8 @@ const swaggerDocument = {
     returnTripSchema,
     createChat,
     checkAccommodationLikeRes,
-    likeUnlikeAccommodationRes
+    likeUnlikeAccommodationRes,
+    createReview
   }
 };
 

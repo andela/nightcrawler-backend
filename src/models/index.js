@@ -29,4 +29,3 @@ db.Sequelize = Sequelize;
 db.Op = Sequelize.Op;
 
 export default db;
-

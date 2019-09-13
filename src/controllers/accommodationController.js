@@ -131,6 +131,7 @@ export const getOneAccommodation = async (req, res) => {
 
 /**
  * Function likes an accommodations
+ *
  * @param {object} req
  * @param {object} res
  * @returns {object} response object
@@ -145,10 +146,32 @@ export const unlikeAccommodation = async (req, res) => {
     return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }
 };
+/**
+   * Create an accommodation review
+   *
+   * @param {object} req
+   * @param {object} res
+   * @returns {object} response object
+   */
+export const createAccommodationReview = async (req, res) => {
+  try {
+    const { accommodationId } = req.params;
+    const data = {
+      accommodationId,
+      userId: req.auth.id,
+      review: req.body.review
+    };
+    const review = await accommodationServices.createReview(data);
+    return respondWithSuccess(res, statusCode.created, 'Review successfully created', review.toJSON());
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
 
 /**
  * Function checks if an accommodations is liked by a particular user
  * This will help UI display of like status
+ *
  * @param {object} req
  * @param {object} res
  * @returns {object} response object
@@ -163,6 +186,66 @@ export const getLikeStatus = async (req, res) => {
     }
     const payload = { ...liked.toJSON(), likeStatus: true };
     return respondWithSuccess(res, statusCode.success, 'fetch successful', payload);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
+/**
+     * Delete an accommodation review
+     *
+     * @param {object} req
+     * @param {object} res
+     * @returns {object} response object
+     */
+export const deleteAccommodationReview = async (req, res) => {
+  try {
+    const { reviewId } = req.params;
+    const { id: userId } = req.auth;
+    const review = await accommodationServices.findUserReview(reviewId, userId);
+    if (!review) {
+      return respondWithWarning(res, statusCode.resourceNotFound, 'Review not found');
+    }
+    await accommodationServices.deleteReview(reviewId);
+    return respondWithSuccess(res, statusCode.success, 'resource successfully deleted');
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
+
+/**
+ * Update an accommodation review
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const updateAccommodationReview = async (req, res) => {
+  try {
+    const { reviewId } = req.params;
+    const { id: userId } = req.auth;
+    const { review } = req.body;
+    const userReview = await accommodationServices.findUserReview(reviewId, userId);
+    if (!userReview) {
+      return respondWithWarning(res, statusCode.resourceNotFound, 'Review not found');
+    }
+    const updatedReview = await accommodationServices.updateReview(reviewId, review);
+    return respondWithSuccess(res, statusCode.success, 'Review successfully updated', updatedReview);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+  }
+};
+
+/**
+ * Get an accommodation reviews
+ * @param {object} req
+ * @param {object} res
+ * @returns {object} response object
+ */
+export const getAccommodationReviews = async (req, res) => {
+  try {
+    const { accommodationId } = req.params;
+    const accommodation = await accommodationServices.findAccomodationById(accommodationId);
+    const reviews = await accommodationServices.fetchAccommodationReviews(accommodation);
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', reviews);
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
   }

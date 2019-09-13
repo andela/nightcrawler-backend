@@ -48,6 +48,7 @@ export default (sequelize, DataTypes) => {
     User.hasMany(models.Notification, { foreignKey: 'userId', onDelete: 'CASCADE' });
     User.hasMany(models.Comment, { foreignKey: 'userId', onDelete: 'CASCADE' });
     User.hasMany(models.Like, { foreignKey: 'userId', as: 'accommodationLikes', onDelete: 'CASCADE' });
+    User.hasMany(models.AccommodationReview, { foreignKey: 'userId', onDelete: 'CASCADE' });
   };
   User.beforeCreate(async (user) => {
     const error = new Error();

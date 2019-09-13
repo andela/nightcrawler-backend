@@ -87,6 +87,16 @@ export const createRoomReq = {
   }
 };
 
+export const createReview = {
+  type: 'object',
+  properties: {
+    review: {
+      type: 'string',
+      example: 'Quiet environment'
+    },
+  }
+};
+
 export const createRoomRes = {
   type: 'object',
   properties: {

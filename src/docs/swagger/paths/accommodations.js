@@ -458,3 +458,281 @@ export const accommodationLike = {
     }
   }
 };
+
+export const createAndFetchReviewPath = {
+  post: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Create a review for an accommodation',
+    description: 'Allows requesters to give feedback for an accomodation',
+    parameters: [
+      {
+        name: 'accommodationId',
+        in: 'path',
+        description: 'path parameter takes the accommodation id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+      {
+        name: 'body',
+        in: 'body',
+        required: true,
+        schema: {
+          $ref: '#definitions/createReview'
+        }
+      }
+    ],
+    responses: {
+      201: {
+        description: 'Created successfully',
+        schema: {
+          $ref: '#/definitions/created'
+        }
+      },
+      400: {
+        description: 'Bad input data',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Resource not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  },
+  get: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Fetch all reviews for an accommodation',
+    description: 'Allows users to see all feedback for an accomodation',
+    parameters: [
+      {
+        name: 'accommodationId',
+        in: 'path',
+        description: 'path parameter takes the accommodation id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+    ],
+    responses: {
+      200: {
+        description: 'Resource fetched successfully',
+        schema: {
+          $ref: '#/definitions/success'
+        }
+      },
+      400: {
+        description: 'Bad input data',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Resource not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  },
+};
+
+export const updateAndDeleteReviewPath = {
+  patch: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Update an accommodation review',
+    description: 'Allows users to update their reviews',
+    parameters: [
+      {
+        name: 'accommodationId',
+        in: 'path',
+        description: 'path parameter takes the accommodation id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+      {
+        name: 'reviewId',
+        in: 'path',
+        description: 'path parameter takes the review id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+      {
+        name: 'body',
+        in: 'body',
+        required: true,
+        schema: {
+          $ref: '#definitions/createReview'
+        }
+      }
+    ],
+    responses: {
+      200: {
+        description: 'Updated successfully',
+        schema: {
+          $ref: '#/definitions/success'
+        }
+      },
+      400: {
+        description: 'Bad input data',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Resource not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  },
+  delete: {
+    tags: [
+      'accommodations'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Delete an accommodation review',
+    description: 'Allows users to delete their reviews',
+    parameters: [
+      {
+        name: 'accommodationId',
+        in: 'path',
+        description: 'path parameter takes the accommodation id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+      {
+        name: 'reviewId',
+        in: 'path',
+        description: 'path parameter takes the review id',
+        required: true,
+        type: 'integer',
+        format: 'int32'
+      },
+    ],
+    responses: {
+      200: {
+        description: 'Deleted successfully',
+        schema: {
+          $ref: '#/definitions/success'
+        }
+      },
+      400: {
+        description: 'Bad input data',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Incorrect login details',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Forbidden access',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      404: {
+        description: 'Resource not found',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};

@@ -57,6 +57,10 @@ export default (sequelize, DataTypes) => {
       as: 'likes',
       timestamps: false
     });
+    Accommodation.hasMany(models.AccommodationReview, {
+      foreignKey: 'accommodationId',
+      as: 'reviews',
+    });
   };
   return Accommodation;
 };

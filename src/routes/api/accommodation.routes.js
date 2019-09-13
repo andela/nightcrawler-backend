@@ -5,7 +5,8 @@ import * as accommodationController from '../../controllers/accommodationControl
 import { checkPermission } from '../../middlewares/checkPermission';
 import { multerUploads } from '../../middlewares/multer';
 import {
-  createAccommodation, createRoom, getTripAccommodations, validateAccommodationId
+  validateAccommodationId,
+  createAccommodation, createRoom, getTripAccommodations, accommodationReview, verifyAccommodationReview
 } from '../../middlewares/accommodationValidation';
 import { verifyTrip } from '../../middlewares/tripMiddleware';
 import { likeAccommodation, verifyAccommodation } from '../../middlewares/accommodationMiddleware';
@@ -19,5 +20,10 @@ router.get('/:accommodationId', authenticateUserToken, checkPermission('VIEW_ACC
 router.post('/rooms/:accommodationId', authenticateUserToken, checkPermission('CREATE_ROOM'), createRoom, accommodationController.createRoom);
 router.patch('/like/:accommodationId', authenticateUserToken, validateAccommodationId, verifyAccommodation, likeAccommodation, accommodationController.unlikeAccommodation);
 router.get('/like/:accommodationId', authenticateUserToken, validateAccommodationId, verifyAccommodation, accommodationController.getLikeStatus);
+router.get('/:accommodationId/reviews', authenticateUserToken, checkPermission('VIEW_ACCOMODATION_REVIEW'), verifyAccommodation, accommodationController.getAccommodationReviews);
+router.post('/:accommodationId/reviews', authenticateUserToken, checkPermission('CREATE_ACCOMODATION_REVIEW'), verifyAccommodation, accommodationReview, accommodationController.createAccommodationReview);
+router.patch('/:accommodationId/reviews/:reviewId', authenticateUserToken, checkPermission('EDIT_ACCOMODATION_REVIEW'), verifyAccommodation, verifyAccommodationReview, accommodationReview, accommodationController.updateAccommodationReview);
+router.delete('/:accommodationId/reviews/:reviewId', authenticateUserToken, checkPermission('DELETE_ACCOMODATION_REVIEW'), verifyAccommodation, verifyAccommodationReview, accommodationController.deleteAccommodationReview);
+
 
 export default router;
