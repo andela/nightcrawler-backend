@@ -1,6 +1,6 @@
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
-  getTripRequests, findOneTripRequest, rejectRequest
+  getTripRequests, findOneTripRequest, rejectRequest, fetchUserTripStats, fetchTripStats
 } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
@@ -165,6 +165,30 @@ export const rejectTripRequest = async (req, res) => {
   try {
     const [, tripRequest] = await rejectRequest(req.params.tripId, status);
     return respondWithSuccess(res, statusCode.success, 'Trip request was rejected', tripRequest.toJSON());
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+};
+
+export const getUserTripStats = async (req, res, next) => {
+  try {
+    const { date } = req.body;
+    const { id, roleId } = req.auth;
+    if (roleId === 6) {
+      const stats = await fetchUserTripStats(date, id);
+      return respondWithSuccess(res, statusCode.success, 'Resource successfully fetched', stats);
+    }
+    return next();
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+};
+
+export const getTripStats = async (req, res) => {
+  try {
+    const { date } = req.body;
+    const stats = await fetchTripStats(date);
+    return respondWithSuccess(res, statusCode.success, 'Resource successfully fetched', stats);
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, error.message);
   }

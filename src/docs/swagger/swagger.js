@@ -27,10 +27,12 @@ import {
   verifyUserPath
 } from './paths/users';
 import {
-  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath, rejectTripPath
+  requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath,
+  rejectTripPath, getTripStatsPath
 } from './paths/trips';
 import {
-  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes, rejectTripRequest,
+  createTrip, returnTripSchema, createMultiCityTrip, multiCityTripRes,
+  rejectTripRequest, getTripStats
 } from './definitions/trip';
 import { permissionsPath } from './paths/permissions';
 import { rolesPath, rolePermissionsPath } from './paths/roles';
@@ -141,6 +143,7 @@ const swaggerDocument = {
     '/trips/{tripId}/comments': getTripCommentsPath,
     '/trips/{tripId}/comments/{commentId}': deleteCommentPath,
     '/trips/return': returnTrip,
+    '/trips/stats': getTripStatsPath,
     '/accommodations': createAccommodationPath,
     '/accommodations/rooms/{accommodationId}': createRoomPath,
     '/accommodations/{accommodationId}': getAccommodationPath,
@@ -211,6 +214,7 @@ const swaggerDocument = {
     likeUnlikeAccommodationRes,
     createReview,
     FlightCreate,
+    getTripStats
   }
 };
 

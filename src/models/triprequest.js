@@ -33,7 +33,7 @@ export default (sequelize, DataTypes) => {
     }
   }, {});
   TripRequest.associate = models => {
-    TripRequest.belongsTo(models.User, { foreignKey: 'userId', onDelete: 'CASCADE' });
+    TripRequest.belongsTo(models.User, { foreignKey: 'userId', as: 'user', onDelete: 'CASCADE' });
     TripRequest.belongsTo(models.Destination, { foreignKey: 'destinationId', as: 'destination', onDelete: 'CASCADE' });
     TripRequest.hasMany(models.Comment, { foreignKey: 'tripId' });
     TripRequest.hasMany(models.SubTripRequest, {

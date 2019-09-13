@@ -198,3 +198,13 @@ export const rejectTripRequest = {
     }
   }
 };
+
+export const getTripStats = {
+  type: 'object',
+  properties: {
+    date: {
+      type: 'string',
+      example: '2019-09-10'
+    }
+  }
+};
