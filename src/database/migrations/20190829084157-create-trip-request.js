@@ -19,11 +19,11 @@ export default {
       allowNull: false,
     },
     departureDate: {
-      type: Sequelize.STRING,
+      type: Sequelize.DATE,
       allowNull: false,
     },
     returnDate: {
-      type: Sequelize.STRING
+      type: Sequelize.DATE
     },
     type: {
       type: Sequelize.STRING,

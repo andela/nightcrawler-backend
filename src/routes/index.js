@@ -8,6 +8,7 @@ import accommodation from './api/accommodation.routes';
 import booking from './api/booking.routes';
 import comments from './api/comment.routes';
 import chats from './api/chats.routes';
+import flight from './api/flight.routes';
 
 const apiRouter = Router();
 
@@ -21,4 +22,5 @@ apiRouter.use('/api/v1/accommodations', accommodation);
 apiRouter.use('/api/v1/bookings', booking);
 apiRouter.use('/api/v1', chats);
 
+apiRouter.use('/api/v1/flights', flight);
 export default apiRouter;

@@ -51,6 +51,8 @@ import { createComment } from './definitions/createComment';
 import { createCommentPath, deleteCommentPath, getTripCommentsPath } from './paths/commentPath';
 import { postChatPath, getChatsPath } from './paths/chat';
 import { createChat } from './definitions/chat';
+import { flightPath } from './paths/flight';
+import { FlightCreate } from './definitions/flight';
 
 const swaggerDocument = {
   swagger: '2.0',
@@ -107,7 +109,10 @@ const swaggerDocument = {
     {
       name: 'chats',
       description: 'Chat related endpoints'
-    }
+    }, {
+      name: 'flights',
+      description: 'Flight related endpoints'
+    },
   ],
   paths: {
     '/auth/signin': signInPath,
@@ -146,6 +151,7 @@ const swaggerDocument = {
     '/bookings/{bookingId}': getSingleBookingPath,
     '/chat': postChatPath,
     '/chats/?sender={sender}&recipient={recipient}': getChatsPath,
+    '/flights/add/{tripId}': flightPath
   },
   definitions: {
     createMultiCityTrip,
@@ -196,7 +202,8 @@ const swaggerDocument = {
     createChat,
     checkAccommodationLikeRes,
     likeUnlikeAccommodationRes,
-    createReview
+    createReview,
+    FlightCreate,
   }
 };
 

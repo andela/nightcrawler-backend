@@ -5,7 +5,7 @@ export default {
       origin: 'Lagos',
       destinationId: 2,
       reason: 'Trade Fair',
-      departureDate: '2019-19-09T00:09:31.812Z',
+      departureDate: '9/9/2019',
       type: 'one-way',
       userId: 3,
       status: 'pending'
@@ -15,7 +15,7 @@ export default {
       destinationId: 1,
       reason: 'Vacation with my family',
       type: 'multi-city',
-      departureDate: '2019-19-09T00:09:31.812Z',
+      departureDate: '9/9/2019',
       status: 'approved',
       userId: 2
     },
@@ -24,7 +24,7 @@ export default {
       destinationId: 5,
       reason: 'Vacation with my family',
       type: 'one-way',
-      departureDate: '2019-19-09T00:09:31.812Z',
+      departureDate: '9/9/2019',
       status: 'pending',
       userId: 2
     },

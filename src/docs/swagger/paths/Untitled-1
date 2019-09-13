@@ -1,0 +1,8 @@
+#### What this PR Does
+This PR creates an endpoint for user to add their travel flight ticket
+
+#### how it works
+- clone this repo and cd into the folder
+- run `npm install` in the terminal to install all packages
+- run 
+#### Relevant Pivotal Tracker 

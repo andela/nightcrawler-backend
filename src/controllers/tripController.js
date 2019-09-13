@@ -113,10 +113,7 @@ export const returnTripRequest = async (req, res) => {
     return respondWithWarning(res, statusCode.badRequest, 'return date cannot be before departure date');
   }
   const data = {
-    ...req.body,
-    status: 'pending',
-    type: 'return',
-    userId: id
+    ...req.body, status: 'pending', type: 'return', userId: id
   };
   try {
     const returnTrip = await postTrip(data);

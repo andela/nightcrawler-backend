@@ -1,3 +1,4 @@
+
 import BaseJoi from '@hapi/joi';
 import Extension from '@hapi/joi-date';
 import { joiValidator } from '../helpers/joiValidator';
@@ -91,7 +92,6 @@ export const validateDeleteParams = (req, res, next) => {
   }
   return respondWithWarning(res, statusCode.badRequest, resMessage.badInputRequest, errors);
 };
-export default validateRequestTripForm;
 
 /**
  * function to validate return trip request form
