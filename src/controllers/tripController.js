@@ -61,7 +61,6 @@ export const multiCityTripRequest = async (req, res) => {
     };
     
     const multiCityTrip = await postTrip(payload);
-    console.log(multiCityTrip)
     const multiCityRequests = subRequest.map(sub => ({
       tripId: multiCityTrip.id,
       ...sub

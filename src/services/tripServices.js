@@ -142,7 +142,7 @@ export const fetchTripRequests = async userId => TripRequest.findAll({
             attributes: ['id', 'destination']
           }
         }]
-})
+    })
 
 
 
