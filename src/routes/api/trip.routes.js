@@ -1,9 +1,11 @@
 import { Router } from 'express';
 import {
   oneWayTripRequest, approveTripRequest, getTripRequest, returnTripRequest,
-  multiCityTripRequest, getAllTripRequests, rejectTripRequest
+  multiCityTripRequest, getAllTripRequests, rejectTripRequest, getUserTripStats, getTripStats
 } from '../../controllers/tripController';
-import { validateRequestTripForm, validateTripId, validateReturnTripForm } from '../../middlewares/validateTripRequest';
+import {
+  validateRequestTripForm, validateTripId, validateReturnTripForm, validateTripStatDate
+} from '../../middlewares/validateTripRequest';
 
 import { authenticateUserToken } from '../../middlewares/authentication';
 import { checkPermission } from '../../middlewares/checkPermission';
@@ -11,12 +13,13 @@ import { verifyTrip, checkTripStatus, verifyTripDestination } from '../../middle
 import { validateMultipleRequests } from '../../middlewares/validateMultipleRequests';
 
 const trip = Router();
-trip.post('/oneway', authenticateUserToken, validateRequestTripForm, verifyTripDestination, oneWayTripRequest);
+trip.get('/', authenticateUserToken, checkPermission('VIEW_USERS_TRIP_REQUESTS'), getAllTripRequests);
 trip.post('/multicity', authenticateUserToken, validateMultipleRequests, verifyTripDestination, multiCityTripRequest);
+trip.post('/oneway', authenticateUserToken, validateRequestTripForm, verifyTripDestination, oneWayTripRequest);
 trip.post('/return', authenticateUserToken, validateReturnTripForm, verifyTripDestination, returnTripRequest);
+trip.post('/stats', authenticateUserToken, checkPermission('VIEW_TRIP_STATS'), validateTripStatDate, getUserTripStats, getTripStats);
+trip.get('/:tripId', authenticateUserToken, validateTripId, verifyTrip, checkPermission('VIEW_USERS_TRIP_REQUESTS'), getTripRequest);
 
 trip.patch('/:tripId/approve', authenticateUserToken, validateTripId, verifyTrip, checkTripStatus, checkPermission('APPROVE_TRIP_REQUEST'), approveTripRequest);
-trip.get('/:tripId', authenticateUserToken, validateTripId, verifyTrip, checkPermission('VIEW_USERS_TRIP_REQUESTS'), getTripRequest);
-trip.get('/', authenticateUserToken, checkPermission('VIEW_USERS_TRIP_REQUESTS'), getAllTripRequests);
 trip.patch('/:tripId/reject', authenticateUserToken, validateTripId, verifyTrip, checkPermission('APPROVE_TRIP_REQUEST'), rejectTripRequest);
 export default trip;

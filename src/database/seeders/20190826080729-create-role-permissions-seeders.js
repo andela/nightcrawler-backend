@@ -484,7 +484,27 @@ export default {
     {
       roleId: 6,
       permissionId: 43
-    }
+    },
+    {
+      roleId: 1,
+      permissionId: 44
+    },
+    {
+      roleId: 2,
+      permissionId: 44
+    },
+    {
+      roleId: 3,
+      permissionId: 44
+    },
+    {
+      roleId: 4,
+      permissionId: 44
+    },
+    {
+      roleId: 6,
+      permissionId: 44
+    },
   ], {}),
 
   down: (queryInterface, Sequelize) => queryInterface.bulkDelete('RolePermissions', null, {})

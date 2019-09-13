@@ -1,7 +1,9 @@
 import Model from '../models';
 import { findSingleUser } from './userServices';
 
-const { TripRequest, Destination, SubTripRequest } = Model;
+const {
+  TripRequest, Destination, SubTripRequest, User
+} = Model;
 
 export const postTrip = async (payload) => {
   try {
@@ -124,3 +126,26 @@ export const findUserTrip = async (id, userId) => TripRequest.findOne({
   where: { id, userId }
 });
 export const rejectRequest = async (tripId, status) => updateTripStatus(tripId, status);
+
+export const fetchUserTripStats = async (date, userId) => TripRequest.findAndCountAll({
+  where: {
+    userId,
+    departureDate: {
+      [Model.Sequelize.Op.between]: [new Date(date), new Date()]
+    }
+  },
+  include: [
+    { model: User, as: 'user', attributes: ['id', 'username', 'firstName', 'lastName'] }
+  ]
+});
+
+export const fetchTripStats = async (date) => TripRequest.findAndCountAll({
+  where: {
+    departureDate: {
+      [Model.Sequelize.Op.between]: [new Date(date), new Date()]
+    }
+  },
+  include: [
+    { model: User, as: 'user', attributes: ['id', 'username', 'firstName', 'lastName'] }
+  ]
+});

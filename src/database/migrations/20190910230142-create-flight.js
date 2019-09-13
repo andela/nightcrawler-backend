@@ -44,5 +44,5 @@ export default {
       defaultValue: new Date()
     }
   }),
-  down: (queryInterface, Sequelize) => queryInterface.dropTable('Flights')
+  down: (queryInterface) => queryInterface.dropTable('Flights')
 };

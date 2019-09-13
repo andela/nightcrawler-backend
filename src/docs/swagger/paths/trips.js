@@ -364,3 +364,61 @@ export const rejectTripPath = {
     }
   }
 };
+
+export const getTripStatsPath = {
+  post: {
+    tags: [
+      'trips'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Get a trip stats',
+    description: 'Requester(Owner), Manager, Travel team member and Travel Admin can get stats of trips made in the last X timeframe',
+    parameters: [
+      {
+        name: 'body',
+        in: 'body',
+        description: 'Date',
+        required: true,
+        schema: {
+          $ref: '#/definitions/getTripStats'
+        }
+      }
+    ],
+    responses: {
+      200: {
+        description: 'resource successfully fetched',
+        schema: {
+          $ref: '#/definitions/success'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      403: {
+        description: 'Access forbidden',
+        schema: {
+          $ref: '#/definitions/accessForbidden'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  }
+};

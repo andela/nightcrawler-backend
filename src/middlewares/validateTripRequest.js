@@ -113,3 +113,22 @@ export const validateReturnTripForm = (req, res, next) => {
   if (!errors) return next();
   return respondWithWarning(res, 400, errors);
 };
+
+/**
+ * validate trip stats date
+ * @param {Object} req
+ * @param {Object} res
+ * @param {Function} next
+ * @returns {Object} error
+ */
+export const validateTripStatDate = (req, res, next) => {
+  const date = Joi.date().format('YYYY-MM-DD').required();
+  const schema = Joi.object().keys({
+    date
+  });
+  const errors = joiValidator(req.body, schema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, errors);
+};
