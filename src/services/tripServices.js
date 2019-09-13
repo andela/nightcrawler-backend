@@ -14,6 +14,7 @@ export const postTrip = async (payload) => {
   }
 };
 
+
 export const findTripById = async (tripId) => {
   try {
     const trip = await TripRequest.findOne({

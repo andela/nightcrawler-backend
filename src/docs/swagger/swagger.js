@@ -50,6 +50,7 @@ import profilePath from './paths/profile';
 import { createComment } from './definitions/createComment';
 import { createCommentPath, deleteCommentPath, getTripCommentsPath } from './paths/commentPath';
 import { postChatPath, getChatsPath } from './paths/chat';
+import { markAllNotficationPath } from './paths/notification';
 import { createChat } from './definitions/chat';
 import { flightPath } from './paths/flight';
 import { FlightCreate } from './definitions/flight';
@@ -109,10 +110,15 @@ const swaggerDocument = {
     {
       name: 'chats',
       description: 'Chat related endpoints'
-    }, {
+    }, 
+    {
       name: 'flights',
       description: 'Flight related endpoints'
     },
+    {
+      name: 'notifications',
+      description: 'notification related endpoints'
+    }
   ],
   paths: {
     '/auth/signin': signInPath,
@@ -149,6 +155,7 @@ const swaggerDocument = {
     '/users/profile': profilePath,
     '/bookings': bookingPath,
     '/bookings/{bookingId}': getSingleBookingPath,
+    '/notifications/readAll': markAllNotficationPath,
     '/chat': postChatPath,
     '/chats/?sender={sender}&recipient={recipient}': getChatsPath,
     '/flights/add/{tripId}': flightPath

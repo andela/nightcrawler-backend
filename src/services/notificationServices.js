@@ -1,5 +1,6 @@
 import Model from '../models';
 
+
 const { Notification } = Model;
 
 export const createNotification = async payload => {
@@ -12,3 +13,15 @@ export const createNotification = async payload => {
     };
   }
 };
+
+export const getAllNotifications = async userId  => await Notification.findAll({ where: { userId }})
+
+export const markNotificationAsRead = status =>  async item => (
+  await Notification.update(
+    { read: status },
+    { where : { userId : item.userId } }
+    ));
+
+
+
+
