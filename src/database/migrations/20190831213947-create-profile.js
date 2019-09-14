@@ -17,9 +17,10 @@ export default {
         key: 'id'
       }
     },
-    saveProfile: {
+    rememberMe: {
       type: Sequelize.BOOLEAN,
       allowNull: false,
+      defaultValue: true
     },
     gender: {
       type: Sequelize.STRING,
@@ -51,11 +52,13 @@ export default {
     },
     createdAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      defaultValue: new Date()
     },
     updatedAt: {
       allowNull: false,
-      type: Sequelize.DATE
+      type: Sequelize.DATE,
+      defaultValue: new Date()
     }
   }),
   down: (queryInterface, Sequelize) => queryInterface.dropTable('Profiles')

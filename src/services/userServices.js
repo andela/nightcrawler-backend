@@ -5,7 +5,7 @@ import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandl
 import statusCode from '../helpers/statusCode';
 
 
-const { User, Role } = Model;
+const { User, Role, Profile } = Model;
 
 /**
  * @param {Object} data
@@ -111,14 +111,21 @@ export const verifyUserAccount = async (id) => {
   }
 };
 
-export const createUserProfile = (profile) => Model.Profile.create(profile);
+export const createUserProfile = (profile) => Profile.create(profile);
 
 export const updateUserProfile = (userId, profile) => {
-  return Model.Profile.update(profile, { where: userId, returning: true });
+  return Profile.update(profile, { where: userId, returning: true });
 };
 
 export const getUserProfile = (queryParam) => {
-  return Model.Profile.findOne({ where: queryParam });
+  return Profile.findOne({
+    where: queryParam,
+    include: {
+      model: User,
+      as: 'basicInfo',
+      attributes: ['username', 'firstName', 'lastName', 'email', 'isVerified', 'profileImage', 'roleId']
+    }
+  });
 };
 
 export const getAllManager = async () => {

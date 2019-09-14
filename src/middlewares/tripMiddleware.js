@@ -1,6 +1,7 @@
-import { findTripById, findOneDestination } from '../services/tripServices';
-import { respondWithWarning } from '../helpers/responseHandler';
+import { findTripById, findOneDestination, findOneTripRequest } from '../services/tripServices';
+import { respondWithWarning, respondWithSuccess } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
+import { getUserProfile } from '../services/userServices';
 
 export const verifyTrip = async (req, res, next) => {
   const trip = await findTripById(req.params.tripId);
@@ -26,4 +27,15 @@ export const checkTripStatus = async (req, res, next) => {
   return (status === 'approved')
     ? respondWithWarning(res, statusCode.unauthorizedAccess, 'You are not authorized to visit this route')
     : next();
+};
+
+export const getTripWithProfile = async (req, res, next) => {
+  const { userId, id } = req.trip;
+  const user = await getUserProfile({ userId });
+  if (user.toJSON().rememberMe) {
+    const trip = await findOneTripRequest(Number(id));
+    const tripRequest = { ...trip.toJSON(), profile: { ...user.toJSON() } };
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', tripRequest);
+  }
+  return next();
 };

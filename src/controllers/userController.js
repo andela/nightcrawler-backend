@@ -189,3 +189,13 @@ export const updateProfile = async (req, res) => {
     return respondWithWarning(res, statusCode.internalServerError, 'Unable to update profile');
   }
 };
+
+export const setRememberMe = async (req, res) => {
+  const { id: userId } = req.auth;
+  try {
+    const updatedProfile = await updateUserProfile({ userId }, { rememberMe: true });
+    return respondWithSuccess(res, statusCode.success, 'Update successful', updatedProfile[1][0].dataValues);
+  } catch (error) {
+    return respondWithWarning(res, statusCode.internalServerError, 'Server error');
+  }
+};

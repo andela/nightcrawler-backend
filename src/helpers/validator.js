@@ -8,7 +8,7 @@ export default {
   id: Joi.number().required(),
 
   // Profile validations
-  saveProfile: Joi.boolean().required(),
+  rememberMe: Joi.boolean(),
   gender: Joi.string().valid('male', 'Male', 'female', 'Female').required(),
   managerId: Joi.number().integer().required(),
   birthDate: Joi.date().iso().required(),
@@ -17,7 +17,7 @@ export default {
   homeAddress: Joi.string().min(3).max(100).required(),
 
   // Optional profile validations
-  optionalSaveProfile: Joi.boolean(),
+  optionalrememberMe: Joi.boolean(),
   optionalGender: Joi.string().valid('male', 'Male', 'female', 'Female'),
   optionalManagerId: Joi.number().integer(),
   optionalBirthDate: Joi.date(),

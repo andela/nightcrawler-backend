@@ -152,24 +152,20 @@ export const fetchTripStats = async (date) => TripRequest.findAndCountAll({
 
 
 export const fetchTripRequests = async userId => TripRequest.findAll({
-     where : { userId },
-     include: [
-        {
-          model: Destination,
-          as: 'destination',
-          attributes: ['id', 'destination']
-        },
-        {
-          model: SubTripRequest,
-          as: 'subTrips',
-          include: {
-            model: Destination,
-            as: 'destination',
-            attributes: ['id', 'destination']
-          }
-        }]
-    })
-
-
-
-
+  where: { userId },
+  include: [
+    {
+      model: Destination,
+      as: 'destination',
+      attributes: ['id', 'destination']
+    },
+    {
+      model: SubTripRequest,
+      as: 'subTrips',
+      include: {
+        model: Destination,
+        as: 'destination',
+        attributes: ['id', 'destination']
+      }
+    }]
+});

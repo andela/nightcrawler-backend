@@ -1,7 +1,7 @@
 const ProfileCreate = {
   type: 'object',
   properties: {
-    saveProfile: {
+    rememberMe: {
       type: 'boolean',
       example: true
     },
@@ -49,7 +49,7 @@ const ProfileResponds = {
           format: 'int32',
           example: 1
         },
-        saveProfile: {
+        rememberMe: {
           type: 'boolean',
           example: true
         },
@@ -107,7 +107,7 @@ const ProfileHeaders = {
 const ProfileUpdate = {
   type: 'object',
   properties: {
-    saveProfile: {
+    rememberMe: {
       type: 'boolean',
       example: true
     },
@@ -154,7 +154,7 @@ const ProfileUpdateResponds = {
           format: 'int32',
           example: 1
         },
-        saveProfile: {
+        rememberMe: {
           type: 'boolean',
           example: true
         },

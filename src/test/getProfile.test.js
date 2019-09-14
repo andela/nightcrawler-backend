@@ -1,17 +1,13 @@
 import chai from 'chai';
 import chaiHttp from 'chai-http';
-import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import app from '../index';
-import { getProfile } from '../controllers/userController';
-import models from '../models';
 
 const { expect } = chai;
 chai.use(chaiHttp);
 chai.use(sinonChai);
 
 const profileUrl = '/api/v1/users/profile';
-const { Profile } = models;
 
 describe('USER CONTROLLER', () => {
   describe('GET USERS PROFILE', () => {
@@ -69,7 +65,7 @@ describe('USER CONTROLLER', () => {
         .post(profileUrl)
         .set('authorization', token)
         .send({
-          saveProfile: true,
+          rememberMe: true,
           gender: 'male',
           managerId: 2,
           birthDate: '2008-09-15',
@@ -82,7 +78,7 @@ describe('USER CONTROLLER', () => {
           expect(res.body).to.have.property('payload');
           expect(res.body.payload).to.have.property('id');
           expect(res.body.payload).to.have.property('userId');
-          expect(res.body.payload).to.have.property('saveProfile');
+          expect(res.body.payload).to.have.property('rememberMe');
           expect(res.body.payload).to.have.property('gender');
           expect(res.body.payload).to.have.property('managerId');
           expect(res.body.payload).to.have.property('birthDate');
@@ -104,7 +100,7 @@ describe('USER CONTROLLER', () => {
           expect(res.body).to.have.property('payload');
           expect(res.body.payload).to.have.property('id');
           expect(res.body.payload).to.have.property('userId');
-          expect(res.body.payload).to.have.property('saveProfile');
+          expect(res.body.payload).to.have.property('rememberMe');
           expect(res.body.payload).to.have.property('gender');
           expect(res.body.payload).to.have.property('managerId');
           expect(res.body.payload).to.have.property('birthDate');
@@ -156,30 +152,6 @@ describe('USER CONTROLLER', () => {
           expect(res.body.message).to.equal('Session is invalid. Signin to continue');
           done();
         });
-    });
-  });
-
-  describe('GET USERS PROFILE SINON TEST', () => {
-    it('it should return a success status code and user profile data', async () => {
-      const req = {
-        auth: {
-          id: 100
-        }
-      };
-
-      const res = {
-        status() {},
-        send() {}
-      };
-
-      sinon.stub(Profile, 'findOne').throws(new Error());
-
-      sinon.stub(res, 'status').returnsThis();
-
-      await getProfile(req, res);
-
-      expect(res.status).to.have.been.calledWith(500);
-      sinon.restore();
     });
   });
 });
