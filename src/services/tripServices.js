@@ -149,7 +149,6 @@ export const fetchTripStats = async (date) => TripRequest.findAndCountAll({
     { model: User, as: 'user', attributes: ['id', 'username', 'firstName', 'lastName'] }
   ]
 });
- export const rejectRequest = async (tripId, status) => updateTripStatus(tripId, status);
 
 
 export const fetchTripRequests = async userId => TripRequest.findAll({

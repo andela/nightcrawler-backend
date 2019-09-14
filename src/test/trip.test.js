@@ -133,7 +133,7 @@ describe('Testing for one-way trip request endpoint', () => {
 
 
 describe('Testing for view all user trips request endpoint', function(){
-  this.timeout(15000);
+ 
 it('user can view all his trips request if he is logged in and has a valid token', done => {
   (async () => {
     const validInput = {

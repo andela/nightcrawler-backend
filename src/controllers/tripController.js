@@ -1,6 +1,6 @@
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
-  getTripRequests, findOneTripRequest, rejectRequest, fetchUserTripStats, fetchTripStats
+  getTripRequests, findOneTripRequest, rejectRequest, fetchUserTripStats, fetchTripStats, fetchTripRequests
 } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
