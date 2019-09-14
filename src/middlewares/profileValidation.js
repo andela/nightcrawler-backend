@@ -10,7 +10,7 @@ import statusCode from '../helpers/statusCode';
 export const validateProfileCreation = async (req, res, next) => {
   try {
     const schema = Joi.object().keys({
-      saveProfile: validator.saveProfile,
+      rememberMe: validator.rememberMe,
       gender: validator.gender,
       managerId: validator.managerId,
       birthDate: validator.birthDate,
@@ -41,7 +41,7 @@ export const validateProfileCreation = async (req, res, next) => {
 export const validateProfileUpdate = async (req, res, next) => {
   try {
     const schema = Joi.object().keys({
-      saveProfile: validator.optionalSaveProfile,
+      rememberMe: validator.optionalrememberMe,
       gender: validator.optionalGender,
       managerId: validator.optionalManagerId,
       birthDate: validator.optionalBirthDate,

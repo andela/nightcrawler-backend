@@ -3,29 +3,18 @@ import { Router } from 'express';
 import { checkPermission } from '../../middlewares/checkPermission';
 import * as profileValidation from '../../middlewares/profileValidation';
 import { editUserRoleValidation } from '../../middlewares/roleValidation';
+import { unsetRememberMe } from '../../middlewares/profileMiddleware';
 import {
-  authenticateUserToken,
-  validUser,
-  verifyUserAccount,
-  compareResetForgotPassword,
+  authenticateUserToken, validUser, verifyUserAccount, compareResetForgotPassword,
   compareResetUserPassword,
 } from '../../middlewares/authentication';
 import {
-  verifyUser,
-  resetForgotPassword,
-  createNewUser,
-  editUserRole,
-  forgotPassowrd,
-  resetUserPassword,
-  createProfile,
-  getProfile,
-  updateProfile,
+  verifyUser, resetForgotPassword, createNewUser, editUserRole, forgotPassowrd,
+  resetUserPassword, createProfile, getProfile, updateProfile, setRememberMe
 } from '../../controllers/userController';
 import { retrieveTripRequest } from '../../controllers/tripController';
 import {
-  validateForgotPasswordForm,
-  validateResetUserPasswordForm,
-  validateResetForgotPasswordForm,
+  validateForgotPasswordForm, validateResetUserPasswordForm, validateResetForgotPasswordForm,
   validateSignUpFormData
 } from '../../middlewares/validateAuth';
 import verifyEmailToken from '../../middlewares/verifyEmailToken';
@@ -52,5 +41,6 @@ router.post('/profile', authenticateUserToken, verifyUserAccount, profileValidat
 
 router.patch('/profile', authenticateUserToken, verifyUserAccount, profileValidation.validateProfileUpdate, updateProfile);
 
+router.patch('/profile/remember', authenticateUserToken, verifyUserAccount, unsetRememberMe, setRememberMe);
 
 export default router;

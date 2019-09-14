@@ -43,7 +43,7 @@ describe('USER CONTROLLER', () => {
         .patch(profileUrl)
         .set('Authorization', token)
         .send({
-          saveProfile: true,
+          rememberMe: true,
           gender: 'male',
           managerId: 1,
           birthDate: '2008-09-15',
@@ -56,7 +56,7 @@ describe('USER CONTROLLER', () => {
           expect(res.body).to.have.property('payload');
           expect(res.body.payload).to.have.property('id');
           expect(res.body.payload).to.have.property('userId');
-          expect(res.body.payload).to.have.property('saveProfile');
+          expect(res.body.payload).to.have.property('rememberMe');
           expect(res.body.payload).to.have.property('gender');
           expect(res.body.payload).to.have.property('managerId');
           expect(res.body.payload).to.have.property('birthDate');
@@ -74,7 +74,7 @@ describe('USER CONTROLLER', () => {
         .patch(profileUrl)
         .set('authorization', `Bearer ${token}`)
         .send({
-          saveProfile: true,
+          rememberMe: true,
           gender: 'male',
           managerId: 1,
           birthDate: '2008-09-15',
@@ -97,7 +97,7 @@ describe('USER CONTROLLER', () => {
         .patch(profileUrl)
         .set('authorization', `Bearer ${token}`)
         .send({
-          saveProfile: true,
+          rememberMe: true,
           firstName: 'John',
           lastName: 'Doe',
           gender: 'male',
@@ -121,7 +121,7 @@ describe('USER CONTROLLER', () => {
       chai.request(app)
         .patch(profileUrl)
         .send({
-          saveProfile: true,
+          rememberMe: true,
           gender: 'male',
           managerId: 2,
           birthDate: '2008-09-15',
@@ -144,7 +144,7 @@ describe('USER CONTROLLER', () => {
         .patch(profileUrl)
         .set('authorization', `Bearer ${token}1`)
         .send({
-          saveProfile: true,
+          rememberMe: true,
           gender: 'male',
           managerId: 100,
           birthDate: '2008-09-15',

@@ -5,7 +5,7 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
     },
-    saveProfile: {
+    rememberMe: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
     },
@@ -36,7 +36,7 @@ export default (sequelize, DataTypes) => {
   }, {});
   Profile.associate = (models) => {
     // associations can be defined here
-    Profile.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Profile.belongsTo(models.User, { foreignKey: 'userId', as: 'basicInfo' });
   };
   return Profile;
 };
