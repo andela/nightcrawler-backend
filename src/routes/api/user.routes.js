@@ -21,6 +21,7 @@ import {
   getProfile,
   updateProfile,
 } from '../../controllers/userController';
+import { retrieveTripRequest } from '../../controllers/tripController';
 import {
   validateForgotPasswordForm,
   validateResetUserPasswordForm,
@@ -40,7 +41,10 @@ router.patch('/reset-forgot-password', validateResetForgotPasswordForm, authenti
 router.patch('/reset-user-password', authenticateUserToken, validateResetUserPasswordForm, verifyUserAccount, compareResetUserPassword, resetUserPassword);
 
 router.patch('/roles/:roleId', authenticateUserToken, checkPermission('EDIT_USER_ROLE'), editUserRoleValidation, editUserRole);
+
 router.post('/verify', verifyEmailToken, verifyUserAccount, verifyUser);
+
+router.get('/trips', authenticateUserToken, checkPermission('VIEW_USERS_TRIP_REQUESTS'), retrieveTripRequest);
 
 router.get('/profile', authenticateUserToken, verifyUserAccount, getProfile);
 

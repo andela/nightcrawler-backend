@@ -131,6 +131,57 @@ describe('Testing for one-way trip request endpoint', () => {
   });  
 });
 
+
+describe('Testing for view all user trips request endpoint', function(){
+ 
+it('user can view all his trips request if he is logged in and has a valid token', done => {
+  (async () => {
+    const validInput = {
+      email: 'admin@nomad.com',
+      password: '123456'
+    };
+    const request = chai.request(app).keepOpen();
+    const signResponse = await request.post('/api/v1/auth/signin').send(validInput);
+    const { token } = signResponse.body.payload;
+    const res = await request.get('/api/v1/users/trips').set('Authorization', `Bearer ${token}`).send();
+    res.body.should.have.property('success').equal(true);
+    res.should.have.status(200);
+    done();
+  })();
+});
+
+it('user cannot view trips request if token is empty', done => {
+  (async () => {
+    const validInput = {
+      email: 'admin@nomad.com',
+      password: '123456'
+    };
+    const request = chai.request(app).keepOpen();
+    await request.post('/api/v1/auth/signin').send(validInput);
+    const token = '';
+    const res = await request.get('/api/v1/users/trips').set('Authorization', `Bearer ${token}`).send();
+    res.body.should.have.property('success').equal(false);
+    done();
+  })();
+});
+
+it('user cannot view his trip request if token is invalid', done => {
+  (async () => {
+    const validInput = {
+      email: 'admin@nomad.com',
+      password: '123456'
+    };
+    const request = chai.request(app).keepOpen();
+    await request.post('/api/v1/auth/signin').send(validInput);
+    const token = 'dndkcndckdcnlsmlslmcksncjnscnnc';
+    const res = await request.get('/api/v1/users/trips').set('Authorization', `Bearer ${token}`).send();
+    res.body.should.have.property('success').equal(false);
+    done();
+  })();
+});
+
+});
+
 let token;
 describe('USER RETURN TRIP ROUTE', () => {
   describe('Test User Return Trip', () => {

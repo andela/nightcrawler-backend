@@ -1,10 +1,13 @@
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
-  getTripRequests, findOneTripRequest, rejectRequest, fetchUserTripStats, fetchTripStats
+  getTripRequests, findOneTripRequest, rejectRequest, fetchUserTripStats, fetchTripStats, fetchTripRequests
 } from '../services/tripServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 import { approvedEmitter } from '../helpers/notificationHandler';
+
+
+
 
 
 /**
@@ -32,6 +35,7 @@ export const oneWayTripRequest = async (req, res) => {
   }
 };
 
+
 /**
 * make multi-city trip request
 * @param {object} req
@@ -55,6 +59,7 @@ export const multiCityTripRequest = async (req, res) => {
       status: 'pending',
       userId: id
     };
+    
     const multiCityTrip = await postTrip(payload);
     const multiCityRequests = subRequest.map(sub => ({
       tripId: multiCityTrip.id,
@@ -65,7 +70,8 @@ export const multiCityTripRequest = async (req, res) => {
 
     return respondWithSuccess(res, statusCode.created, 'request successfully sent', tripRequest);
   } catch (error) {
-    return respondWithWarning(res, statusCode.internalServerError, 'Server Error');
+    console.log(error)
+    return respondWithWarning(res, statusCode.internalServerError, error.stack);
   }
 };
 
@@ -132,6 +138,7 @@ export const returnTripRequest = async (req, res) => {
 export const getAllTripRequests = async (req, res) => {
   try {
     const tripRequests = await getTripRequests();
+    // const tripRequests = await fetchTripRequests();
     if (!tripRequests) {
       return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
     }
@@ -193,3 +200,16 @@ export const getTripStats = async (req, res) => {
     return respondWithWarning(res, statusCode.internalServerError, error.message);
   }
 };
+
+export const retrieveTripRequest = async (req, res) => {
+  const { id } = req.auth;
+  try {
+    const tripRequests = await fetchTripRequests(id);
+    if(!tripRequests){
+      return respondWithWarning(res, statusCode.resourceNotFound, 'resource not found');
+    }
+    return respondWithSuccess(res, statusCode.success, 'resource successfully fetched', tripRequests);
+  } catch(error) {
+    return respondWithWarning(res, statusCode.internalServerError, error.message);
+  }
+}
