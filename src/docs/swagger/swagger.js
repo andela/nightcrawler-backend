@@ -24,7 +24,7 @@ import {
 import { signInPath, logoutPath } from './paths/auth';
 import {
   userRolePath, createUserPath, resetPasswordPath, forgotPasswordPath, resetUserPasswordPath,
-  verifyUserPath
+  verifyUserPath, fetchTripPath,
 } from './paths/users';
 import {
   requestTrip, approvedTripPath, getTripPath, returnTrip, multiCityTripPath,
@@ -69,7 +69,7 @@ const swaggerDocument = {
   basePath: '/api/v1/',
   produces: ['application/json'],
   consumes: ['application/json'],
-  schemes: ['http', 'https'],
+  schemes: ['https', 'http'],
   securityDefinitions: {
     BearerToken: {
       description: `
@@ -156,6 +156,7 @@ const swaggerDocument = {
     '/auth/facebook': facebookPath,
     '/user': createUser,
     '/users/profile': profilePath,
+    '/users/trips': fetchTripPath,
     '/bookings': bookingPath,
     '/bookings/{bookingId}': getSingleBookingPath,
     '/notifications/readAll': markAllNotficationPath,
