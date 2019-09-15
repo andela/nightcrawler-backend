@@ -21,11 +21,11 @@ export default (sequelize, DataTypes) => {
       allowNull: false,
     },
     departureDate: {
-      type: DataTypes.DATE,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     returnDate: {
-      type: DataTypes.DATE
+      type: DataTypes.STRING
     },
     userId: {
       type: DataTypes.INTEGER,

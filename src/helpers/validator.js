@@ -5,7 +5,7 @@ export default {
   password: Joi.string().required(),
   email: Joi.string().email().required().trim(),
   username: Joi.string().required().trim().min(3),
-  id: Joi.number().required(),
+  id: Joi.number().integer().required(),
 
   // Profile validations
   rememberMe: Joi.boolean(),

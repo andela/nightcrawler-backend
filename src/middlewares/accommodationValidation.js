@@ -87,7 +87,7 @@ export const validateAccommodationId = (req, res, next) => {
     accommodationId: req.params.accommodationId,
   };
   const schema = Joi.object().keys({
-    accommodationId: Joi.number().required()
+    accommodationId: Joi.number().integer().required()
   });
   const errors = joiValidator(data, schema);
   if (!errors) {
@@ -120,4 +120,20 @@ export const verifyAccommodationReview = async (req, res, next) => {
     return respondWithWarning(res, statusCode.resourceNotFound, 'Review not found');
   }
   return next();
+};
+
+export const validateAccommodationRating = (req, res, next) => {
+  const data = {
+    accommodationId: req.params.accommodationId,
+    rating: req.body.rating
+  };
+  const schema = Joi.object().keys({
+    accommodationId: Joi.number().integer().required(),
+    rating: Joi.number().min(1).max(5).required()
+  });
+  const errors = joiValidator(data, schema);
+  if (!errors) {
+    return next();
+  }
+  return respondWithWarning(res, 400, 'Bad request', errors);
 };

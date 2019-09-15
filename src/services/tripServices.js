@@ -125,6 +125,7 @@ export const findOneDestination = async (destinationId) => {
 export const findUserTrip = async (id, userId) => TripRequest.findOne({
   where: { id, userId }
 });
+
 export const rejectRequest = async (tripId, status) => updateTripStatus(tripId, status);
 
 export const fetchUserTripStats = async (date, userId) => TripRequest.findAndCountAll({
@@ -169,3 +170,37 @@ export const fetchTripRequests = async userId => TripRequest.findAll({
       }
     }]
 });
+
+export const searchTripRequest = async (payload) => {
+  try {
+    const tripRequests = await TripRequest.findAll({
+      where: {
+        [Model.Sequelize.Op.or]: [
+          { origin: payload },
+          { departureDate: payload },
+          { status: payload },
+          { type: payload },
+          { '$destination.destination$': payload },
+          { '$user.email$': payload }
+        ]
+      },
+      include: [
+        {
+          model: Destination,
+          as: 'destination',
+          attributes: ['destination'],
+        },
+        {
+          model: User,
+          as: 'user',
+          attributes: ['email'],
+        }
+      ],
+    });
+    return tripRequests;
+  } catch (error) {
+    return {
+      errors: error
+    };
+  }
+};

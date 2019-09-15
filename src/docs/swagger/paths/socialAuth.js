@@ -9,7 +9,7 @@ const facebookPath = {
       200: {
         description: 'Login with a facebook account',
         schema: {
-          $ref: '#/definitions/socialMedia'
+          $ref: '#/definitions/socialMediaAuthentication'
 
         }
       }
@@ -28,7 +28,7 @@ const googlePath = {
       200: {
         description: 'Login with a google account',
         schema: {
-          $ref: '#/definitions/socialMedia'
+          $ref: '#/definitions/socialMediaAuthentication'
 
         }
       }
