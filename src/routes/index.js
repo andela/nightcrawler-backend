@@ -11,6 +11,8 @@ import comments from './api/comment.routes';
 import chats from './api/chats.routes';
 import flight from './api/flight.routes';
 import ratings from './api/rating.routes';
+import destinations from './api/destination.routes';
+
 
 const apiRouter = Router();
 
@@ -26,15 +28,7 @@ apiRouter.use('/api/v1/accommodations', ratings);
 apiRouter.use('/api/v1/bookings', booking);
 apiRouter.use('/api/v1', chats);
 apiRouter.use('/api/v1/flights', flight);
+apiRouter.use('/api/v1/frequent-destination', destinations);
+
 
 export default apiRouter;
-
-
-
-
-
-
-
-
-
-

@@ -12,6 +12,7 @@ import { cloudinaryConfig } from './config/cloudinaryConfig';
 import './config/passport';
 import { socketConnection } from './helpers/socketIO';
 
+
 const app = express();
 const port = PORT || 3000;
 app.use(bodyParser.json());
@@ -43,5 +44,6 @@ server.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`Server listening on port ${port}`);
 });
+
 
 export default app;
