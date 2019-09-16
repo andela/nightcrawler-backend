@@ -49,5 +49,52 @@ export const markAllNotficationPath = {
           }
         }
       }
-    }
+    },
   };
+
+export const getAllNotficationPath = {
+  get: {
+    tags: [
+      'notifications'
+    ],
+    security: [
+      {
+        BearerToken: []
+      }
+    ],
+    summary: 'Get all user notificatons',
+    description: 'Allows signed-in user to all there notificatons',
+    responses: {
+      200: {
+        description: 'User gets all notifications successfully',
+        schema: {
+          $ref: '#/definitions/NotificationResponds'
+        }
+      },
+      400: {
+        description: 'Invalid request details',
+        schema: {
+          $ref: '#/definitions/badRequest'
+        }
+      },
+      401: {
+        description: 'Unauthorized user',
+        schema: {
+          $ref: '#/definitions/notAuthorized'
+        }
+      },
+      404: {
+        description: 'Unauthorized user',
+        schema: {
+          $ref: '#/definitions/notFound'
+        }
+      },
+      500: {
+        description: 'Server error',
+        schema: {
+          $ref: '#/definitions/serverError'
+        }
+      }
+    }
+  },
+};

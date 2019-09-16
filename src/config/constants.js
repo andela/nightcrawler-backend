@@ -23,7 +23,7 @@ const {
   FACEBOOK_APP_SECRET,
   FACEBOOK_APP_ID,
   FACEBOOK_CALLBACK,
-  CLIENT_URL
+  CLIENT_URL,
 
 } = process.env;
 

@@ -1,33 +1,40 @@
+import { create } from 'domain';
+import request from 'superagent';
 import {
   postTrip, updateTripStatus, getRequesterEmail, bulkCreate,
   getTripRequests, findOneTripRequest, rejectRequest, searchTripRequest,
   fetchUserTripStats, fetchTripStats, fetchTripRequests
 } from '../services/tripServices';
+import { getAllManager } from '../services/userServices';
 import { respondWithSuccess, respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
-import { approvedEmitter } from '../helpers/notificationHandler';
-
+import { approvedEmitter, tripRequestEmitter } from '../helpers/notificationHandler';
+import { createMessages, createNotificationMessage } from '../helpers/tripRequestMails';
 
 /**
  * make trip request
  * @param {object} req
  * @param {object} res
- * @returns {object} json response
+ * @param {Function} next
+ * @returns {null} null
  */
 export const oneWayTripRequest = async (req, res) => {
-  const { id } = req.auth;
+  const { auth: { id }, userProfile: { basicInfo } } = req;
   const payload = {
     ...req.body, status: 'pending', type: 'one-way', userId: id
   };
   try {
     const tripRequest = await postTrip(payload);
 
-    return respondWithSuccess(
-      res,
-      statusCode.created,
-      'request successfully sent',
-      tripRequest.toJSON()
-    );
+    const { 0: { users: managers } } = await getAllManager();
+
+    const { dataValues: userData } = basicInfo;
+    createMessages(userData, managers, tripRequest);
+
+    const notificationData = createNotificationMessage(tripRequest, managers);
+    tripRequestEmitter(notificationData);
+
+    return respondWithSuccess(res, statusCode.created, 'request successfully sent', tripRequest.toJSON());
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Internal Server Error');
   }
@@ -38,11 +45,12 @@ export const oneWayTripRequest = async (req, res) => {
 * make multi-city trip request
 * @param {object} req
 * @param {object} res
-* @returns {object} json response
+* @param {Function} next
+* @returns {null} null
 */
 export const multiCityTripRequest = async (req, res) => {
   let tripRequest;
-  const { id } = req.auth;
+  const { auth: { id }, userProfile: { basicInfo } } = req;
   const { destination } = req.destination;
   const {
     origin, destinationId, reason, departureDate, type, subRequest
@@ -65,6 +73,14 @@ export const multiCityTripRequest = async (req, res) => {
     }));
     const subRequestedTrips = await bulkCreate(multiCityRequests);
     tripRequest = { ...multiCityTrip.toJSON(), destination, subRequestedTrips };
+
+    const { 0: { users: managers } } = await getAllManager();
+
+    const { dataValues: userData } = basicInfo;
+    createMessages(userData, managers, tripRequest);
+
+    const notificationData = createNotificationMessage(tripRequest, managers);
+    tripRequestEmitter(notificationData);
 
     return respondWithSuccess(res, statusCode.created, 'request successfully sent', tripRequest);
   } catch (error) {
@@ -104,10 +120,11 @@ export const approveTripRequest = async (req, res) => {
  * A function to create a return trip
  * @param {object} req
  * @param {object} res
- * @returns {object} response
+ * @param {Function} next
+ * @returns {null} null
  */
-export const returnTripRequest = async (req, res) => {
-  const { id } = req.auth;
+export const returnTripRequest = async (req, res, next) => {
+  const { auth: { id }, userProfile: { basicInfo } } = req;
   const { returnDate, departureDate } = req.body;
   const returnDateToISO = new Date(returnDate).toISOString();
   const departureDateToISO = new Date(departureDate).toISOString();
@@ -119,8 +136,17 @@ export const returnTripRequest = async (req, res) => {
     ...req.body, status: 'pending', type: 'return', userId: id
   };
   try {
-    const returnTrip = await postTrip(data);
-    return respondWithSuccess(res, statusCode.created, 'Request Successful', returnTrip.dataValues);
+    const tripRequest = await postTrip(data);
+
+    const { 0: { users: managers } } = await getAllManager();
+
+    const { dataValues: userData } = basicInfo;
+    createMessages(userData, managers, tripRequest);
+
+    const notificationData = createNotificationMessage(tripRequest, managers);
+    tripRequestEmitter(notificationData);
+
+    return respondWithSuccess(res, statusCode.created, 'request successfully sent', tripRequest.toJSON());
   } catch (error) {
     return respondWithWarning(res, statusCode.internalServerError, 'Internal Server Error');
   }

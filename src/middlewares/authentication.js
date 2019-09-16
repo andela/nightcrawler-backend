@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { findSingleUser } from '../services/userServices';
+import { findSingleUser, getUserProfile } from '../services/userServices';
 import { respondWithWarning } from '../helpers/responseHandler';
 import statusCode from '../helpers/statusCode';
 import resMessage from '../helpers/responseMessages';
@@ -39,23 +39,35 @@ export const authenticateUserToken = (req, res, next) => {
  */
 export const validUser = async (req, res, next) => {
   const { email } = req.body;
-  const findUser = await findSingleUser({ email });
-  if (!findUser) {
+  const user = await findSingleUser({ email });
+
+  if (!user) {
     return respondWithWarning(res, statusCode.unauthorizedAccess, resMessage.incorrectEmail);
   }
-  const { dataValues } = findUser;
+  const { dataValues } = user;
   req.user = dataValues;
   return next();
 };
 
 export const verifyUserAccount = async (req, res, next) => {
   const { id } = req.auth;
-  const findUser = await findSingleUser({ id });
-  if (!findUser) {
+  const user = await findSingleUser({ id });
+  if (!user) {
     return respondWithWarning(res, statusCode.resourceNotFound, resMessage.notAUser);
   }
-  const { dataValues } = findUser;
+  const { dataValues } = user;
   req.user = dataValues;
+  return next();
+};
+
+export const verifyUserProfile = async (req, res, next) => {
+  const { id: userId } = req.auth;
+  const profile = await getUserProfile({ userId });
+  if (!profile) {
+    return respondWithWarning(res, statusCode.success, 'Profile not found');
+  }
+  const { dataValues } = profile;
+  req.userProfile = dataValues;
   return next();
 };
 

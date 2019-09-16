@@ -14,6 +14,7 @@ import { socketConnection } from './helpers/socketIO';
 
 const app = express();
 const port = PORT || 3000;
+
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -27,7 +28,7 @@ app.use(logger('dev'));
 app.use('*', cloudinaryConfig);
 
 // handles default route
-app.get('/', async (req, res) => respondWithSuccess(res, 200, 'Welcome to barefoot Normad'));
+app.get('/', (req, res) => respondWithSuccess(res, 200, 'Welcome to barefoot Normad'));
 
 app.use(apiRouter);
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument));
