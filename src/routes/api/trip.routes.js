@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import {
   oneWayTripRequest, approveTripRequest, getTripRequest, returnTripRequest, searchTripRequests,
-  multiCityTripRequest, getAllTripRequests, rejectTripRequest, getUserTripStats, getTripStats
+  multiCityTripRequest, getAllTripRequests, rejectTripRequest, getUserTripStats, getTripStats, updateTripRequest
 } from '../../controllers/tripController';
 import {
   validateRequestTripForm, validateTripId, validateReturnTripForm, validateTripStatDate,
@@ -14,6 +14,7 @@ import {
   verifyTrip, checkTripStatus, verifyTripDestination, getTripWithProfile
 } from '../../middlewares/tripMiddleware';
 import { validateMultipleRequests } from '../../middlewares/validateMultipleRequests';
+import { validateEditRequest } from '../../middlewares/validateEditRequest';
 
 const trip = Router();
 
@@ -32,6 +33,8 @@ trip.post('/stats', authenticateUserToken, checkPermission('VIEW_TRIP_STATS'), v
 trip.get('/:tripId', authenticateUserToken, checkPermission('VIEW_USERS_TRIP_REQUESTS'), validateTripId, verifyTrip, getTripWithProfile, getTripRequest);
 
 trip.patch('/:tripId/approve', authenticateUserToken, checkPermission('APPROVE_TRIP_REQUEST'), validateTripId, verifyTrip, checkTripStatus, approveTripRequest);
+
+trip.patch('/:tripId/edit', authenticateUserToken, validateEditRequest, verifyTrip, verifyTripDestination, updateTripRequest);
 
 trip.get('/', authenticateUserToken, checkPermission('VIEW_USERS_TRIP_REQUESTS'), getAllTripRequests);
 

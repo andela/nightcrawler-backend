@@ -151,7 +151,6 @@ export const fetchTripStats = async (date) => TripRequest.findAndCountAll({
   ]
 });
 
-
 export const fetchTripRequests = async userId => TripRequest.findAll({
   where: { userId },
   include: [
@@ -204,3 +203,14 @@ export const searchTripRequest = async (payload) => {
     };
   }
 };
+
+export const editTripRequest = async ( body, tripId, userId) => {
+  
+  return  await TripRequest.update(body, {
+    where: { id: tripId, userId },
+    returning: true,
+    plain: true,
+    logging: false
+  });
+
+}

@@ -123,3 +123,30 @@ export const getPrivateChats = (io, staffs) => {
     });
   });
 };
+
+/** 
+ *  @param {Object} data
+ *  @override
+*/
+
+export const editRequestEmitter = data => {
+  tripEmitter.emit('editRequest', data)
+}
+
+/**
+ * Function to listen for the created comment event and send
+ * @param {Object} io
+ * @param {Object} staffs
+ * @override
+ */
+export const requestUpdateNotification = async  (io, staffs) =>{
+
+  tripEmitter.on('editRequest', async (payload) => {
+    const [ Roles ] = await getAllManager();
+    const { users } = Roles.toJSON();
+    const notification = await createNotification(payload);
+    users.forEach(({ email }) => {
+      io.to(staffs[email]).emit('editRequest', notification);
+    });
+  })
+ }

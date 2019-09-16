@@ -5,7 +5,6 @@ import { getUserProfile } from '../services/userServices';
 
 export const verifyTrip = async (req, res, next) => {
   const trip = await findTripById(Number(req.params.tripId));
-
   if (!trip) {
     return respondWithWarning(res, statusCode.resourceNotFound, 'Trip not found');
   }
